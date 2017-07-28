@@ -111,7 +111,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         } catch (DbException e) {
             e.printStackTrace();
         }
-        return dbComicList != null && dbComicList.size() >= 0;
+        return dbComicList != null && dbComicList.size() > 0;
     }
 
     public List<ComicListBean> getComicList() {

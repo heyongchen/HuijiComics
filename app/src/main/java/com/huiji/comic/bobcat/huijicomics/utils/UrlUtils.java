@@ -56,7 +56,7 @@ public class UrlUtils {
                             imgUrl = src.attr("abs:src");
                     }
 
-                    comicListDbInfoList.add(new ComicListDbInfo(comicId, title, imgUrl));
+                    comicListDbInfoList.add(new ComicListDbInfo(comicId, title, imgUrl, "0"));
                 }
                 try {
                     dbManager.save(comicListDbInfoList);

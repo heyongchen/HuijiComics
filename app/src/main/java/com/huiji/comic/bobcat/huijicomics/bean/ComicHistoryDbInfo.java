@@ -7,8 +7,8 @@ import org.xutils.db.annotation.Table;
  * Created by HeYongchen on 2017/7/28.
  */
 
-@Table(name = "ComicListInfo")
-public class ComicListDbInfo {
+@Table(name = "ComicHistoryInfo")
+public class ComicHistoryDbInfo {
 
     @Column(name = "id", isId = true, property = "NOT NULL")
     private int id;
@@ -22,17 +22,17 @@ public class ComicListDbInfo {
     private String author;
     @Column(name = "msg")
     private String msg;
-    @Column(name = "isCollect")
-    private String isCollect;
+    @Column(name = "readHistory")
+    private String readHistory;
 
-    public ComicListDbInfo() {
+    public ComicHistoryDbInfo() {
     }
 
-    public ComicListDbInfo(String comicId, String title, String imgUrl, String isCollect) {
+    public ComicHistoryDbInfo(String comicId, String title, String imgUrl, String readHistory) {
         this.comicId = comicId;
         this.title = title;
         this.imgUrl = imgUrl;
-        this.isCollect = isCollect;
+        this.readHistory = readHistory;
     }
 
     public int getId() {
@@ -59,20 +59,20 @@ public class ComicListDbInfo {
         return msg;
     }
 
-    public String getIsCollect() {
-        return isCollect;
+    public String getReadHistory() {
+        return readHistory;
     }
 
     @Override
     public String toString() {
-        return "ComicListDbInfo{" +
+        return "ComicHistoryDbInfo{" +
                 "id=" + id +
                 ", comicId='" + comicId + '\'' +
                 ", title='" + title + '\'' +
                 ", imgUrl='" + imgUrl + '\'' +
                 ", author='" + author + '\'' +
                 ", msg='" + msg + '\'' +
-                ", isCollect='" + isCollect + '\'' +
+                ", readHistory='" + readHistory + '\'' +
                 '}';
     }
 }
