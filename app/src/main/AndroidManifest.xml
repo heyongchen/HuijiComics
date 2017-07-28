@@ -41,6 +41,14 @@
             android:name=".activity.X5WebViewActivity"
             android:label="@string/title_activity_x5_web_view"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.ComicCollectionActivity"
+            android:label="@string/title_activity_comic_collection"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.ComicHistoryActivity"
+            android:label="@string/title_activity_comic_history"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

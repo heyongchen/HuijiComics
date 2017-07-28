@@ -20,7 +20,7 @@ android {
         versionName "0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
-        ndk{
+        ndk {
             abiFilters "armeabi", "armeabi-v7a", "x86", "mips"
         }
     }
@@ -30,8 +30,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    applicationVariants.all {variant ->
-        variant.outputs.each {output ->
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
             def outputFile = output.outputFile
             def fileName
             if (outputFile != null && outputFile.name.endsWith('.apk')) {
