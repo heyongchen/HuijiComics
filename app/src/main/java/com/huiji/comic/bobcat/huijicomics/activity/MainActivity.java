@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.huiji.comic.bobcat.huijicomics.MainApplication;
 import com.huiji.comic.bobcat.huijicomics.R;
@@ -149,8 +150,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 startActivity(intent);
                 break;
             case R.id.nav_history:
-                intent = new Intent(this, ComicCollectionActivity.class);
-                startActivity(intent);
+//                intent = new Intent(this, ComicCollectionActivity.class);
+//                startActivity(intent);
+                Toast.makeText(this, "施工中……", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_send:
                 intent = new Intent(this, AboutActivity.class);

@@ -10,7 +10,7 @@ import org.xutils.db.annotation.Table;
 @Table(name = "ComicListInfo")
 public class ComicListDbInfo {
 
-    @Column(name = "id", isId = true, property = "NOT NULL")
+    @Column(name = "id", isId = true)
     private int id;
     @Column(name = "comicId")
     private String comicId;

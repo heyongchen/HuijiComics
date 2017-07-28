@@ -36,7 +36,7 @@ public class UrlUtils {
                 } catch (DbException e) {
                     e.printStackTrace();
                 }
-                List<ComicListDbInfo> comicListDbInfoList = new ArrayList<>();
+                List<ComicListDbInfo> comicListDbInfoList = new ArrayList<ComicListDbInfo>();
                 for (String comicId : comicIdList) {
                     Document doc = null;
                     try {

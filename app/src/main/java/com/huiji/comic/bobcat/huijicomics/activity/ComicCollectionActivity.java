@@ -1,6 +1,7 @@
 package com.huiji.comic.bobcat.huijicomics.activity;
 
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
@@ -40,6 +41,7 @@ public class ComicCollectionActivity extends BaseActivity {
         setContentView(R.layout.activity_comic_collection);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
+        rvComicList.setLayoutManager(new LinearLayoutManager(this));
 
         rvComicList.setAdapter(new ComicListAdapter(ComicCollectionActivity.this, getComicList()));
     }

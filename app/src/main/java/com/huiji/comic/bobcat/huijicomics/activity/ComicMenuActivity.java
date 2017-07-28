@@ -120,6 +120,7 @@ public class ComicMenuActivity extends BaseActivity {
         List<ComicListDbInfo> list = null;
         WhereBuilder b = WhereBuilder.b();
         b.and("isCollect", "=", "1");
+        b.and("comicId", "=", comicId);
         try {
             list = dbManager.selector(ComicListDbInfo.class).where(b).findAll();//查询
         } catch (DbException e) {
