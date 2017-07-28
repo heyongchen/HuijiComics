@@ -30,6 +30,20 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    applicationVariants.all {variant ->
+        variant.outputs.each {output ->
+            def outputFile = output.outputFile
+            def fileName
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                if (variant.buildType.name.equals('release')) {
+                    fileName = "灰机Comics_V${defaultConfig.versionName}.apk"
+                } else if (variant.buildType.name.equals('debug')) {
+                    fileName = "灰机Comics_V${defaultConfig.versionName}_${defaultConfig.versionCode}_debug.apk"
+                }
+                output.outputFile = new File(outputFile.parent, fileName)
+            }
+        }
+    }
 }
 
 dependencies {
