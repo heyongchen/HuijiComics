@@ -3,10 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.huiji.comic.bobcat.huijicomics.activity.MainActivity">
+    tools:context="com.huiji.comic.bobcat.huijicomics.activity.ComicViewActivity">
 
-    <include layout="@layout/default_action_bar" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <include layout="@layout/content_main" />
+        <include layout="@layout/content_comic_view" />
+
+        <include layout="@layout/default_action_bar" />
+
+    </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

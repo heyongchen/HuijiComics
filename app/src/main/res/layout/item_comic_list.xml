@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_item_comic_list"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="@dimen/space_normal">
+
+    <ImageView
+        android:id="@+id/iv_comic_view"
+        android:layout_width="60dp"
+        android:layout_height="80dp"
+        android:layout_marginRight="@dimen/space_normal" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_comic_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:text="漫画标题"
+            android:textColor="@color/text_1"
+            android:textSize="@dimen/font_big" />
+
+        <TextView
+            android:id="@+id/tv_comic_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_small"
+            android:ellipsize="end"
+            android:maxLines="4"
+            android:text="漫画简介"
+            android:textColor="@color/text_2"
+            android:textSize="@dimen/font_normal" />
+
+    </LinearLayout>
+
+</LinearLayout>

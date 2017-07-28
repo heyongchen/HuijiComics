@@ -1,4 +1,7 @@
 <resources>
-    <string name="app_name">HuijiComics</string>
-    <string name="action_settings">Settings</string>
+    <string name="app_name">灰机Comics</string>
+    <string name="title_activity_comic_menu">漫画目录</string>
+    <string name="title_activity_about">关于</string>
+    <string name="title_activity_comic_view">漫画浏览</string>
+    <string name="title_activity_x5_web_view">X5WebViewActivity</string>
 </resources>
