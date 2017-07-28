@@ -55,19 +55,19 @@ public class X5WebViewActivity extends BaseActivity {
                 return true;
             }
         });
-        wvTencent.setWebChromeClient(new WebChromeClient() {
-            @Override
-            public void onProgressChanged(WebView view, int newProgress) {
-                super.onProgressChanged(view, newProgress);
-                if (newProgress == 100) {
-                    pbWebView.setVisibility(View.GONE);
-                    //progressBar.setProgress(newProgress);
-                } else {
-                    pbWebView.setVisibility(View.VISIBLE);
-                    pbWebView.setProgress(newProgress);//设置加载进度
-                }
-            }
-        });
+//        wvTencent.setWebChromeClient(new WebChromeClient() {
+//            @Override
+//            public void onProgressChanged(WebView view, int newProgress) {
+//                super.onProgressChanged(view, newProgress);
+//                if (newProgress == 100) {
+//                    pbWebView.setVisibility(View.GONE);
+//                    //progressBar.setProgress(newProgress);
+//                } else {
+//                    pbWebView.setVisibility(View.VISIBLE);
+//                    pbWebView.setProgress(newProgress);//设置加载进度
+//                }
+//            }
+//        });
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.huiji.comic.bobcat.huijicomics.activity;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
@@ -7,6 +8,7 @@ import android.widget.TextView;
 
 import com.huiji.comic.bobcat.huijicomics.R;
 import com.huiji.comic.bobcat.huijicomics.base.BaseActivity;
+import com.huiji.comic.bobcat.huijicomics.utils.AppUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,7 +29,7 @@ public class AboutActivity extends BaseActivity {
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 
-        tvAboutUs.setText("本APP为个人开发\n估计也没人拿去搞什么商业用途了\n纯粹因为喜欢灰机汉化组的漫画而制作的APP");
+        tvAboutUs.setText("Version：#" + AppUtils.getVersionName(this) + "\n本APP为个人开发\n估计也没人拿去搞什么商业用途了\n纯粹因为喜欢灰机汉化组的漫画而制作的APP");
 
     }
 
