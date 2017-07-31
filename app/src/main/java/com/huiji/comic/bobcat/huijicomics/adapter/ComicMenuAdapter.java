@@ -80,7 +80,7 @@ public class ComicMenuAdapter extends RecyclerView.Adapter<ComicMenuAdapter.RvVi
 
     private Drawable getBackGround(int position) {
         Drawable backGround;
-        if (!mReadHistory.isEmpty() && mReadHistory.equals(mComicDataBeanList.get(position).getDataUrl())) {
+        if (!mReadHistory.isEmpty() && mReadHistory.equals(mComicDataBeanList.get(position).getDataUrl().replace("smp1", "smp").replace("smp2", "smp").replace("smp3", "smp"))) {
             backGround = ContextCompat.getDrawable(mContext, R.drawable.item_menu_background_2);
         } else {
             backGround = ContextCompat.getDrawable(mContext, R.drawable.item_menu_background);

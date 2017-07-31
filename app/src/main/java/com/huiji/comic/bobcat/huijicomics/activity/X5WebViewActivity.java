@@ -121,7 +121,7 @@ public class X5WebViewActivity extends BaseActivity {
     private void addHistory(String comicUrl) {
         WhereBuilder b = WhereBuilder.b();
         b.and("comicId", "=", comicId);//条件
-        KeyValue history = new KeyValue("lastReadUrl", comicUrl);
+        KeyValue history = new KeyValue("lastReadUrl", comicUrl.replace("smp1", "smp").replace("smp2", "smp").replace("smp3", "smp"));
         KeyValue time = new KeyValue("lastReadTime", System.currentTimeMillis());
         try {
             dbManager.update(ComicListDbInfo.class, b, history);
@@ -133,7 +133,7 @@ public class X5WebViewActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        addHistory(wvTencent.getUrl().replace("?__okraw",""));
+        addHistory(wvTencent.getUrl().replace("?__okraw", "").replace("smp1", "smp").replace("smp2", "smp").replace("smp3", "smp"));
         super.onBackPressed();
     }
 

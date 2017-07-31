@@ -173,7 +173,7 @@ public class ComicMenuActivity extends BaseActivity {
             e.printStackTrace();
         }
         if (result != null) {
-            readHistory = result.getLastReadUrl() != null ? result.getLastReadUrl() : "";
+            readHistory = result.getLastReadUrl() != null ? result.getLastReadUrl().replace("smp1", "smp").replace("smp2", "smp").replace("smp3", "smp") : "";
         }
         if (comicMenuAdapter != null) {
             comicMenuAdapter.setReadHistory(readHistory);
