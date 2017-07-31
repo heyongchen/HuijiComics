@@ -2,6 +2,7 @@ package com.huiji.comic.bobcat.huijicomics.activity;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -9,13 +10,21 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ProgressBar;
 
+import com.huiji.comic.bobcat.huijicomics.MainApplication;
 import com.huiji.comic.bobcat.huijicomics.R;
 import com.huiji.comic.bobcat.huijicomics.base.BaseActivity;
+import com.huiji.comic.bobcat.huijicomics.db.ComicListDbInfo;
 import com.huiji.comic.bobcat.huijicomics.utils.IntentKey;
 import com.tencent.smtt.sdk.WebChromeClient;
 import com.tencent.smtt.sdk.WebSettings;
 import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
+
+import org.xutils.DbManager;
+import org.xutils.common.util.KeyValue;
+import org.xutils.db.sqlite.WhereBuilder;
+import org.xutils.ex.DbException;
+import org.xutils.x;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,6 +40,8 @@ public class X5WebViewActivity extends BaseActivity {
 
     private String comicTitle;
     private String comicUrl;
+    private String comicId;
+    private DbManager dbManager = x.getDb(MainApplication.getDbConfig());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,12 +62,18 @@ public class X5WebViewActivity extends BaseActivity {
         });
         comicUrl = getIntent().getStringExtra(IntentKey.COMIC_VIEW_URL);
         comicTitle = getIntent().getStringExtra(IntentKey.COMIC_TITLE);
+        comicId = getIntent().getStringExtra(IntentKey.COMIC_ID);
         setTitle(comicTitle);
         toolbar.setVisibility(View.GONE);
 
         wvTencent.loadUrl(comicUrl);
         WebSettings webSettings = wvTencent.getSettings();
         webSettings.setJavaScriptEnabled(true);
+        webSettings.setDomStorageEnabled(true);
+        webSettings.setAllowFileAccess(true);
+        webSettings.setAppCacheEnabled(true);
+        webSettings.setCacheMode(-1);
+
         wvTencent.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -101,8 +118,22 @@ public class X5WebViewActivity extends BaseActivity {
         }
     }
 
+    private void addHistory(String comicUrl) {
+        WhereBuilder b = WhereBuilder.b();
+        b.and("comicId", "=", comicId);//条件
+        KeyValue history = new KeyValue("lastReadUrl", comicUrl);
+        KeyValue time = new KeyValue("lastReadTime", System.currentTimeMillis());
+        try {
+            dbManager.update(ComicListDbInfo.class, b, history);
+            dbManager.update(ComicListDbInfo.class, b, time);
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void onBackPressed() {
+        addHistory(wvTencent.getUrl().replace("?__okraw",""));
         super.onBackPressed();
     }
 
