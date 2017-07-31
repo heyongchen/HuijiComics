@@ -9,7 +9,6 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.huiji.comic.bobcat.huijicomics.R;
-import com.huiji.comic.bobcat.huijicomics.utils.C;
 
 import java.util.List;
 

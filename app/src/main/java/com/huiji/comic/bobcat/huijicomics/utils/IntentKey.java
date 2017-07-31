@@ -5,7 +5,6 @@ package com.huiji.comic.bobcat.huijicomics.utils;
  */
 
 public class IntentKey {
-    public static final String QUEST_STATE = "QuestState";
     public static final String COMIC_ID = "ComicId";
     public static final String COMIC_TITLE = "ComicTitle";
     public static final String COMIC_IMG = "ComicImg";

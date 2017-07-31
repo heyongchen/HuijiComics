@@ -53,7 +53,6 @@ public class ComicMenuActivity extends BaseActivity {
     private String comicId;
     private String comicTitle;
     private String readHistory;
-    private boolean isCollect = false;
     private DbManager dbManager = x.getDb(MainApplication.getDbConfig());
     private ComicMenuAdapter comicMenuAdapter;
 
@@ -95,10 +94,8 @@ public class ComicMenuActivity extends BaseActivity {
         });
 
         if (checkCollect()) {
-            isCollect = true;
             tvComicCollect.setText("取消收藏");
         } else {
-            isCollect = false;
             tvComicCollect.setText("收藏漫画");
         }
 
@@ -106,11 +103,9 @@ public class ComicMenuActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 if (checkCollect()) {
-                    isCollect = false;
                     tvComicCollect.setText("收藏漫画");
                     changeCollect(String.valueOf(0));
                 } else {
-                    isCollect = true;
                     tvComicCollect.setText("取消收藏");
                     changeCollect(String.valueOf(1));
                 }

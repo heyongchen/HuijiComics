@@ -1,17 +1,13 @@
 package com.huiji.comic.bobcat.huijicomics;
 
 import android.app.Application;
-import android.os.Environment;
 import android.util.Log;
 
 import com.huiji.comic.bobcat.huijicomics.utils.C;
-import com.huiji.comic.bobcat.huijicomics.utils.SpKey;
 
 import org.xutils.DbManager;
 import org.xutils.db.table.TableEntity;
 import org.xutils.x;
-
-import java.io.File;
 
 /**
  * Created by HeYongchen on 2017/7/27.

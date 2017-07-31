@@ -1,7 +1,5 @@
 package com.huiji.comic.bobcat.huijicomics.bean;
 
-import java.util.List;
-
 /**
  * Created by HeYongchen on 2017/7/27.
  */

@@ -1,7 +1,5 @@
 package com.huiji.comic.bobcat.huijicomics.utils;
 
-import java.net.URLEncoder;
-
 /**
  * Created by HeYongchen on 2017/7/27.
  */

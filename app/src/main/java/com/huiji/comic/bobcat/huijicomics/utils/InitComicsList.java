@@ -1,7 +1,5 @@
 package com.huiji.comic.bobcat.huijicomics.utils;
 
-import android.content.Intent;
-
 import com.huiji.comic.bobcat.huijicomics.bean.ComicDataBean;
 import com.huiji.comic.bobcat.huijicomics.bean.ComicListBean;
 

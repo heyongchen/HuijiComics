@@ -14,7 +14,6 @@ import java.util.TimerTask;
 
 public class AppExit2Back {
 
-
     private static Boolean isExit = false;
 
     /**
