@@ -49,9 +49,8 @@ public class InitComicsList {
         if (comicIdList == null) {
             comicIdList = new ArrayList<>();
         }
-        if (comicIdList.size() <= 0) {
-            initComicIdList();
-        }
+        comicIdList.clear();
+        initComicIdList();
         return comicIdList;
     }
 
@@ -168,6 +167,7 @@ public class InitComicsList {
         comicIdList.add(String.valueOf(1002814));
         comicIdList.add(String.valueOf(1002484));
         comicIdList.add(String.valueOf(1002902));
+        comicIdList.add(String.valueOf(1003790));
         //Z
         comicIdList.add(String.valueOf(1001598));
         comicIdList.add(String.valueOf(1001248));
@@ -177,6 +177,7 @@ public class InitComicsList {
         comicIdList.add(String.valueOf(1002845));
         comicIdList.add(String.valueOf(1002870));
         comicIdList.add(String.valueOf(1001862));
+        comicIdList.add(String.valueOf(1003737));
     }
 
 }

@@ -20,13 +20,23 @@ public class BaseActivity extends AppCompatActivity {
 
     private void initProgressDialog() {
         progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("加载中，请稍后……");
     }
 
     public void showProgressDialog() {
         if (progressDialog == null) {
             initProgressDialog();
         }
+        progressDialog.setMessage("加载中，请稍候……");
+        if (!progressDialog.isShowing()) {
+            progressDialog.show();
+        }
+    }
+
+    public void showProgressDialog(String msg) {
+        if (progressDialog == null) {
+            initProgressDialog();
+        }
+        progressDialog.setMessage(msg);
         if (!progressDialog.isShowing()) {
             progressDialog.show();
         }

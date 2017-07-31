@@ -27,14 +27,16 @@ public class UrlUtils {
 
     private static DbManager dbManager = x.getDb(MainApplication.getDbConfig());
 
-    public static void getMenuList(final List<String> comicIdList, final RequestStateListener requestStateListener) {
+    public static void getMenuList(final List<String> comicIdList, final RequestStateListener requestStateListener, final boolean update) {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                try {
-                    dbManager.delete(ComicListDbInfo.class);
-                } catch (DbException e) {
-                    e.printStackTrace();
+                if (!update) {
+                    try {
+                        dbManager.delete(ComicListDbInfo.class);
+                    } catch (DbException e) {
+                        e.printStackTrace();
+                    }
                 }
                 List<ComicListDbInfo> comicListDbInfoList = new ArrayList<ComicListDbInfo>();
                 for (String comicId : comicIdList) {

@@ -95,13 +95,33 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                     message.what = 1;
                     mHandler.sendMessage(message);
                 }
-            });
+            }, false);
+        } else if (needUpdate()) {
+            showProgressDialog("列表更新中，请稍候……");
+            List<String> defaultIdList = InitComicsList.getComicIdList();
+            List<String> dbIdList = new ArrayList<>();
+            for (ComicListDbInfo comicListDbInfo : dbComicList) {
+                dbIdList.add(comicListDbInfo.getComicId());
+            }
+            defaultIdList.removeAll(dbIdList);
+            UrlUtils.getMenuList(defaultIdList, new UrlUtils.RequestStateListener() {
+                @Override
+                public void ok() {
+                    Message message = new Message();
+                    message.what = 1;
+                    mHandler.sendMessage(message);
+                }
+            }, true);
         } else {
             Message message = new Message();
             message.what = 1;
             mHandler.sendMessage(message);
         }
 
+    }
+
+    private boolean needUpdate() {
+        return dbComicList.size() < InitComicsList.getComicIdList().size();
     }
 
     private Handler mHandler = new Handler() {
