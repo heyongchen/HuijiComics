@@ -17,9 +17,11 @@
 
         <ImageView
             android:id="@+id/iv_comic_view"
-            android:layout_width="100dp"
+            android:layout_width="120dp"
             android:layout_height="150dp"
-            android:layout_marginRight="@dimen/space_normal" />
+            android:layout_marginRight="@dimen/space_normal"
+            android:background="@drawable/img_placeholder"
+            android:scaleType="centerCrop" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -59,7 +61,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_small"
                     android:ellipsize="end"
-                    android:maxLines="4"
+                    android:maxLines="3"
                     android:text="漫画简介"
                     android:textColor="@color/text_2"
                     android:textSize="@dimen/font_normal" />
@@ -81,12 +83,30 @@
 
     </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_comic_menu"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/space_normal"
-        android:layout_marginLeft="@dimen/space_normal"
-        android:layout_marginRight="@dimen/space_normal" />
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_comic_menu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/space_normal"
+            android:layout_marginLeft="@dimen/space_normal"
+            android:layout_marginRight="@dimen/space_normal"
+            android:overScrollMode="never" />
+
+        <TextView
+            android:id="@+id/tv_place_holder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/space_huge"
+            android:gravity="center"
+            android:text="@string/info_list_enpty"
+            android:textColor="@color/text_2"
+            android:textSize="@dimen/font_normal" />
+
+    </RelativeLayout>
 
 </LinearLayout>

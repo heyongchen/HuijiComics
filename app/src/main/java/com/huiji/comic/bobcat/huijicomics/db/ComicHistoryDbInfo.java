@@ -1,4 +1,4 @@
-package com.huiji.comic.bobcat.huijicomics.bean;
+package com.huiji.comic.bobcat.huijicomics.db;
 
 import org.xutils.db.annotation.Column;
 import org.xutils.db.annotation.Table;

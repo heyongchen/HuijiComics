@@ -4,6 +4,7 @@ import android.app.Application;
 import android.os.Environment;
 import android.util.Log;
 
+import com.huiji.comic.bobcat.huijicomics.utils.C;
 import com.huiji.comic.bobcat.huijicomics.utils.SpKey;
 
 import org.xutils.DbManager;
@@ -34,7 +35,7 @@ public class MainApplication extends Application {
                         //设置数据库名，默认xutils.db
                         .setDbName("Huiji.db")
                         //设置数据库的版本号
-                        .setDbVersion(SpKey.DATABASE_VERSION)
+                        .setDbVersion(C.DATABASE_VERSION)
                         //设置数据库打开的监听
                         .setDbOpenListener(new DbManager.DbOpenListener() {
                             @Override

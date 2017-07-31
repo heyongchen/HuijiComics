@@ -15,7 +15,7 @@ import com.huiji.comic.bobcat.huijicomics.MainApplication;
 import com.huiji.comic.bobcat.huijicomics.R;
 import com.huiji.comic.bobcat.huijicomics.adapter.ComicMenuAdapter;
 import com.huiji.comic.bobcat.huijicomics.base.BaseActivity;
-import com.huiji.comic.bobcat.huijicomics.bean.ComicListDbInfo;
+import com.huiji.comic.bobcat.huijicomics.db.ComicListDbInfo;
 import com.huiji.comic.bobcat.huijicomics.utils.InitComicsList;
 import com.huiji.comic.bobcat.huijicomics.utils.IntentKey;
 import com.huiji.comic.bobcat.huijicomics.utils.UrlUtils;
@@ -47,11 +47,15 @@ public class ComicMenuActivity extends BaseActivity {
     RecyclerView rvComicMenu;
     @BindView(R.id.tv_comic_collect)
     TextView tvComicCollect;
+    @BindView(R.id.tv_place_holder)
+    TextView tvPlaceHolder;
 
     private String comicId;
     private String comicTitle;
+    private String readHistory;
     private boolean isCollect = false;
     private DbManager dbManager = x.getDb(MainApplication.getDbConfig());
+    private ComicMenuAdapter comicMenuAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +72,8 @@ public class ComicMenuActivity extends BaseActivity {
                 .load(getIntent().getStringExtra(IntentKey.COMIC_IMG))
                 .into(ivComicView);
         tvComicTitle.setText(getIntent().getStringExtra(IntentKey.COMIC_TITLE));
+        tvComicAuthor.setText(getIntent().getStringExtra(IntentKey.COMIC_AUTHOR));
+        tvComicMsg.setText(getIntent().getStringExtra(IntentKey.COMIC_MSG));
 
         comicId = getIntent().getStringExtra(IntentKey.COMIC_ID);
 
@@ -134,7 +140,13 @@ public class ComicMenuActivity extends BaseActivity {
             //更新UI
             switch (msg.what) {
                 case 1:
-                    rvComicMenu.setAdapter(new ComicMenuAdapter(ComicMenuActivity.this, comicId, comicTitle, InitComicsList.getComicDataBeanList()));
+                    comicMenuAdapter = new ComicMenuAdapter(ComicMenuActivity.this, comicId, comicTitle, readHistory, InitComicsList.getComicDataBeanList());
+                    if (InitComicsList.getComicDataBeanList().size() > 0) {
+                        tvPlaceHolder.setVisibility(View.GONE);
+                    } else {
+                        tvPlaceHolder.setVisibility(View.VISIBLE);
+                    }
+                    rvComicMenu.setAdapter(comicMenuAdapter);
                     dismissProgressDialog();
                     break;
             }
@@ -142,5 +154,29 @@ public class ComicMenuActivity extends BaseActivity {
 
         ;
     };
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        checkHistory();
+    }
+
+    private void checkHistory() {
+        ComicListDbInfo result = null;
+        WhereBuilder b = WhereBuilder.b();
+        b.and("comicId", "=", comicId);
+        try {
+            result = dbManager.selector(ComicListDbInfo.class).where(b).findFirst();//查询
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+        if (result != null) {
+            readHistory = result.getLastReadUrl() != null ? result.getLastReadUrl() : "";
+        }
+        if (comicMenuAdapter != null) {
+            comicMenuAdapter.setReadHistory(readHistory);
+        }
+    }
+
 
 }

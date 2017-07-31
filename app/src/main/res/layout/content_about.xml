@@ -14,7 +14,7 @@
         android:id="@+id/iv_about_us"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:src="@drawable/logo" />
+        android:src="@drawable/icon" />
 
     <TextView
         android:id="@+id/tv_about_us"

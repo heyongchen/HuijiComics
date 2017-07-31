@@ -11,4 +11,6 @@ public class IntentKey {
     public static final String COMIC_IMG = "ComicImg";
     public static final String COMIC_MENU_TITLE = "ComicMenuTitle";
     public static final String COMIC_VIEW_URL = "ComicViewUrl";
+    public static final String COMIC_AUTHOR = "ComicAuthor";
+    public static final String COMIC_MSG = "ComicMsg";
 }

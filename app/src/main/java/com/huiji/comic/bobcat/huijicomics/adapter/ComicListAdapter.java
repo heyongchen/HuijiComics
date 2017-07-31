@@ -27,7 +27,6 @@ import butterknife.ButterKnife;
 
 public class ComicListAdapter extends RecyclerView.Adapter<ComicListAdapter.RvViewHolder> {
 
-
     private Context mContext;
     private List<ComicListBean> mComicListBeanList;
 
@@ -51,6 +50,7 @@ public class ComicListAdapter extends RecyclerView.Adapter<ComicListAdapter.RvVi
                     .into(holder.ivComicView);
         }
         holder.tvComicTitle.setText(mComicListBeanList.get(position).getTitle() != null ? mComicListBeanList.get(position).getTitle() : "");
+        holder.tvComicAuthor.setText(mComicListBeanList.get(position).getAuthor() != null ? mComicListBeanList.get(position).getAuthor() : "");
         holder.tvComicMsg.setText(mComicListBeanList.get(position).getMsg() != null ? mComicListBeanList.get(position).getMsg() : "");
         holder.llItemComicList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +58,8 @@ public class ComicListAdapter extends RecyclerView.Adapter<ComicListAdapter.RvVi
                 Intent intent = new Intent(mContext, ComicMenuActivity.class);
                 intent.putExtra(IntentKey.COMIC_ID, mComicListBeanList.get(position).getComicId());
                 intent.putExtra(IntentKey.COMIC_TITLE, mComicListBeanList.get(position).getTitle());
+                intent.putExtra(IntentKey.COMIC_AUTHOR, mComicListBeanList.get(position).getAuthor());
+                intent.putExtra(IntentKey.COMIC_MSG, mComicListBeanList.get(position).getMsg());
                 intent.putExtra(IntentKey.COMIC_IMG, mComicListBeanList.get(position).getImgUrl());
                 mContext.startActivity(intent);
             }
@@ -74,6 +76,8 @@ public class ComicListAdapter extends RecyclerView.Adapter<ComicListAdapter.RvVi
         ImageView ivComicView;
         @BindView(R.id.tv_comic_title)
         TextView tvComicTitle;
+        @BindView(R.id.tv_comic_author)
+        TextView tvComicAuthor;
         @BindView(R.id.tv_comic_msg)
         TextView tvComicMsg;
         @BindView(R.id.ll_item_comic_list)

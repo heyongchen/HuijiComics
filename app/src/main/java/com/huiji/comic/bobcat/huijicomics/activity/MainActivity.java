@@ -13,6 +13,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.huiji.comic.bobcat.huijicomics.MainApplication;
@@ -20,7 +22,7 @@ import com.huiji.comic.bobcat.huijicomics.R;
 import com.huiji.comic.bobcat.huijicomics.adapter.ComicListAdapter;
 import com.huiji.comic.bobcat.huijicomics.base.BaseActivity;
 import com.huiji.comic.bobcat.huijicomics.bean.ComicListBean;
-import com.huiji.comic.bobcat.huijicomics.bean.ComicListDbInfo;
+import com.huiji.comic.bobcat.huijicomics.db.ComicListDbInfo;
 import com.huiji.comic.bobcat.huijicomics.utils.InitComicsList;
 import com.huiji.comic.bobcat.huijicomics.utils.UrlUtils;
 
@@ -40,6 +42,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     Toolbar toolbar;
     @BindView(R.id.rv_comic_list)
     RecyclerView rvComicList;
+    @BindView(R.id.tv_place_holder)
+    TextView tvPlaceHolder;
 
     private DbManager dbManager = x.getDb(MainApplication.getDbConfig());
     private List<ComicListDbInfo> dbComicList = null;
@@ -123,7 +127,12 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             e.printStackTrace();
         }
         for (ComicListDbInfo comicListDbInfo : dbComicList) {
-            list.add(new ComicListBean(comicListDbInfo.getComicId(), comicListDbInfo.getImgUrl(), comicListDbInfo.getTitle()));
+            list.add(new ComicListBean(comicListDbInfo.getComicId(), comicListDbInfo.getImgUrl(), comicListDbInfo.getTitle(), comicListDbInfo.getAuthor(), comicListDbInfo.getMsg()));
+        }
+        if (list.size() > 0) {
+            tvPlaceHolder.setVisibility(View.GONE);
+        } else {
+            tvPlaceHolder.setVisibility(View.VISIBLE);
         }
         return list;
     }
@@ -150,9 +159,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 startActivity(intent);
                 break;
             case R.id.nav_history:
-//                intent = new Intent(this, ComicCollectionActivity.class);
-//                startActivity(intent);
-                Toast.makeText(this, "施工中……", Toast.LENGTH_SHORT).show();
+                intent = new Intent(this, ComicHistoryActivity.class);
+                startActivity(intent);
                 break;
             case R.id.nav_send:
                 intent = new Intent(this, AboutActivity.class);

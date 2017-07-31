@@ -5,5 +5,5 @@ package com.huiji.comic.bobcat.huijicomics.utils;
  */
 
 public class SpKey {
-    public static final int DATABASE_VERSION = 1;
+    public static final String DATABASE_VERSION = "databaseVersion";
 }

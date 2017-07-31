@@ -2,16 +2,26 @@ package com.huiji.comic.bobcat.huijicomics.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.huiji.comic.bobcat.huijicomics.MainApplication;
 import com.huiji.comic.bobcat.huijicomics.R;
 import com.huiji.comic.bobcat.huijicomics.activity.X5WebViewActivity;
 import com.huiji.comic.bobcat.huijicomics.bean.ComicDataBean;
+import com.huiji.comic.bobcat.huijicomics.db.ComicListDbInfo;
 import com.huiji.comic.bobcat.huijicomics.utils.IntentKey;
+
+import org.xutils.DbManager;
+import org.xutils.common.util.KeyValue;
+import org.xutils.db.sqlite.WhereBuilder;
+import org.xutils.ex.DbException;
+import org.xutils.x;
 
 import java.util.List;
 
@@ -28,11 +38,14 @@ public class ComicMenuAdapter extends RecyclerView.Adapter<ComicMenuAdapter.RvVi
     private List<ComicDataBean> mComicDataBeanList;
     private String mComicId;
     private String mComicTitle;
+    private String mReadHistory;
+    private DbManager dbManager = x.getDb(MainApplication.getDbConfig());
 
-    public ComicMenuAdapter(Context context, String comicId, String comicTitle, List<ComicDataBean> comicDataBeanList) {
+    public ComicMenuAdapter(Context context, String comicId, String comicTitle, String history, List<ComicDataBean> comicDataBeanList) {
         this.mContext = context;
         this.mComicId = comicId;
         this.mComicTitle = comicTitle;
+        this.mReadHistory = history;
         this.mComicDataBeanList = comicDataBeanList;
     }
 
@@ -44,10 +57,12 @@ public class ComicMenuAdapter extends RecyclerView.Adapter<ComicMenuAdapter.RvVi
 
     @Override
     public void onBindViewHolder(RvViewHolder holder, final int position) {
+        holder.tvComicMenu.setBackground(getBackGround(position));
         holder.tvComicMenu.setText(mComicDataBeanList.get(position).getDataTitle());
         holder.tvComicMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                addHistory(mComicDataBeanList.get(position).getDataUrl());
                 Intent intent = new Intent(mContext, X5WebViewActivity.class);
                 intent.putExtra(IntentKey.COMIC_ID, mComicId);
                 intent.putExtra(IntentKey.COMIC_TITLE, mComicTitle);
@@ -63,6 +78,16 @@ public class ComicMenuAdapter extends RecyclerView.Adapter<ComicMenuAdapter.RvVi
         return mComicDataBeanList.size() - 2;
     }
 
+    private Drawable getBackGround(int position) {
+        Drawable backGround;
+        if (!mReadHistory.isEmpty() && mReadHistory.equals(mComicDataBeanList.get(position).getDataUrl())) {
+            backGround = ContextCompat.getDrawable(mContext, R.drawable.item_menu_background_2);
+        } else {
+            backGround = ContextCompat.getDrawable(mContext, R.drawable.item_menu_background);
+        }
+        return backGround;
+    }
+
     static class RvViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.tv_comic_menu)
         TextView tvComicMenu;
@@ -71,5 +96,24 @@ public class ComicMenuAdapter extends RecyclerView.Adapter<ComicMenuAdapter.RvVi
             super(view);
             ButterKnife.bind(this, view);
         }
+    }
+
+    private void addHistory(String comicUrl) {
+        WhereBuilder b = WhereBuilder.b();
+        b.and("comicId", "=", mComicId);//条件
+        KeyValue history = new KeyValue("lastReadUrl", comicUrl);
+        KeyValue time = new KeyValue("lastReadTime", System.currentTimeMillis());
+        try {
+            dbManager.update(ComicListDbInfo.class, b, history);
+            dbManager.update(ComicListDbInfo.class, b, time);
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void setReadHistory(String readHistory) {
+        this.mReadHistory = readHistory;
+        notifyDataSetChanged();
     }
 }

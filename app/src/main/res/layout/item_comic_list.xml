@@ -8,9 +8,11 @@
 
     <ImageView
         android:id="@+id/iv_comic_view"
-        android:layout_width="60dp"
-        android:layout_height="80dp"
-        android:layout_marginRight="@dimen/space_normal" />
+        android:layout_width="80dp"
+        android:layout_height="105dp"
+        android:layout_marginRight="@dimen/space_normal"
+        android:background="@drawable/img_placeholder"
+        android:scaleType="centerCrop" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,12 +31,24 @@
             android:textSize="@dimen/font_big" />
 
         <TextView
+            android:id="@+id/tv_comic_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_small"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:text="漫画作者"
+            android:textColor="@color/text_2"
+            android:textSize="@dimen/font_normal" />
+
+        <TextView
             android:id="@+id/tv_comic_msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_small"
             android:ellipsize="end"
-            android:maxLines="4"
+            android:maxLines="3"
             android:text="漫画简介"
             android:textColor="@color/text_2"
             android:textSize="@dimen/font_normal" />

@@ -9,14 +9,14 @@
     android:paddingBottom="@dimen/space_normal"
     android:paddingLeft="@dimen/space_normal"
     android:paddingRight="@dimen/space_normal"
-    android:paddingTop="@dimen/space_huge"
+    android:paddingTop="50dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        app:srcCompat="@drawable/logo" />
+        app:srcCompat="@drawable/icon" />
 
     <TextView
         android:layout_width="wrap_content"

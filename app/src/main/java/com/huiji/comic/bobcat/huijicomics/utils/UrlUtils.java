@@ -2,7 +2,7 @@ package com.huiji.comic.bobcat.huijicomics.utils;
 
 import com.huiji.comic.bobcat.huijicomics.MainApplication;
 import com.huiji.comic.bobcat.huijicomics.bean.ComicDataBean;
-import com.huiji.comic.bobcat.huijicomics.bean.ComicListDbInfo;
+import com.huiji.comic.bobcat.huijicomics.db.ComicListDbInfo;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -45,18 +45,26 @@ public class UrlUtils {
                         e.printStackTrace();
                     }
                     assert doc != null;
+
+                    Elements links = doc.select("a[href]");
                     Elements media = doc.select("[src]");
-                    Element linkA = doc.select("abbr").first();//查找第一个a元素
+                    Elements titleOrAuthor = doc.select("abbr");
+                    Element msgDiv = doc.select("div.am-u-sm-8").first();
+
                     String imgUrl = "";
-                    String title = linkA.text();
+                    String title = titleOrAuthor.get(0).text();
+                    String author = titleOrAuthor.get(1).text();
+                    String msg = msgDiv.text().replace(title, "").replace(author, "").replaceAll(" ", "").trim();
 
                     print("\nMedia: (%d)", media.size());
                     for (Element src : media) {
                         if (src.tagName().equals("img"))
                             imgUrl = src.attr("abs:src");
                     }
+                    print("\nLinks: (%d)", links.size());
+                    int num = links.size();
 
-                    comicListDbInfoList.add(new ComicListDbInfo(comicId, title, imgUrl, "0"));
+                    comicListDbInfoList.add(new ComicListDbInfo(comicId, title, author, msg, imgUrl, num, "0"));
                 }
                 try {
                     dbManager.save(comicListDbInfoList);

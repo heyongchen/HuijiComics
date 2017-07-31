@@ -1,4 +1,4 @@
-package com.huiji.comic.bobcat.huijicomics.bean;
+package com.huiji.comic.bobcat.huijicomics.db;
 
 import org.xutils.db.annotation.Column;
 import org.xutils.db.annotation.Table;
@@ -24,14 +24,23 @@ public class ComicListDbInfo {
     private String msg;
     @Column(name = "isCollect")
     private String isCollect;
+    @Column(name = "lastReadTime")
+    private long lastReadTime;
+    @Column(name = "lastReadUrl")
+    private String lastReadUrl;
+    @Column(name = "menuNum")
+    private int menuNum;
 
     public ComicListDbInfo() {
     }
 
-    public ComicListDbInfo(String comicId, String title, String imgUrl, String isCollect) {
+    public ComicListDbInfo(String comicId, String title, String author, String msg, String imgUrl, int menuNum, String isCollect) {
         this.comicId = comicId;
         this.title = title;
+        this.author = author;
+        this.msg = msg;
         this.imgUrl = imgUrl;
+        this.menuNum = menuNum;
         this.isCollect = isCollect;
     }
 
@@ -59,20 +68,19 @@ public class ComicListDbInfo {
         return msg;
     }
 
+    public int getMenuNum() {
+        return menuNum;
+    }
+
     public String getIsCollect() {
         return isCollect;
     }
 
-    @Override
-    public String toString() {
-        return "ComicListDbInfo{" +
-                "id=" + id +
-                ", comicId='" + comicId + '\'' +
-                ", title='" + title + '\'' +
-                ", imgUrl='" + imgUrl + '\'' +
-                ", author='" + author + '\'' +
-                ", msg='" + msg + '\'' +
-                ", isCollect='" + isCollect + '\'' +
-                '}';
+    public long getLastReadTime() {
+        return lastReadTime;
+    }
+
+    public String getLastReadUrl() {
+        return lastReadUrl;
     }
 }
