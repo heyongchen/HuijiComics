@@ -42,13 +42,20 @@ public class ComicCollectionActivity extends BaseActivity {
         setContentView(R.layout.activity_comic_collection);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         rvComicList.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        rvComicList.setAdapter(new ComicListAdapter(ComicCollectionActivity.this, getComicList()));
+        rvComicList.setAdapter(new ComicListAdapter(ComicCollectionActivity.this, getComicList(), false));
     }
 
     public List<ComicListBean> getComicList() {

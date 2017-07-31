@@ -1,8 +1,8 @@
 package com.huiji.comic.bobcat.huijicomics.activity;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -28,6 +28,13 @@ public class AboutActivity extends BaseActivity {
         setContentView(R.layout.activity_about);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         tvAboutUs.setText("Version：#" + AppUtils.getVersionName(this) + "\n本APP为个人开发\n估计也没人拿去搞什么商业用途了\n纯粹因为喜欢灰机汉化组的漫画而制作的APP");
 

@@ -21,6 +21,7 @@ import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -41,13 +42,20 @@ public class ComicHistoryActivity extends BaseActivity {
         setContentView(R.layout.activity_comic_history);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         rvComicList.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        rvComicList.setAdapter(new ComicListAdapter(ComicHistoryActivity.this, getComicList()));
+        rvComicList.setAdapter(new ComicListAdapter(ComicHistoryActivity.this, getComicList(), false));
     }
 
     public List<ComicListBean> getComicList() {

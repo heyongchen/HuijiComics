@@ -63,6 +63,13 @@ public class ComicMenuActivity extends BaseActivity {
         setContentView(R.layout.activity_comic_menu);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         comicTitle = getIntent().getStringExtra(IntentKey.COMIC_TITLE);
         setTitle(comicTitle);
 

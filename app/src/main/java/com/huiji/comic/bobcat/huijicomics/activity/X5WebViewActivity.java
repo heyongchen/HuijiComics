@@ -10,6 +10,7 @@ import android.widget.ProgressBar;
 import com.huiji.comic.bobcat.huijicomics.R;
 import com.huiji.comic.bobcat.huijicomics.base.BaseActivity;
 import com.huiji.comic.bobcat.huijicomics.utils.IntentKey;
+import com.tencent.smtt.sdk.WebChromeClient;
 import com.tencent.smtt.sdk.WebSettings;
 import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
@@ -39,6 +40,13 @@ public class X5WebViewActivity extends BaseActivity {
         setContentView(R.layout.activity_x5_web_view);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         comicUrl = getIntent().getStringExtra(IntentKey.COMIC_VIEW_URL);
         comicTitle = getIntent().getStringExtra(IntentKey.COMIC_TITLE);
         setTitle(comicTitle);
@@ -54,19 +62,19 @@ public class X5WebViewActivity extends BaseActivity {
                 return true;
             }
         });
-//        wvTencent.setWebChromeClient(new WebChromeClient() {
-//            @Override
-//            public void onProgressChanged(WebView view, int newProgress) {
-//                super.onProgressChanged(view, newProgress);
-//                if (newProgress == 100) {
-//                    pbWebView.setVisibility(View.GONE);
-//                    //progressBar.setProgress(newProgress);
-//                } else {
-//                    pbWebView.setVisibility(View.VISIBLE);
-//                    pbWebView.setProgress(newProgress);//设置加载进度
-//                }
-//            }
-//        });
+        wvTencent.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                super.onProgressChanged(view, newProgress);
+                if (newProgress == 100) {
+                    pbWebView.setVisibility(View.GONE);
+                    pbWebView.setProgress(newProgress);
+                } else {
+                    pbWebView.setVisibility(View.VISIBLE);
+                    pbWebView.setProgress(newProgress);//设置加载进度
+                }
+            }
+        });
     }
 
     @Override
