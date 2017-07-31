@@ -9,8 +9,7 @@ import android.widget.ProgressBar;
 
 import com.huiji.comic.bobcat.huijicomics.R;
 import com.huiji.comic.bobcat.huijicomics.base.BaseActivity;
-import com.huiji.comic.bobcat.huijicomics.utils.SpKey;
-import com.tencent.smtt.sdk.WebChromeClient;
+import com.huiji.comic.bobcat.huijicomics.utils.IntentKey;
 import com.tencent.smtt.sdk.WebSettings;
 import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
@@ -40,8 +39,8 @@ public class X5WebViewActivity extends BaseActivity {
         setContentView(R.layout.activity_x5_web_view);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
-        comicUrl = getIntent().getStringExtra(SpKey.COMIC_VIEW_URL);
-        comicTitle = getIntent().getStringExtra(SpKey.COMIC_TITLE);
+        comicUrl = getIntent().getStringExtra(IntentKey.COMIC_VIEW_URL);
+        comicTitle = getIntent().getStringExtra(IntentKey.COMIC_TITLE);
         setTitle(comicTitle);
         toolbar.setVisibility(View.GONE);
 

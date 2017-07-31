@@ -4,6 +4,8 @@ import android.app.Application;
 import android.os.Environment;
 import android.util.Log;
 
+import com.huiji.comic.bobcat.huijicomics.utils.SpKey;
+
 import org.xutils.DbManager;
 import org.xutils.db.table.TableEntity;
 import org.xutils.x;
@@ -31,10 +33,8 @@ public class MainApplication extends Application {
                 daoConfig = new DbManager.DaoConfig()
                         //设置数据库名，默认xutils.db
                         .setDbName("Huiji.db")
-                        //设置数据库路径，默认存储在app的私有目录
-                        .setDbDir(new File(Environment.getExternalStorageDirectory() + "/Huiji"))
                         //设置数据库的版本号
-                        .setDbVersion(1)
+                        .setDbVersion(SpKey.DATABASE_VERSION)
                         //设置数据库打开的监听
                         .setDbOpenListener(new DbManager.DbOpenListener() {
                             @Override

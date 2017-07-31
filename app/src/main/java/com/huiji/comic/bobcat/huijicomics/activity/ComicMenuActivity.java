@@ -17,7 +17,7 @@ import com.huiji.comic.bobcat.huijicomics.adapter.ComicMenuAdapter;
 import com.huiji.comic.bobcat.huijicomics.base.BaseActivity;
 import com.huiji.comic.bobcat.huijicomics.bean.ComicListDbInfo;
 import com.huiji.comic.bobcat.huijicomics.utils.InitComicsList;
-import com.huiji.comic.bobcat.huijicomics.utils.SpKey;
+import com.huiji.comic.bobcat.huijicomics.utils.IntentKey;
 import com.huiji.comic.bobcat.huijicomics.utils.UrlUtils;
 
 import org.xutils.DbManager;
@@ -59,17 +59,17 @@ public class ComicMenuActivity extends BaseActivity {
         setContentView(R.layout.activity_comic_menu);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
-        comicTitle = getIntent().getStringExtra(SpKey.COMIC_TITLE);
+        comicTitle = getIntent().getStringExtra(IntentKey.COMIC_TITLE);
         setTitle(comicTitle);
 
         rvComicMenu.setLayoutManager(new GridLayoutManager(this, 4));
 
         Glide.with(this)
-                .load(getIntent().getStringExtra(SpKey.COMIC_IMG))
+                .load(getIntent().getStringExtra(IntentKey.COMIC_IMG))
                 .into(ivComicView);
-        tvComicTitle.setText(getIntent().getStringExtra(SpKey.COMIC_TITLE));
+        tvComicTitle.setText(getIntent().getStringExtra(IntentKey.COMIC_TITLE));
 
-        comicId = getIntent().getStringExtra(SpKey.COMIC_ID);
+        comicId = getIntent().getStringExtra(IntentKey.COMIC_ID);
 
         showProgressDialog();
         UrlUtils.getLinkList(comicId, new UrlUtils.RequestDataListener() {

@@ -14,7 +14,7 @@ import com.bumptech.glide.Glide;
 import com.huiji.comic.bobcat.huijicomics.R;
 import com.huiji.comic.bobcat.huijicomics.activity.ComicMenuActivity;
 import com.huiji.comic.bobcat.huijicomics.bean.ComicListBean;
-import com.huiji.comic.bobcat.huijicomics.utils.SpKey;
+import com.huiji.comic.bobcat.huijicomics.utils.IntentKey;
 
 import java.util.List;
 
@@ -56,9 +56,9 @@ public class ComicListAdapter extends RecyclerView.Adapter<ComicListAdapter.RvVi
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, ComicMenuActivity.class);
-                intent.putExtra(SpKey.COMIC_ID, mComicListBeanList.get(position).getComicId());
-                intent.putExtra(SpKey.COMIC_TITLE, mComicListBeanList.get(position).getTitle());
-                intent.putExtra(SpKey.COMIC_IMG, mComicListBeanList.get(position).getImgUrl());
+                intent.putExtra(IntentKey.COMIC_ID, mComicListBeanList.get(position).getComicId());
+                intent.putExtra(IntentKey.COMIC_TITLE, mComicListBeanList.get(position).getTitle());
+                intent.putExtra(IntentKey.COMIC_IMG, mComicListBeanList.get(position).getImgUrl());
                 mContext.startActivity(intent);
             }
         });

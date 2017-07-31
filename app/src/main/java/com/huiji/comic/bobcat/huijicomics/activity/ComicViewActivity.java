@@ -4,7 +4,6 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -13,12 +12,10 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.huiji.comic.bobcat.huijicomics.R;
-import com.huiji.comic.bobcat.huijicomics.adapter.ComicListAdapter;
 import com.huiji.comic.bobcat.huijicomics.adapter.ComicViewAdapter;
 import com.huiji.comic.bobcat.huijicomics.base.BaseActivity;
 import com.huiji.comic.bobcat.huijicomics.utils.C;
-import com.huiji.comic.bobcat.huijicomics.utils.SpKey;
-import com.huiji.comic.bobcat.huijicomics.utils.UrlUtils;
+import com.huiji.comic.bobcat.huijicomics.utils.IntentKey;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,10 +46,10 @@ public class ComicViewActivity extends BaseActivity {
         setContentView(R.layout.activity_comic_view);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
-        comicId = getIntent().getStringExtra(SpKey.COMIC_ID);
-        comicUrl = getIntent().getStringExtra(SpKey.COMIC_VIEW_URL);
-        comicTitle = getIntent().getStringExtra(SpKey.COMIC_TITLE);
-        menuTitle = getIntent().getStringExtra(SpKey.COMIC_MENU_TITLE);
+        comicId = getIntent().getStringExtra(IntentKey.COMIC_ID);
+        comicUrl = getIntent().getStringExtra(IntentKey.COMIC_VIEW_URL);
+        comicTitle = getIntent().getStringExtra(IntentKey.COMIC_TITLE);
+        menuTitle = getIntent().getStringExtra(IntentKey.COMIC_MENU_TITLE);
         rvComicView.setLayoutManager(new LinearLayoutManager(this));
 
         new Thread(new Runnable() {
