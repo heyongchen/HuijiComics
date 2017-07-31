@@ -3,6 +3,8 @@ package com.huiji.comic.bobcat.huijicomics.activity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ProgressBar;
@@ -77,9 +79,38 @@ public class X5WebViewActivity extends BaseActivity {
         });
     }
 
+    private void webViewDestroy() {
+        if (wvTencent != null) {
+            // 如果先调用destroy()方法，则会命中if (isDestroyed()) return;这一行代码，需要先onDetachedFromWindow()，再
+            // destory()
+            ViewParent parent = wvTencent.getParent();
+            if (parent != null) {
+                ((ViewGroup) parent).removeView(wvTencent);
+            }
+            wvTencent.stopLoading();
+            // 退出时调用此方法，移除绑定的服务，否则某些特定系统会报错
+            wvTencent.getSettings().setJavaScriptEnabled(false);
+            wvTencent.clearHistory();
+            wvTencent.clearView();
+            wvTencent.removeAllViews();
+            try {
+                wvTencent.destroy();
+            } catch (Throwable ignored) {
+
+            }
+        }
+    }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+    }
+
+    @Override
+    protected void onDestroy() {
+        webViewDestroy();
+        super.onDestroy();
+
     }
 
 }
