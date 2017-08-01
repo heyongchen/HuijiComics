@@ -1,5 +1,6 @@
 package com.huiji.comic.bobcat.huijicomics.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -49,6 +50,8 @@ public class ComicMenuActivity extends BaseActivity {
     TextView tvComicCollect;
     @BindView(R.id.tv_place_holder)
     TextView tvPlaceHolder;
+    @BindView(R.id.tv_comic_continue)
+    TextView tvComicContinue;
 
     private String comicId;
     private String comicTitle;
@@ -111,6 +114,41 @@ public class ComicMenuActivity extends BaseActivity {
                 }
             }
         });
+
+        tvComicContinue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String comicUrl = "";
+                if (readHistory != null && !readHistory.isEmpty()) {
+                    comicUrl = readHistory;
+                } else if ((readHistory == null || readHistory.isEmpty()) && InitComicsList.getComicDataBeanList().size() > 0) {
+                    comicUrl = InitComicsList.getComicDataBeanList().get(0).getDataUrl();
+                    addHistory(comicUrl);
+                }
+                if (!comicUrl.isEmpty()) {
+                    Intent intent = new Intent(ComicMenuActivity.this, X5WebViewActivity.class);
+                    intent.putExtra(IntentKey.COMIC_ID, comicId);
+                    intent.putExtra(IntentKey.COMIC_TITLE, comicTitle);
+                    intent.putExtra(IntentKey.COMIC_VIEW_URL, comicUrl);
+                    startActivity(intent);
+                }
+            }
+        });
+    }
+
+    private void addHistory(String comicUrl) {
+        if (!comicUrl.isEmpty()) {
+            WhereBuilder b = WhereBuilder.b();
+            b.and("comicId", "=", comicId);//条件
+            KeyValue history = new KeyValue("lastReadUrl", comicUrl.replace("smp1", "smp").replace("smp2", "smp").replace("smp3", "smp"));
+            KeyValue time = new KeyValue("lastReadTime", System.currentTimeMillis());
+            try {
+                dbManager.update(ComicListDbInfo.class, b, history);
+                dbManager.update(ComicListDbInfo.class, b, time);
+            } catch (DbException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void changeCollect(String state) {
@@ -149,6 +187,7 @@ public class ComicMenuActivity extends BaseActivity {
                         tvPlaceHolder.setVisibility(View.VISIBLE);
                     }
                     rvComicMenu.setAdapter(comicMenuAdapter);
+                    checkHistory();
                     dismissProgressDialog();
                     break;
             }
@@ -163,6 +202,13 @@ public class ComicMenuActivity extends BaseActivity {
         checkHistory();
     }
 
+    @Override
+    protected void onDestroy() {
+        InitComicsList.clearComicDataBeanList();
+        super.onDestroy();
+
+    }
+
     private void checkHistory() {
         ComicListDbInfo result = null;
         WhereBuilder b = WhereBuilder.b();
@@ -173,7 +219,14 @@ public class ComicMenuActivity extends BaseActivity {
             e.printStackTrace();
         }
         if (result != null) {
-            readHistory = result.getLastReadUrl() != null ? result.getLastReadUrl().replace("smp1", "smp").replace("smp2", "smp").replace("smp3", "smp") : "";
+            if (result.getLastReadUrl() == null || result.getLastReadUrl().isEmpty()) {
+                tvComicContinue.setText("开始阅读");
+            } else {
+                readHistory = result.getLastReadUrl().replace("smp1", "smp").replace("smp2", "smp").replace("smp3", "smp");
+                tvComicContinue.setText("继续阅读");
+            }
+        } else {
+            tvComicContinue.setText("开始阅读");
         }
         if (comicMenuAdapter != null) {
             comicMenuAdapter.setReadHistory(readHistory);

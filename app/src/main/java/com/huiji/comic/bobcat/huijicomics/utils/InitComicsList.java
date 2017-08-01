@@ -31,6 +31,13 @@ public class InitComicsList {
         comicListBeanList.clear();
     }
 
+    public static void clearComicDataBeanList() {
+        if (comicDataBeanList == null) {
+            comicDataBeanList = new ArrayList<>();
+        }
+        comicDataBeanList.clear();
+    }
+
     public static List<ComicListBean> getComicListBeanList() {
         if (comicListBeanList == null) {
             comicListBeanList = new ArrayList<>();
@@ -57,9 +64,6 @@ public class InitComicsList {
     public static List<ComicDataBean> getComicDataBeanList() {
         if (comicDataBeanList == null) {
             comicDataBeanList = new ArrayList<>();
-        }
-        if (comicDataBeanList.size() <= 0) {
-            initComicIdList();
         }
         return comicDataBeanList;
     }

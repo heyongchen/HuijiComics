@@ -79,6 +79,19 @@
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/font_normal" />
 
+            <TextView
+                android:id="@+id/tv_comic_continue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="@dimen/space_normal"
+                android:layout_toRightOf="@+id/tv_comic_collect"
+                android:background="@drawable/btn_text_background"
+                android:padding="@dimen/space_normal"
+                android:text="继续阅读"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/font_normal" />
+
         </RelativeLayout>
 
     </LinearLayout>

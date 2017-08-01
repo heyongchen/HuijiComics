@@ -16,8 +16,8 @@ android {
         applicationId "com.huiji.comic.bobcat.huijicomics"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 11
-        versionName "0.6.6"
+        versionCode 12
+        versionName "0.6.7"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         ndk {

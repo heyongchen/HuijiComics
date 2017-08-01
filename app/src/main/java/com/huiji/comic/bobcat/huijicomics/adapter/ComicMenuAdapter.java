@@ -80,7 +80,7 @@ public class ComicMenuAdapter extends RecyclerView.Adapter<ComicMenuAdapter.RvVi
 
     private Drawable getBackGround(int position) {
         Drawable backGround;
-        if (!mReadHistory.isEmpty() && mReadHistory.equals(mComicDataBeanList.get(position).getDataUrl().replace("smp1", "smp").replace("smp2", "smp").replace("smp3", "smp"))) {
+        if (mReadHistory != null && !mReadHistory.isEmpty() && mReadHistory.equals(mComicDataBeanList.get(position).getDataUrl().replace("smp1", "smp").replace("smp2", "smp").replace("smp3", "smp"))) {
             backGround = ContextCompat.getDrawable(mContext, R.drawable.item_menu_background_2);
         } else {
             backGround = ContextCompat.getDrawable(mContext, R.drawable.item_menu_background);
@@ -99,15 +99,17 @@ public class ComicMenuAdapter extends RecyclerView.Adapter<ComicMenuAdapter.RvVi
     }
 
     private void addHistory(String comicUrl) {
-        WhereBuilder b = WhereBuilder.b();
-        b.and("comicId", "=", mComicId);//条件
-        KeyValue history = new KeyValue("lastReadUrl", comicUrl);
-        KeyValue time = new KeyValue("lastReadTime", System.currentTimeMillis());
-        try {
-            dbManager.update(ComicListDbInfo.class, b, history);
-            dbManager.update(ComicListDbInfo.class, b, time);
-        } catch (DbException e) {
-            e.printStackTrace();
+        if (!comicUrl.isEmpty()) {
+            WhereBuilder b = WhereBuilder.b();
+            b.and("comicId", "=", mComicId);//条件
+            KeyValue history = new KeyValue("lastReadUrl", comicUrl.replace("smp1", "smp").replace("smp2", "smp").replace("smp3", "smp"));
+            KeyValue time = new KeyValue("lastReadTime", System.currentTimeMillis());
+            try {
+                dbManager.update(ComicListDbInfo.class, b, history);
+                dbManager.update(ComicListDbInfo.class, b, time);
+            } catch (DbException e) {
+                e.printStackTrace();
+            }
         }
     }
 
