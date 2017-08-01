@@ -145,7 +145,7 @@
                 android:layout_toRightOf="@+id/iv_menu_about"
                 android:paddingLeft="@dimen/space_large"
                 android:paddingRight="@dimen/space_large"
-                android:text="漫画收藏"
+                android:text="关于"
                 android:textColor="@color/text_1"
                 android:textSize="@dimen/font_normal" />
 
