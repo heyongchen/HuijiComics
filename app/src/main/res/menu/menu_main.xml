@@ -3,8 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.huiji.comic.bobcat.huijicomics.activity.MainActivity">
     <item
-        android:id="@+id/action_about"
+        android:id="@+id/action_my"
         android:orderInCategory="100"
-        android:title="关于"
-        app:showAsAction="never" />
+        android:icon="@drawable/ic_account"
+        android:title="我的"
+        app:showAsAction="always" />
 </menu>

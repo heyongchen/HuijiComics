@@ -54,6 +54,10 @@
             android:name=".activity.ComicHistoryActivity"
             android:label="@string/title_activity_comic_history"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.MyActivity"
+            android:label="@string/title_activity_my"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

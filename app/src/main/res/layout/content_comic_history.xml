@@ -20,7 +20,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/space_huge"
         android:gravity="center"
-        android:text="@string/info_list_enpty"
+        android:text="@string/info_list_empty"
         android:textColor="@color/text_2"
         android:textSize="@dimen/font_normal" />
 

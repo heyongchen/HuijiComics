@@ -44,7 +44,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends BaseActivity
+//        implements NavigationView.OnNavigationItemSelectedListener
+{
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -69,7 +71,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.navigation_activity_main);
+        setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 
@@ -79,12 +81,12 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         toolbar.requestFocus();
         toolbar.requestFocusFromTouch();
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+//        drawer.setDrawerListener(toggle);
+//        toggle.syncState();
+//        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+//        navigationView.setNavigationItemSelectedListener(this);
         rvComicList.setLayoutManager(new LinearLayoutManager(this));
         if (!isGetList()) {
             showProgressDialog();
@@ -243,15 +245,15 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_about) {
-            startActivity(new Intent(MainActivity.this, AboutActivity.class));
+        if (id == R.id.action_my) {
+            startActivity(new Intent(MainActivity.this, MyActivity.class));
             return true;
         }
 
@@ -287,36 +289,36 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            AppExit2Back.exitApp(this);
-        }
+//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+//        if (drawer.isDrawerOpen(GravityCompat.START)) {
+//            drawer.closeDrawer(GravityCompat.START);
+//        } else {
+        AppExit2Back.exitApp(this);
+//        }
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-        Intent intent;
-        switch (id) {
-            case R.id.nav_collect:
-                intent = new Intent(this, ComicCollectionActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.nav_history:
-                intent = new Intent(this, ComicHistoryActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.nav_send:
-                intent = new Intent(this, AboutActivity.class);
-                startActivity(intent);
-                break;
-        }
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
+//    @SuppressWarnings("StatementWithEmptyBody")
+//    @Override
+//    public boolean onNavigationItemSelected(MenuItem item) {
+//        // Handle navigation view item clicks here.
+//        int id = item.getItemId();
+//        Intent intent;
+//        switch (id) {
+//            case R.id.nav_collect:
+//                intent = new Intent(this, ComicCollectionActivity.class);
+//                startActivity(intent);
+//                break;
+//            case R.id.nav_history:
+//                intent = new Intent(this, ComicHistoryActivity.class);
+//                startActivity(intent);
+//                break;
+//            case R.id.nav_send:
+//                intent = new Intent(this, AboutActivity.class);
+//                startActivity(intent);
+//                break;
+//        }
+//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+//        drawer.closeDrawer(GravityCompat.START);
+//        return true;
+//    }
 }
