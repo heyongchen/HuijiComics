@@ -72,7 +72,7 @@ public class X5WebViewActivity extends BaseActivity {
         webSettings.setDomStorageEnabled(true);
         webSettings.setAllowFileAccess(true);
         webSettings.setAppCacheEnabled(true);
-        webSettings.setCacheMode(-1);
+        webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
 
         wvTencent.setWebViewClient(new WebViewClient() {
             @Override
