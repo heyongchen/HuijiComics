@@ -1,4 +1,4 @@
-package com.huiji.comic.bobcat.huijicomics.base;
+package com.huiji.comic.bobcat.huijicomics.base.manager;
 
 import android.app.Activity;
 import android.content.pm.PackageManager;

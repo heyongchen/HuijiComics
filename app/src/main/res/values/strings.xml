@@ -13,4 +13,9 @@
     <string name="title_activity_my">个人中心</string>
 
     <string name="info_list_empty">没有找到异世界的传送门\n\n!!!∑(ﾟДﾟノ)ノ</string>
+
+    <!--权限请求PermissionManager-->
+    <string name="tip_permission_set">设置</string>
+    <string name="tip_permission_cancel">取消</string>
+    <string name="tip_permission_msg">需要开启权限才能使用此功能</string>
 </resources>

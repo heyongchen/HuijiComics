@@ -46,6 +46,10 @@
   public *;
 }
 
+#蒲公英
+-dontwarn com.pgyersdk.**
+-keep class com.pgyersdk.** { *; }
+
 #ButterKnife不混淆
 -keep class butterknife.** { *; }
 -dontwarn butterknife.internal.**

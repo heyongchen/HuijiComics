@@ -1,5 +1,7 @@
 package com.huiji.comic.bobcat.huijicomics.activity;
 
+import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -8,6 +10,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -18,11 +21,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.huiji.comic.bobcat.huijicomics.MainApplication;
 import com.huiji.comic.bobcat.huijicomics.R;
 import com.huiji.comic.bobcat.huijicomics.adapter.ComicListAdapter;
 import com.huiji.comic.bobcat.huijicomics.base.BaseActivity;
+import com.huiji.comic.bobcat.huijicomics.base.manager.PermissionManager;
 import com.huiji.comic.bobcat.huijicomics.bean.ComicListBean;
 import com.huiji.comic.bobcat.huijicomics.db.ComicListDbInfo;
 import com.huiji.comic.bobcat.huijicomics.utils.AppExit2Back;
@@ -32,6 +37,9 @@ import com.huiji.comic.bobcat.huijicomics.utils.PinyinComparator;
 import com.huiji.comic.bobcat.huijicomics.utils.UrlUtils;
 import com.huiji.comic.bobcat.huijicomics.widget.ClearEditText;
 import com.huiji.comic.bobcat.huijicomics.widget.SideBar;
+import com.pgyersdk.javabean.AppBean;
+import com.pgyersdk.update.PgyUpdateManager;
+import com.pgyersdk.update.UpdateManagerListener;
 
 import org.xutils.DbManager;
 import org.xutils.ex.DbException;
@@ -80,6 +88,42 @@ public class MainActivity extends BaseActivity
         toolbar.setFocusableInTouchMode(true);
         toolbar.requestFocus();
         toolbar.requestFocusFromTouch();
+
+        PgyUpdateManager.setIsForced(false); //设置是否强制更新。true为强制更新；false为不强制更新（默认值）。
+        PgyUpdateManager.register(this, null, new UpdateManagerListener() {
+
+            @Override
+            public void onUpdateAvailable(final String result) {
+                // 将新版本信息封装到AppBean中
+                final AppBean appBean = getAppBeanFromString(result);
+                new AlertDialog.Builder(MainActivity.this)
+                        .setTitle("版本更新")
+                        .setMessage("发现新版本，是否进行更新？")
+                        .setPositiveButton("开始更新", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                PermissionManager.requestPermission(MainActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, new PermissionManager.OnPermissionCallback() {
+                                    @Override
+                                    public void onGranted() {
+                                        //开始下载
+                                        startDownloadTask(MainActivity.this, appBean.getDownloadURL());
+                                    }
+
+                                    @Override
+                                    public void onDenied() {
+                                        PermissionManager.showAdvice(MainActivity.this);
+                                    }
+                                });
+                            }
+                        })
+                        .setNegativeButton("暂不更新", null)
+                        .show();
+            }
+
+            @Override
+            public void onNoUpdateAvailable() {
+            }
+        });
 
 //        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 //        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);

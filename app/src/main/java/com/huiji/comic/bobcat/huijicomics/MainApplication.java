@@ -4,6 +4,7 @@ import android.app.Application;
 import android.util.Log;
 
 import com.huiji.comic.bobcat.huijicomics.utils.C;
+import com.pgyersdk.crash.PgyCrashManager;
 
 import org.xutils.DbManager;
 import org.xutils.db.table.TableEntity;
@@ -22,6 +23,7 @@ public class MainApplication extends Application {
         super.onCreate();
         x.Ext.init(this);
         x.Ext.setDebug(false); // 是否输出debug日志, 开启debug会影响性能.
+        PgyCrashManager.register(this);
     }
 
     public static DbManager.DaoConfig getDbConfig() {

@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
-import com.huiji.comic.bobcat.huijicomics.base.AppManager;
+import com.huiji.comic.bobcat.huijicomics.base.manager.AppManager;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

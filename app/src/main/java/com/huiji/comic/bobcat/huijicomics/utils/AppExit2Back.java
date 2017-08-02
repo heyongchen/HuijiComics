@@ -3,7 +3,7 @@ package com.huiji.comic.bobcat.huijicomics.utils;
 import android.content.Context;
 import android.widget.Toast;
 
-import com.huiji.comic.bobcat.huijicomics.base.AppManager;
+import com.huiji.comic.bobcat.huijicomics.base.manager.AppManager;
 
 import java.util.Timer;
 import java.util.TimerTask;
