@@ -68,8 +68,10 @@ public class ComicCollectionActivity extends BaseActivity {
         } catch (DbException e) {
             e.printStackTrace();
         }
-        for (ComicListDbInfo comicListDbInfo : result) {
-            list.add(new ComicListBean(comicListDbInfo.getComicId(), comicListDbInfo.getImgUrl(), comicListDbInfo.getTitle(), comicListDbInfo.getAuthor(), comicListDbInfo.getMsg()));
+        if (result != null && result.size() > 0) {
+            for (ComicListDbInfo comicListDbInfo : result) {
+                list.add(new ComicListBean(comicListDbInfo.getComicId(), comicListDbInfo.getImgUrl(), comicListDbInfo.getTitle(), comicListDbInfo.getAuthor(), comicListDbInfo.getMsg()));
+            }
         }
         if (list.size() > 0) {
             tvPlaceHolder.setVisibility(View.GONE);

@@ -8,12 +8,13 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.huiji.comic.bobcat.huijicomics.base.manager.AppManager;
 import com.huiji.comic.bobcat.huijicomics.base.manager.PermissionManager;
+import com.pgyersdk.crash.PgyCrashManager;
 
 /**
  * Created by HeYongchen on 2017/7/27.
  */
 
-public class BaseActivity extends AppCompatActivity implements PermissionManager.OnBaseCallback{
+public class BaseActivity extends AppCompatActivity implements PermissionManager.OnBaseCallback {
 
     private PermissionManager.OnPermissionCallback mCallback;
 
@@ -21,12 +22,14 @@ public class BaseActivity extends AppCompatActivity implements PermissionManager
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AppManager.get().addActivity(this);
+        PgyCrashManager.register(this);
     }
 
     private ProgressDialog progressDialog = null;
 
     private void initProgressDialog() {
         progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
     }
 
     public void showProgressDialog() {
