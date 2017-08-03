@@ -6,10 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,7 +17,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.huiji.comic.bobcat.huijicomics.MainApplication;
 import com.huiji.comic.bobcat.huijicomics.R;
@@ -52,9 +47,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends BaseActivity
-//        implements NavigationView.OnNavigationItemSelectedListener
-{
+public class MainActivity extends BaseActivity{
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -124,13 +117,6 @@ public class MainActivity extends BaseActivity
             public void onNoUpdateAvailable() {
             }
         });
-
-//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-//        drawer.setDrawerListener(toggle);
-//        toggle.syncState();
-//        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-//        navigationView.setNavigationItemSelectedListener(this);
         rvComicList.setLayoutManager(new LinearLayoutManager(this));
         if (!isGetList()) {
             showProgressDialog();
@@ -333,36 +319,6 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void onBackPressed() {
-//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-//        if (drawer.isDrawerOpen(GravityCompat.START)) {
-//            drawer.closeDrawer(GravityCompat.START);
-//        } else {
         AppExit2Back.exitApp(this);
-//        }
     }
-
-//    @SuppressWarnings("StatementWithEmptyBody")
-//    @Override
-//    public boolean onNavigationItemSelected(MenuItem item) {
-//        // Handle navigation view item clicks here.
-//        int id = item.getItemId();
-//        Intent intent;
-//        switch (id) {
-//            case R.id.nav_collect:
-//                intent = new Intent(this, ComicCollectionActivity.class);
-//                startActivity(intent);
-//                break;
-//            case R.id.nav_history:
-//                intent = new Intent(this, ComicHistoryActivity.class);
-//                startActivity(intent);
-//                break;
-//            case R.id.nav_send:
-//                intent = new Intent(this, AboutActivity.class);
-//                startActivity(intent);
-//                break;
-//        }
-//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-//        drawer.closeDrawer(GravityCompat.START);
-//        return true;
-//    }
 }

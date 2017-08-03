@@ -13,9 +13,6 @@ import org.xutils.ex.DbException;
 import org.xutils.x;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,27 +43,28 @@ public class UrlUtils {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    assert doc != null;
+                    if (doc != null) {
 
-                    Elements links = doc.select("a[href]");
-                    Elements media = doc.select("[src]");
-                    Elements titleOrAuthor = doc.select("abbr");
-                    Element msgDiv = doc.select("div.am-u-sm-8").first();
+                        Elements links = doc.select("a[href]");
+                        Elements media = doc.select("[src]");
+                        Elements titleOrAuthor = doc.select("abbr");
+                        Element msgDiv = doc.select("div.am-u-sm-8").first();
 
-                    String imgUrl = "";
-                    String title = titleOrAuthor.get(0).text();
-                    String author = titleOrAuthor.get(1).text();
-                    String msg = msgDiv.text().replace(title, "").replace(author, "").replaceAll(" ", "").trim();
+                        String imgUrl = "";
+                        String title = titleOrAuthor.get(0).text();
+                        String author = titleOrAuthor.get(1).text();
+                        String msg = msgDiv.text().replace(title, "").replace(author, "").replaceAll(" ", "").trim();
 
-                    print("\nMedia: (%d)", media.size());
-                    for (Element src : media) {
-                        if (src.tagName().equals("img"))
-                            imgUrl = src.attr("abs:src");
+                        print("\nMedia: (%d)", media.size());
+                        for (Element src : media) {
+                            if (src.tagName().equals("img"))
+                                imgUrl = src.attr("abs:src");
+                        }
+                        print("\nLinks: (%d)", links.size());
+                        int num = links.size();
+
+                        comicListDbInfoList.add(new ComicListDbInfo(comicId, title, author, msg, imgUrl, num, "0"));
                     }
-                    print("\nLinks: (%d)", links.size());
-                    int num = links.size();
-
-                    comicListDbInfoList.add(new ComicListDbInfo(comicId, title, author, msg, imgUrl, num, "0"));
                 }
                 try {
                     dbManager.save(comicListDbInfoList);
@@ -95,15 +93,16 @@ public class UrlUtils {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                assert doc != null;
-                Elements links = doc.select("a[href]");
+                if (doc != null) {
+                    Elements links = doc.select("a[href]");
 
-                List<ComicDataBean> comicDataBeanList = new ArrayList<>();
-                print("\nLinks: (%d)", links.size());
-                for (Element link : links) {
-                    comicDataBeanList.add(new ComicDataBean(link.attr("abs:href"), trim(link.text(), 35)));
+                    List<ComicDataBean> comicDataBeanList = new ArrayList<>();
+                    print("\nLinks: (%d)", links.size());
+                    for (Element link : links) {
+                        comicDataBeanList.add(new ComicDataBean(link.attr("abs:href"), trim(link.text(), 35)));
+                    }
+                    InitComicsList.setComicDataBeanList(comicDataBeanList);
                 }
-                InitComicsList.setComicDataBeanList(comicDataBeanList);
 
                 if (requestDataListener != null) {
                     requestDataListener.ok();
@@ -125,24 +124,5 @@ public class UrlUtils {
             return s.substring(0, width - 1) + ".";
         else
             return s;
-    }
-
-    public static boolean checkURL(String url) {
-        boolean value = false;
-        try {
-            HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
-            int code = conn.getResponseCode();
-            System.out.println(">>>>>>>>>>>>>>>> " + code + " <<<<<<<<<<<<<<<<<<");
-            if (code != 200) {
-                value = false;
-            } else {
-                value = true;
-            }
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return value;
     }
 }
