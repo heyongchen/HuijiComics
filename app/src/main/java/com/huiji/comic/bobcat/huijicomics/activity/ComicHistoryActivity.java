@@ -35,6 +35,8 @@ public class ComicHistoryActivity extends BaseActivity {
     TextView tvPlaceHolder;
 
     private DbManager dbManager = x.getDb(MainApplication.getDbConfig());
+    private LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+    private int lastOffset = 0, lastPosition = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,13 +51,31 @@ public class ComicHistoryActivity extends BaseActivity {
                 finish();
             }
         });
-        rvComicList.setLayoutManager(new LinearLayoutManager(this));
+        rvComicList.setLayoutManager(linearLayoutManager);
+    }
+
+    private void getPositionAndOffset() {
+        //获取可视的第一个view
+        View topView = linearLayoutManager.getChildAt(0);
+        if (topView != null) {
+            //获取与该view的顶部的偏移量
+            lastOffset = topView.getTop();
+            //得到该View的数组位置
+            lastPosition = linearLayoutManager.getPosition(topView);
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        getPositionAndOffset();
+        super.onStop();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         rvComicList.setAdapter(new ComicListAdapter(ComicHistoryActivity.this, getComicList(), false));
+        linearLayoutManager.scrollToPositionWithOffset(lastPosition, lastOffset);
     }
 
     public List<ComicListBean> getComicList() {
