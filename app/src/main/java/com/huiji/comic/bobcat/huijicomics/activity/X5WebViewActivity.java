@@ -50,6 +50,8 @@ public class X5WebViewActivity extends BaseActivity {
         try {
             // 隐藏标题栏
             requestWindowFeature(Window.FEATURE_NO_TITLE);
+            // 禁用系统截屏功能
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
             // 隐藏状态栏
 //            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
