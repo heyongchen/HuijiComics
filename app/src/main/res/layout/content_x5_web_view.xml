@@ -9,7 +9,7 @@
     tools:context="com.huiji.comic.bobcat.huijicomics.activity.X5WebViewActivity"
     tools:showIn="@layout/activity_x5_web_view">
 
-    <com.tencent.smtt.sdk.WebView
+    <WebView
         android:id="@+id/wv_tencent"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

@@ -1,27 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.huiji.comic.bobcat.huijicomics.activity.ComicCollectionActivity"
     tools:showIn="@layout/activity_comic_collection">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_comic_list"
+    <com.huiji.comic.bobcat.huijicomics.widget.ClearEditText
+        android:id="@+id/et_filter_edit"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-    <TextView
-        android:id="@+id/tv_place_holder"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/space_huge"
-        android:gravity="center"
-        android:text="@string/info_list_empty"
+        android:layout_margin="@dimen/space_small"
+        android:background="@drawable/search_bar_edit_selector"
+        android:drawableLeft="@drawable/ic_search_small"
+        android:hint="请输入关键字"
+        android:maxLines="1"
+        android:paddingBottom="@dimen/space_small"
+        android:paddingLeft="@dimen/space_normal"
+        android:paddingRight="@dimen/space_normal"
+        android:paddingTop="@dimen/space_small"
+        android:singleLine="true"
         android:textColor="@color/text_2"
+        android:textColorHint="@color/gray_divider"
         android:textSize="@dimen/font_normal" />
 
-</RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_comic_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/sb_side_bar"
+            android:overScrollMode="never" />
+
+        <TextView
+            android:id="@+id/tv_place_holder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/space_huge"
+            android:gravity="center"
+            android:text="@string/info_list_empty"
+            android:textColor="@color/text_2"
+            android:textSize="@dimen/font_normal" />
+
+        <TextView
+            android:id="@+id/tv_dialog"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/btn_text_gray_trans_background"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="30dp"
+            android:visibility="invisible" />
+
+        <com.huiji.comic.bobcat.huijicomics.widget.SideBar
+            android:id="@+id/sb_side_bar"
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true" />
+
+    </RelativeLayout>
+
+</LinearLayout>

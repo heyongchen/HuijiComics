@@ -47,7 +47,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends BaseActivity{
+public class MainActivity extends BaseActivity {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -90,8 +90,8 @@ public class MainActivity extends BaseActivity{
                 // 将新版本信息封装到AppBean中
                 final AppBean appBean = getAppBeanFromString(result);
                 new AlertDialog.Builder(MainActivity.this)
-                        .setTitle("版本更新")
-                        .setMessage("发现新版本，是否进行更新？")
+                        .setTitle("版本更新v" + appBean.getVersionName())
+                        .setMessage(appBean.getReleaseNote())
                         .setPositiveButton("开始更新", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -180,12 +180,13 @@ public class MainActivity extends BaseActivity{
 
             @Override
             public void onTouchingLetterChanged(String s) {
-                //该字母首次出现的位置
-                int position = comicListAdapter.getPositionForSection(s.charAt(0));
-                if (position != -1) {
-                    rvComicList.scrollToPosition(position);
+                if (comicListAdapter != null) {
+                    //该字母首次出现的位置
+                    int position = comicListAdapter.getPositionForSection(s.charAt(0));
+                    if (position != -1) {
+                        rvComicList.scrollToPosition(position);
+                    }
                 }
-
             }
         });
 
@@ -200,8 +201,10 @@ public class MainActivity extends BaseActivity{
         etFilterEdit.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                //当输入框里面的值为空，更新为原来的列表，否则为过滤数据列表
-                filterData(s.toString());
+                if (comicListAdapter != null) {
+                    //当输入框里面的值为空，更新为原来的列表，否则为过滤数据列表
+                    filterData(s.toString());
+                }
             }
 
             @Override
@@ -239,6 +242,11 @@ public class MainActivity extends BaseActivity{
         // 根据a-z进行排序
         Collections.sort(filterDateList, pinyinComparator);
         comicListAdapter.updateListView(filterDateList);
+        if (filterDateList.size() > 0) {
+            tvPlaceHolder.setVisibility(View.GONE);
+        } else {
+            tvPlaceHolder.setVisibility(View.VISIBLE);
+        }
     }
 
     /**

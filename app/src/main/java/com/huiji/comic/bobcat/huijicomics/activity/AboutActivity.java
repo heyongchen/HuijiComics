@@ -60,8 +60,8 @@ public class AboutActivity extends BaseActivity {
                         // 将新版本信息封装到AppBean中
                         final AppBean appBean = getAppBeanFromString(result);
                         new AlertDialog.Builder(AboutActivity.this)
-                                .setTitle("版本更新")
-                                .setMessage("发现新版本，是否进行更新？")
+                                .setTitle("版本更新v" + appBean.getVersionName())
+                                .setMessage(appBean.getReleaseNote())
                                 .setPositiveButton("开始更新", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
