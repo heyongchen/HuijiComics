@@ -30,6 +30,8 @@ import com.huiji.comic.bobcat.huijicomics.utils.CharacterParser;
 import com.huiji.comic.bobcat.huijicomics.utils.InitComicsList;
 import com.huiji.comic.bobcat.huijicomics.utils.PinyinComparator;
 import com.huiji.comic.bobcat.huijicomics.utils.UrlUtils;
+import com.huiji.comic.bobcat.huijicomics.utils.updateUtil.UpdateManager;
+import com.huiji.comic.bobcat.huijicomics.utils.updateUtil.UpdateUtil;
 import com.huiji.comic.bobcat.huijicomics.widget.ClearEditText;
 import com.huiji.comic.bobcat.huijicomics.widget.SideBar;
 import com.pgyersdk.javabean.AppBean;
@@ -82,41 +84,9 @@ public class MainActivity extends BaseActivity {
         toolbar.requestFocus();
         toolbar.requestFocusFromTouch();
 
-        PgyUpdateManager.setIsForced(false); //设置是否强制更新。true为强制更新；false为不强制更新（默认值）。
-        PgyUpdateManager.register(this, null, new UpdateManagerListener() {
+        PgyUpdateManager.setIsForced(false); //设置是否强制更新。true为强制更新；false为不强制更新（默认值）
+        UpdateUtil.check(this, false);
 
-            @Override
-            public void onUpdateAvailable(final String result) {
-                // 将新版本信息封装到AppBean中
-                final AppBean appBean = getAppBeanFromString(result);
-                new AlertDialog.Builder(MainActivity.this)
-                        .setTitle("版本更新v" + appBean.getVersionName())
-                        .setMessage(appBean.getReleaseNote())
-                        .setPositiveButton("开始更新", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                PermissionManager.requestPermission(MainActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, new PermissionManager.OnPermissionCallback() {
-                                    @Override
-                                    public void onGranted() {
-                                        //开始下载
-                                        startDownloadTask(MainActivity.this, appBean.getDownloadURL());
-                                    }
-
-                                    @Override
-                                    public void onDenied() {
-                                        PermissionManager.showAdvice(MainActivity.this);
-                                    }
-                                });
-                            }
-                        })
-                        .setNegativeButton("暂不更新", null)
-                        .show();
-            }
-
-            @Override
-            public void onNoUpdateAvailable() {
-            }
-        });
         rvComicList.setLayoutManager(new LinearLayoutManager(this));
         if (!isGetList()) {
             showProgressDialog();

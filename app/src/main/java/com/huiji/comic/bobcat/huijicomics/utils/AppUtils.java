@@ -1,6 +1,7 @@
 package com.huiji.comic.bobcat.huijicomics.utils;
 
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
@@ -9,6 +10,25 @@ import android.content.pm.PackageManager;
  */
 
 public class AppUtils {
+    /**
+     * 获取应用名称
+     *
+     * @return
+     */
+    public static String getAppName() {
+        PackageManager packageManager = null;
+        ApplicationInfo applicationInfo = null;
+        try {
+            packageManager = UIUtils.getContext().getPackageManager();
+            applicationInfo = packageManager.getApplicationInfo(UIUtils.getContext().getPackageName(), 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            applicationInfo = null;
+        }
+        String applicationName =
+                (String) packageManager.getApplicationLabel(applicationInfo);
+        return applicationName;
+    }
+
     /**
      * get App versionCode
      *
