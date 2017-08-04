@@ -270,9 +270,9 @@ public class MainActivity extends BaseActivity {
             PgyCrashManager.reportCaughtException(MainActivity.this, e);
         }
         if (dbComicList == null) {
-            Toast.makeText(this, "列表加载失败，请退出并重新打开应用", Toast.LENGTH_SHORT).show();
+            dbComicList = new ArrayList<>();
         }
-        return dbComicList != null && dbComicList.size() > 0;
+        return dbComicList.size() > 0;
     }
 
     public List<ComicListBean> getComicList() {
