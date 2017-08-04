@@ -1,5 +1,7 @@
 package com.huiji.comic.bobcat.huijicomics.utils;
 
+import android.util.Log;
+
 import com.huiji.comic.bobcat.huijicomics.MainApplication;
 import com.huiji.comic.bobcat.huijicomics.bean.ComicDataBean;
 import com.huiji.comic.bobcat.huijicomics.db.ComicListDbInfo;
@@ -22,6 +24,7 @@ import java.util.List;
 
 public class UrlUtils {
 
+    private static final String TAG = "UrlUtils";
     private static DbManager dbManager = x.getDb(MainApplication.getDbConfig());
 
     public static void getMenuList(final List<String> comicIdList, final RequestStateListener requestStateListener, final boolean update) {
@@ -116,7 +119,7 @@ public class UrlUtils {
     }
 
     private static void print(String msg, Object... args) {
-        System.out.println(String.format(msg, args));
+        Log.i(TAG, String.format(msg, args));
     }
 
     private static String trim(String s, int width) {
