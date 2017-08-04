@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.huiji.comic.bobcat.huijicomics.MainApplication;
 import com.huiji.comic.bobcat.huijicomics.R;
@@ -29,6 +30,7 @@ import com.huiji.comic.bobcat.huijicomics.utils.UrlUtils;
 import com.huiji.comic.bobcat.huijicomics.utils.updateUtil.UpdateUtil;
 import com.huiji.comic.bobcat.huijicomics.widget.ClearEditText;
 import com.huiji.comic.bobcat.huijicomics.widget.SideBar;
+import com.pgyersdk.crash.PgyCrashManager;
 import com.pgyersdk.update.PgyUpdateManager;
 
 import org.xutils.DbManager;
@@ -265,7 +267,10 @@ public class MainActivity extends BaseActivity {
         try {
             dbComicList = dbManager.findAll(ComicListDbInfo.class);
         } catch (DbException e) {
-            e.printStackTrace();
+            PgyCrashManager.reportCaughtException(MainActivity.this, e);
+        }
+        if (dbComicList == null) {
+            Toast.makeText(this, "列表加载失败，请退出并重新打开应用", Toast.LENGTH_SHORT).show();
         }
         return dbComicList != null && dbComicList.size() > 0;
     }
@@ -275,7 +280,7 @@ public class MainActivity extends BaseActivity {
         try {
             dbComicList = dbManager.findAll(ComicListDbInfo.class);
         } catch (DbException e) {
-            e.printStackTrace();
+            PgyCrashManager.reportCaughtException(MainActivity.this, e);
         }
         if (dbComicList != null && dbComicList.size() > 0) {
             for (ComicListDbInfo comicListDbInfo : dbComicList) {

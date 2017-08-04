@@ -58,7 +58,7 @@ public class UpdateManager implements DownloadApkUtil.DownloadListener {
         showDialog(mContext.getString(R.string.tip_download_prepare), 0);
         //下载apk
         if (downloadApkUtil != null) {
-            downloadApkUtil.downloadAPK();
+            downloadApkUtil.downloadAPK(mContext);
         }
     }
 
