@@ -1,6 +1,7 @@
 package com.huiji.comic.bobcat.huijicomics.base;
 
 import android.app.ProgressDialog;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -21,6 +22,7 @@ public class BaseActivity extends AppCompatActivity implements PermissionManager
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         AppManager.get().addActivity(this);
         PgyCrashManager.register(this);
     }

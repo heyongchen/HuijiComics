@@ -1,12 +1,9 @@
 package com.huiji.comic.bobcat.huijicomics.activity;
 
-import android.Manifest;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -22,7 +19,6 @@ import com.huiji.comic.bobcat.huijicomics.MainApplication;
 import com.huiji.comic.bobcat.huijicomics.R;
 import com.huiji.comic.bobcat.huijicomics.adapter.ComicListAdapter;
 import com.huiji.comic.bobcat.huijicomics.base.BaseActivity;
-import com.huiji.comic.bobcat.huijicomics.base.manager.PermissionManager;
 import com.huiji.comic.bobcat.huijicomics.bean.ComicListBean;
 import com.huiji.comic.bobcat.huijicomics.db.ComicListDbInfo;
 import com.huiji.comic.bobcat.huijicomics.utils.AppExit2Back;
@@ -30,13 +26,10 @@ import com.huiji.comic.bobcat.huijicomics.utils.CharacterParser;
 import com.huiji.comic.bobcat.huijicomics.utils.InitComicsList;
 import com.huiji.comic.bobcat.huijicomics.utils.PinyinComparator;
 import com.huiji.comic.bobcat.huijicomics.utils.UrlUtils;
-import com.huiji.comic.bobcat.huijicomics.utils.updateUtil.UpdateManager;
 import com.huiji.comic.bobcat.huijicomics.utils.updateUtil.UpdateUtil;
 import com.huiji.comic.bobcat.huijicomics.widget.ClearEditText;
 import com.huiji.comic.bobcat.huijicomics.widget.SideBar;
-import com.pgyersdk.javabean.AppBean;
 import com.pgyersdk.update.PgyUpdateManager;
-import com.pgyersdk.update.UpdateManagerListener;
 
 import org.xutils.DbManager;
 import org.xutils.ex.DbException;
@@ -123,7 +116,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private boolean needUpdate() {
-        return dbComicList.size() < InitComicsList.getComicIdList().size();
+        return dbComicList != null && (dbComicList.size() < InitComicsList.getComicIdList().size());
     }
 
     private Handler mHandler = new Handler() {
@@ -284,8 +277,10 @@ public class MainActivity extends BaseActivity {
         } catch (DbException e) {
             e.printStackTrace();
         }
-        for (ComicListDbInfo comicListDbInfo : dbComicList) {
-            list.add(new ComicListBean(comicListDbInfo.getComicId(), comicListDbInfo.getImgUrl(), comicListDbInfo.getTitle(), comicListDbInfo.getAuthor(), comicListDbInfo.getMsg()));
+        if (dbComicList != null && dbComicList.size() > 0) {
+            for (ComicListDbInfo comicListDbInfo : dbComicList) {
+                list.add(new ComicListBean(comicListDbInfo.getComicId(), comicListDbInfo.getImgUrl(), comicListDbInfo.getTitle(), comicListDbInfo.getAuthor(), comicListDbInfo.getMsg()));
+            }
         }
         if (list.size() > 0) {
             tvPlaceHolder.setVisibility(View.GONE);
