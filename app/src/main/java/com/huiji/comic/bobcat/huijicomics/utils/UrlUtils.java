@@ -39,34 +39,36 @@ public class UrlUtils {
                     }
                 }
                 List<ComicListDbInfo> comicListDbInfoList = new ArrayList<ComicListDbInfo>();
-                for (String comicId : comicIdList) {
-                    Document doc = null;
-                    try {
-                        doc = Jsoup.connect(C.getComicMenuUrl(comicId)).get();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    if (doc != null) {
-
-                        Elements links = doc.select("a[href]");
-                        Elements media = doc.select("[src]");
-                        Elements titleOrAuthor = doc.select("abbr");
-                        Element msgDiv = doc.select("div.am-u-sm-8").first();
-
-                        String imgUrl = "";
-                        String title = titleOrAuthor.get(0).text();
-                        String author = titleOrAuthor.get(1).text();
-                        String msg = msgDiv.text().replace(title, "").replace(author, "").replaceAll(" ", "").trim();
-
-                        print("\nMedia: (%d)", media.size());
-                        for (Element src : media) {
-                            if (src.tagName().equals("img"))
-                                imgUrl = src.attr("abs:src");
+                if (comicIdList != null && comicIdList.size() > 0) {
+                    for (String comicId : comicIdList) {
+                        Document doc = null;
+                        try {
+                            doc = Jsoup.connect(C.getComicMenuUrl(comicId)).get();
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
-                        print("\nLinks: (%d)", links.size());
-                        int num = links.size();
+                        if (doc != null) {
 
-                        comicListDbInfoList.add(new ComicListDbInfo(comicId, title, author, msg, imgUrl, num, "0"));
+                            Elements links = doc.select("a[href]");
+                            Elements media = doc.select("[src]");
+                            Elements titleOrAuthor = doc.select("abbr");
+                            Element msgDiv = doc.select("div.am-u-sm-8").first();
+
+                            String imgUrl = "";
+                            String title = titleOrAuthor.get(0).text();
+                            String author = titleOrAuthor.get(1).text();
+                            String msg = msgDiv.text().replace(title, "").replace(author, "").replaceAll(" ", "").trim();
+
+                            print("\nMedia: (%d)", media.size());
+                            for (Element src : media) {
+                                if (src.tagName().equals("img"))
+                                    imgUrl = src.attr("abs:src");
+                            }
+                            print("\nLinks: (%d)", links.size());
+                            int num = links.size();
+
+                            comicListDbInfoList.add(new ComicListDbInfo(comicId, title, author, msg, imgUrl, num, "0"));
+                        }
                     }
                 }
                 try {

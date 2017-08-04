@@ -146,7 +146,9 @@ public class X5WebViewActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        addHistory(wvTencent.getUrl().replace("?__okraw", "").replace("smp1", "smp").replace("smp2", "smp").replace("smp3", "smp"));
+        if (wvTencent != null && wvTencent.getUrl() != null && !wvTencent.getUrl().isEmpty()) {
+            addHistory(wvTencent.getUrl().replace("?__okraw", "").replace("smp1", "smp").replace("smp2", "smp").replace("smp3", "smp"));
+        }
         super.onBackPressed();
     }
 
