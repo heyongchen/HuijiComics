@@ -14,7 +14,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.huiji.comic.bobcat.huijicomics.MainApplication;
 import com.huiji.comic.bobcat.huijicomics.R;
@@ -35,6 +34,7 @@ import com.pgyersdk.crash.PgyCrashManager;
 import com.pgyersdk.update.PgyUpdateManager;
 
 import org.xutils.DbManager;
+import org.xutils.db.sqlite.WhereBuilder;
 import org.xutils.ex.DbException;
 import org.xutils.x;
 
@@ -98,10 +98,17 @@ public class MainActivity extends BaseActivity {
             showProgressDialog(getString(R.string.tip_loading_update_list));
             List<String> defaultIdList = InitComicsList.getComicIdList();
             List<String> dbIdList = new ArrayList<>();
+            List<String> duplicateList = new ArrayList<>();
             for (ComicListDbInfo comicListDbInfo : dbComicList) {
                 dbIdList.add(comicListDbInfo.getComicId());
             }
             defaultIdList.removeAll(dbIdList);
+            for (String comicId : defaultIdList) {
+                if (checkComic(comicId)) {
+                    duplicateList.add(comicId);
+                }
+            }
+            defaultIdList.removeAll(duplicateList);
             UrlUtils.getMenuList(defaultIdList, new UrlUtils.RequestStateListener() {
                 @Override
                 public void ok() {
@@ -127,6 +134,18 @@ public class MainActivity extends BaseActivity {
             message.what = 1;
             mHandler.sendMessage(message);
         }
+    }
+
+    private boolean checkComic(String comicId) {
+        List<ComicListDbInfo> result = new ArrayList<>();
+        WhereBuilder b = WhereBuilder.b();
+        b.and("comicId", "=", comicId);
+        try {
+            result = dbManager.selector(ComicListDbInfo.class).where(b).findAll();//查询
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+        return result != null && result.size() > 0;
     }
 
     private boolean needUpdate() {

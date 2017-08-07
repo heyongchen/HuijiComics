@@ -17,6 +17,12 @@
     <string name="tip_loading">加载中，请稍候……</string>
     <string name="tip_loading_update_list">列表更新中，请稍候……</string>
 
+    <!--添加漫画-->
+    <string name="tip_add_comic_success">添加成功，请返回首页查看</string>
+    <string name="tip_add_comic_error">添加失败，请检查输入的漫画ID并重新添加</string>
+    <string name="tip_add_comic_duplicate">漫画【%s】已存在，请勿重复添加</string>
+    <string name="tip_add_comic_checking">漫画查询中，请稍候……</string>
+
     <!--按钮-->
     <string name="cancel">取消</string>
     <string name="ok">确定</string>

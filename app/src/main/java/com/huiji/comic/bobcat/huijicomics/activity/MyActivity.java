@@ -116,7 +116,7 @@ public class MyActivity extends BaseActivity {
 
                 @Override
                 public void onOK(String comicId) {
-                    showProgressDialog("漫画查询中，请稍候……");
+                    showProgressDialog(getString(R.string.tip_add_comic_checking));
                     UrlUtils.checkLink(comicId, new UrlUtils.checkDataListener() {
                         @Override
                         public void ok(ComicListBean comicListBean) {
@@ -142,10 +142,10 @@ public class MyActivity extends BaseActivity {
                 case 2:
                     dismissProgressDialog();
                     if (mComicListBean == null || mComicListBean.getTitle() == null) {
-                        Toast.makeText(MyActivity.this, "添加失败，请检查输入的漫画ID并重新添加", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MyActivity.this, R.string.tip_add_comic_error, Toast.LENGTH_SHORT).show();
                     } else {
                         if (checkComic(mComicListBean.getComicId())) {
-                            Toast.makeText(MyActivity.this, "漫画【" + mComicListBean.getTitle() + "】已存在，请勿重复添加", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MyActivity.this, String.format(getString(R.string.tip_add_comic_duplicate), mComicListBean.getTitle()), Toast.LENGTH_SHORT).show();
                         } else {
                             AddComicResultDialog addComicResultDialog = new AddComicResultDialog(MyActivity.this, mComicListBean);
                             addComicResultDialog.setOnConfirmListener(new AddComicResultDialog.OnConfirmListener() {
@@ -175,7 +175,7 @@ public class MyActivity extends BaseActivity {
                     break;
                 case 3:
                     C.hasNewComic = true;
-                    Toast.makeText(MyActivity.this, "添加成功，请返回首页查看", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MyActivity.this, R.string.tip_add_comic_success, Toast.LENGTH_SHORT).show();
                     dismissProgressDialog();
                     break;
                 default:
