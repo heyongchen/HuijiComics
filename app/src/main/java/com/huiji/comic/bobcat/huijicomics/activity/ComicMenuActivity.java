@@ -1,14 +1,17 @@
 package com.huiji.comic.bobcat.huijicomics.activity;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -111,6 +114,24 @@ public class ComicMenuActivity extends BaseActivity {
                 } else {
                     tvComicCollect.setText("取消收藏");
                     changeCollect(String.valueOf(1));
+                }
+            }
+        });
+
+        tvComicMsg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (tvComicMsg.getMaxLines()) {
+                    case 3:
+                        tvComicMsg.setMaxLines(15);
+                        tvComicMsg.setCompoundDrawablesWithIntrinsicBounds(null, null, null, ContextCompat.getDrawable(ComicMenuActivity.this, R.drawable.ic_up));
+                        break;
+                    case 15:
+                        tvComicMsg.setMaxLines(3);
+                        tvComicMsg.setCompoundDrawablesWithIntrinsicBounds(null, null, null, ContextCompat.getDrawable(ComicMenuActivity.this, R.drawable.ic_down));
+                        break;
+                    default:
+                        break;
                 }
             }
         });
