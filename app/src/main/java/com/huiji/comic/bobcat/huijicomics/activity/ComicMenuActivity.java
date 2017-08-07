@@ -119,17 +119,12 @@ public class ComicMenuActivity extends BaseActivity {
         tvComicMsg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch (tvComicMsg.getMaxLines()) {
-                    case 3:
-                        tvComicMsg.setMaxLines(15);
-                        tvComicMsg.setCompoundDrawablesWithIntrinsicBounds(null, null, null, ContextCompat.getDrawable(ComicMenuActivity.this, R.drawable.ic_up));
-                        break;
-                    case 15:
-                        tvComicMsg.setMaxLines(3);
-                        tvComicMsg.setCompoundDrawablesWithIntrinsicBounds(null, null, null, ContextCompat.getDrawable(ComicMenuActivity.this, R.drawable.ic_down));
-                        break;
-                    default:
-                        break;
+                if (tvComicMsg.getMaxLines() == 3) {
+                    tvComicMsg.setMaxLines(15);
+                    tvComicMsg.setCompoundDrawablesWithIntrinsicBounds(null, null, null, ContextCompat.getDrawable(ComicMenuActivity.this, R.drawable.ic_up));
+                } else {
+                    tvComicMsg.setMaxLines(3);
+                    tvComicMsg.setCompoundDrawablesWithIntrinsicBounds(null, null, null, ContextCompat.getDrawable(ComicMenuActivity.this, R.drawable.ic_down));
                 }
             }
         });
