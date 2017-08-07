@@ -23,6 +23,7 @@ import com.huiji.comic.bobcat.huijicomics.base.BaseActivity;
 import com.huiji.comic.bobcat.huijicomics.bean.ComicListBean;
 import com.huiji.comic.bobcat.huijicomics.db.ComicListDbInfo;
 import com.huiji.comic.bobcat.huijicomics.utils.AppExit2Back;
+import com.huiji.comic.bobcat.huijicomics.utils.C;
 import com.huiji.comic.bobcat.huijicomics.utils.CharacterParser;
 import com.huiji.comic.bobcat.huijicomics.utils.InitComicsList;
 import com.huiji.comic.bobcat.huijicomics.utils.PinyinComparator;
@@ -117,6 +118,17 @@ public class MainActivity extends BaseActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (C.hasNewComic) {
+            C.hasNewComic = false;
+            Message message = new Message();
+            message.what = 1;
+            mHandler.sendMessage(message);
+        }
+    }
+
     private boolean needUpdate() {
         return dbComicList != null && (dbComicList.size() < InitComicsList.getComicIdList().size());
     }
@@ -131,8 +143,6 @@ public class MainActivity extends BaseActivity {
                     break;
             }
         }
-
-        ;
     };
 
     private void initViews() {

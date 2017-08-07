@@ -209,13 +209,11 @@ public class UpdateManager implements DownloadApkUtil.DownloadListener {
             dialog.setOnConfirmListener(new ConfirmDialog.OnConfirmListener() {
                 @Override
                 public void onCancel() {
-                    dialog.dismiss();
                 }
 
                 @Override
                 public void onOK() {
                     //下载新版本
-                    dialog.dismiss();
                     startDownloadApk();
                 }
             });
@@ -230,7 +228,6 @@ public class UpdateManager implements DownloadApkUtil.DownloadListener {
                 @Override
                 public void onOK() {
                     //下载新版本
-                    dialog.dismiss();
                     startDownloadApk();
                 }
             });

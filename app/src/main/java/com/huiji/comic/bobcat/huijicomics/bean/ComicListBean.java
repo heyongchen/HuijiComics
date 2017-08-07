@@ -1,10 +1,12 @@
 package com.huiji.comic.bobcat.huijicomics.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by HeYongchen on 2017/7/27.
  */
 
-public class ComicListBean {
+public class ComicListBean implements Serializable {
     private String comicId;
     private String imgUrl;
     private String title;
