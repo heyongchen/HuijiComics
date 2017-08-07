@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 
+import com.huiji.comic.bobcat.huijicomics.R;
 import com.huiji.comic.bobcat.huijicomics.base.manager.AppManager;
 import com.huiji.comic.bobcat.huijicomics.base.manager.PermissionManager;
 import com.pgyersdk.crash.PgyCrashManager;
@@ -38,7 +39,7 @@ public class BaseActivity extends AppCompatActivity implements PermissionManager
         if (progressDialog == null) {
             initProgressDialog();
         }
-        progressDialog.setMessage("加载中，请稍候……");
+        progressDialog.setMessage(getString(R.string.tip_loading));
         if (!progressDialog.isShowing()) {
             progressDialog.show();
         }

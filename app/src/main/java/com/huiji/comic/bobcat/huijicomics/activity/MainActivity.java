@@ -94,7 +94,7 @@ public class MainActivity extends BaseActivity {
                 }
             }, false);
         } else if (needUpdate()) {
-            showProgressDialog("列表更新中，请稍候……");
+            showProgressDialog(getString(R.string.tip_loading_update_list));
             List<String> defaultIdList = InitComicsList.getComicIdList();
             List<String> dbIdList = new ArrayList<>();
             for (ComicListDbInfo comicListDbInfo : dbComicList) {

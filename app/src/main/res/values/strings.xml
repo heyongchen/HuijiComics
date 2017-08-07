@@ -13,6 +13,10 @@
     <!--提示语-->
     <string name="info_list_empty">没有找到异世界的传送门\n\n!!!∑(ﾟДﾟノ)ノ</string>
 
+    <!--加载进度-->
+    <string name="tip_loading">加载中，请稍候……</string>
+    <string name="tip_loading_update_list">列表更新中，请稍候……</string>
+
     <!--按钮-->
     <string name="cancel">取消</string>
     <string name="ok">确定</string>
