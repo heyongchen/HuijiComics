@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.huiji.comic.bobcat.huijicomics.MainApplication;
 import com.huiji.comic.bobcat.huijicomics.R;
@@ -149,7 +150,22 @@ public class MainActivity extends BaseActivity {
     }
 
     private boolean needUpdate() {
-        return dbComicList != null && (dbComicList.size() < InitComicsList.getComicIdList().size());
+        List<String> idList = InitComicsList.getComicIdList();
+        List<String> dbIdList = new ArrayList<>();
+        if (dbComicList != null) {
+            if (dbComicList.size() < idList.size()) {
+                return true;
+            } else {
+                for (ComicListDbInfo comicListDbInfo : dbComicList) {
+                    dbIdList.add(comicListDbInfo.getComicId());
+                }
+                idList.removeAll(dbIdList);
+                return idList.size() > 0;
+            }
+        } else {
+            Toast.makeText(this, "列表获取失败，请重新开启应用", Toast.LENGTH_SHORT).show();
+            return false;
+        }
     }
 
     private Handler mHandler = new Handler() {
