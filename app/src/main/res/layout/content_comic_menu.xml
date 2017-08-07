@@ -79,7 +79,7 @@
                     android:background="@drawable/btn_text_background"
                     android:gravity="center"
                     android:padding="@dimen/space_normal"
-                    android:text="收藏漫画"
+                    android:text="@string/info_collect_on"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/font_normal" />
 
@@ -92,7 +92,7 @@
                     android:background="@drawable/btn_text_background"
                     android:gravity="center"
                     android:padding="@dimen/space_normal"
-                    android:text="继续阅读"
+                    android:text="@string/info_start_read"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/font_normal" />
 

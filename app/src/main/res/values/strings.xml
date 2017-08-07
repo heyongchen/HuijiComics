@@ -37,4 +37,10 @@
     <string name="tip_download_error_force_update">网络断开更新失败，请稍候重新开启程序尝试更新</string>
     <string name="tip_download_error">网络断开，请稍候再试！</string>
     <string name="tip_download_success_notification">下载成功，点击安装</string>
+
+    <!--漫画章节目录-->
+    <string name="info_collect_off">取消收藏</string>
+    <string name="info_collect_on">收藏漫画</string>
+    <string name="info_start_read">开始阅读</string>
+    <string name="info_continue_read">继续阅读</string>
 </resources>

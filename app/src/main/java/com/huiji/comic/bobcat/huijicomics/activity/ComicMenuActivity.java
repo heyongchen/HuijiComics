@@ -98,19 +98,19 @@ public class ComicMenuActivity extends BaseActivity {
         });
 
         if (checkCollect()) {
-            tvComicCollect.setText("取消收藏");
+            tvComicCollect.setText(R.string.info_collect_off);
         } else {
-            tvComicCollect.setText("收藏漫画");
+            tvComicCollect.setText(R.string.info_collect_on);
         }
 
         tvComicCollect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (checkCollect()) {
-                    tvComicCollect.setText("收藏漫画");
+                    tvComicCollect.setText(R.string.info_collect_on);
                     changeCollect(String.valueOf(0));
                 } else {
-                    tvComicCollect.setText("取消收藏");
+                    tvComicCollect.setText(R.string.info_collect_off);
                     changeCollect(String.valueOf(1));
                 }
             }
@@ -234,13 +234,13 @@ public class ComicMenuActivity extends BaseActivity {
         }
         if (result != null) {
             if (result.getLastReadUrl() == null || result.getLastReadUrl().isEmpty()) {
-                tvComicContinue.setText("开始阅读");
+                tvComicContinue.setText(R.string.info_start_read);
             } else {
                 readHistory = result.getLastReadUrl().replace("smp1", "smp").replace("smp2", "smp").replace("smp3", "smp");
-                tvComicContinue.setText("继续阅读");
+                tvComicContinue.setText(R.string.info_continue_read);
             }
         } else {
-            tvComicContinue.setText("开始阅读");
+            tvComicContinue.setText(R.string.info_start_read);
         }
         if (comicMenuAdapter != null) {
             comicMenuAdapter.setReadHistory(readHistory);
