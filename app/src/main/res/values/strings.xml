@@ -16,6 +16,7 @@
     <!--加载进度-->
     <string name="tip_loading">加载中，请稍候……</string>
     <string name="tip_loading_update_list">列表更新中，请稍候……</string>
+    <string name="tip_loading_update_error">列表获取失败，请重新开启应用</string>
 
     <!--添加漫画-->
     <string name="tip_add_comic_success">添加成功，请返回首页查看</string>

@@ -163,7 +163,7 @@ public class MainActivity extends BaseActivity {
                 return idList.size() > 0;
             }
         } else {
-            Toast.makeText(this, "列表获取失败，请重新开启应用", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.tip_loading_update_error, Toast.LENGTH_SHORT).show();
             return false;
         }
     }
