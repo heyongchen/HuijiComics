@@ -78,7 +78,7 @@ public class ComicHistoryActivity extends BaseActivity {
         linearLayoutManager.scrollToPositionWithOffset(lastPosition, lastOffset);
     }
 
-    public List<ComicListBean> getComicList() {
+    private List<ComicListBean> getComicList() {
         List<ComicListBean> list = new ArrayList<>();
         List<ComicListDbInfo> result = new ArrayList<>();
         WhereBuilder b = WhereBuilder.b();

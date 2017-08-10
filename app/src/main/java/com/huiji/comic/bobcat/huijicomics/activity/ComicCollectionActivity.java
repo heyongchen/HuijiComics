@@ -15,7 +15,9 @@ import com.huiji.comic.bobcat.huijicomics.R;
 import com.huiji.comic.bobcat.huijicomics.adapter.ComicListAdapter;
 import com.huiji.comic.bobcat.huijicomics.base.BaseActivity;
 import com.huiji.comic.bobcat.huijicomics.bean.ComicListBean;
+import com.huiji.comic.bobcat.huijicomics.bean.ComicUpdateBean;
 import com.huiji.comic.bobcat.huijicomics.db.ComicListDbInfo;
+import com.huiji.comic.bobcat.huijicomics.db.ComicUpdateDbInfo;
 import com.huiji.comic.bobcat.huijicomics.utils.CharacterParser;
 import com.huiji.comic.bobcat.huijicomics.utils.PinyinComparator;
 import com.huiji.comic.bobcat.huijicomics.widget.ClearEditText;
@@ -141,6 +143,25 @@ public class ComicCollectionActivity extends BaseActivity {
         super.onResume();
         initViews();
         filterData(etFilterEdit.getText().toString());
+        comicListAdapter.setComicUpdateList(getNewList());
+    }
+
+    private List<ComicUpdateBean> getNewList() {
+        List<ComicUpdateBean> list = new ArrayList<>();
+        List<ComicUpdateDbInfo> result = new ArrayList<>();
+        WhereBuilder b = WhereBuilder.b();
+        b.and("isNew", "=", "1");
+        try {
+            result = dbManager.selector(ComicUpdateDbInfo.class).where(b).findAll();//查询
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+        if (result != null && result.size() > 0) {
+            for (ComicUpdateDbInfo comicListDbInfo : result) {
+                list.add(new ComicUpdateBean(comicListDbInfo.getComicId(), comicListDbInfo.getTitle()));
+            }
+        }
+        return list;
     }
 
     private void initViews() {
@@ -152,7 +173,7 @@ public class ComicCollectionActivity extends BaseActivity {
         linearLayoutManager.scrollToPositionWithOffset(lastPosition, lastOffset);
     }
 
-    public List<ComicListBean> getComicList() {
+    private List<ComicListBean> getComicList() {
         List<ComicListBean> list = new ArrayList<>();
         List<ComicListDbInfo> result = new ArrayList<>();
         WhereBuilder b = WhereBuilder.b();

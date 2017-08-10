@@ -14,8 +14,11 @@ import com.bumptech.glide.Glide;
 import com.huiji.comic.bobcat.huijicomics.R;
 import com.huiji.comic.bobcat.huijicomics.activity.ComicMenuActivity;
 import com.huiji.comic.bobcat.huijicomics.bean.ComicListBean;
+import com.huiji.comic.bobcat.huijicomics.bean.ComicUpdateBean;
+import com.huiji.comic.bobcat.huijicomics.utils.InitComicsList;
 import com.huiji.comic.bobcat.huijicomics.utils.IntentKey;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -30,6 +33,7 @@ public class ComicListAdapter extends RecyclerView.Adapter<ComicListAdapter.RvVi
     private Context mContext;
     private boolean mSort = false;
     private List<ComicListBean> mComicListBeanList;
+    private List<ComicUpdateBean> mComicUpdateList = new ArrayList<>();
 
     public ComicListAdapter(Context context, List<ComicListBean> comicListBeanList, boolean sort) {
         this.mContext = context;
@@ -66,6 +70,13 @@ public class ComicListAdapter extends RecyclerView.Adapter<ComicListAdapter.RvVi
                 mContext.startActivity(intent);
             }
         });
+        if (mComicUpdateList.size() > 0) {
+            if (checkNew(mComicListBeanList.get(position).getComicId())) {
+                holder.tvTipNew.setVisibility(View.VISIBLE);
+            } else {
+                holder.tvTipNew.setVisibility(View.INVISIBLE);
+            }
+        }
         if (mSort) {
             //根据position获取分类的首字母的Char ascii值
             int section = getSectionForPosition(position);
@@ -77,6 +88,20 @@ public class ComicListAdapter extends RecyclerView.Adapter<ComicListAdapter.RvVi
                 holder.llSortLetter.setVisibility(View.GONE);
             }
         }
+    }
+
+    private boolean checkNew(String comicId) {
+        for (ComicUpdateBean comicUpdateBean : mComicUpdateList) {
+            if (comicUpdateBean.getComicId().equals(comicId)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void setComicUpdateList(List<ComicUpdateBean> list) {
+        mComicUpdateList = list;
+        notifyDataSetChanged();
     }
 
     /**
@@ -120,6 +145,8 @@ public class ComicListAdapter extends RecyclerView.Adapter<ComicListAdapter.RvVi
         ImageView ivComicView;
         @BindView(R.id.tv_comic_title)
         TextView tvComicTitle;
+        @BindView(R.id.tv_tip_new)
+        TextView tvTipNew;
         @BindView(R.id.tv_comic_author)
         TextView tvComicAuthor;
         @BindView(R.id.tv_comic_msg)

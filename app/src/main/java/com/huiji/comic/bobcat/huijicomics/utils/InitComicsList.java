@@ -1,8 +1,6 @@
 package com.huiji.comic.bobcat.huijicomics.utils;
 
 import com.huiji.comic.bobcat.huijicomics.bean.ComicDataBean;
-import com.huiji.comic.bobcat.huijicomics.bean.ComicListBean;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +9,6 @@ import java.util.List;
  */
 
 public class InitComicsList {
-    private static List<ComicListBean> comicListBeanList = null;
     private static List<String> comicIdList = null;
     private static List<ComicDataBean> comicDataBeanList = null;
 
@@ -24,13 +21,6 @@ public class InitComicsList {
         comicDataBeanList = mComicDataBeanList;
     }
 
-    public static void clearComicListBeanList() {
-        if (comicListBeanList == null) {
-            comicListBeanList = new ArrayList<>();
-        }
-        comicListBeanList.clear();
-    }
-
     public static void clearComicDataBeanList() {
         if (comicDataBeanList == null) {
             comicDataBeanList = new ArrayList<>();
@@ -38,20 +28,12 @@ public class InitComicsList {
         comicDataBeanList.clear();
     }
 
-    public static List<ComicListBean> getComicListBeanList() {
-        if (comicListBeanList == null) {
-            comicListBeanList = new ArrayList<>();
+    public static List<ComicDataBean> getComicDataBeanList() {
+        if (comicDataBeanList == null) {
+            comicDataBeanList = new ArrayList<>();
         }
-        return comicListBeanList;
+        return comicDataBeanList;
     }
-
-    public static void addComicListBeanList(ComicListBean comicListBean) {
-        if (comicListBeanList == null) {
-            comicListBeanList = new ArrayList<>();
-        }
-        comicListBeanList.add(comicListBean);
-    }
-
     public static List<String> getComicIdList() {
         if (comicIdList == null) {
             comicIdList = new ArrayList<>();
@@ -59,13 +41,6 @@ public class InitComicsList {
         comicIdList.clear();
         initComicIdList();
         return comicIdList;
-    }
-
-    public static List<ComicDataBean> getComicDataBeanList() {
-        if (comicDataBeanList == null) {
-            comicDataBeanList = new ArrayList<>();
-        }
-        return comicDataBeanList;
     }
 
     private static void initComicIdList() {

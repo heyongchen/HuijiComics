@@ -5,13 +5,17 @@ import android.util.Log;
 import com.huiji.comic.bobcat.huijicomics.MainApplication;
 import com.huiji.comic.bobcat.huijicomics.bean.ComicDataBean;
 import com.huiji.comic.bobcat.huijicomics.bean.ComicListBean;
+import com.huiji.comic.bobcat.huijicomics.bean.ComicUpdateBean;
 import com.huiji.comic.bobcat.huijicomics.db.ComicListDbInfo;
+import com.huiji.comic.bobcat.huijicomics.db.ComicUpdateDbInfo;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.xutils.DbManager;
+import org.xutils.common.util.KeyValue;
+import org.xutils.db.sqlite.WhereBuilder;
 import org.xutils.ex.DbException;
 import org.xutils.x;
 
@@ -92,7 +96,7 @@ public class UrlUtils {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                InitComicsList.clearComicListBeanList();
+                InitComicsList.clearComicDataBeanList();
                 Document doc = null;
                 try {
                     doc = Jsoup.connect(C.getComicMenuUrl(comicId)).get();
@@ -118,6 +122,67 @@ public class UrlUtils {
     }
 
     public interface RequestDataListener {
+        void ok();
+    }
+
+    public static void checkUpdateList(final List<ComicUpdateBean> comicIdList, final CheckUpdateListener checkUpdateListener) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (ComicUpdateBean comicUpdateBean : comicIdList) {
+                    Document doc = null;
+                    try {
+                        doc = Jsoup.connect(C.getComicMenuUrl(comicUpdateBean.getComicId())).get();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    if (doc != null) {
+                        Elements links = doc.select("a[href]");
+                        int comicNum = links.size();
+                        if (checkUpdate(comicUpdateBean.getComicId(), comicNum) == 1) {
+                            changeNew(comicUpdateBean.getComicId());
+                        }
+                    }
+                }
+                if (checkUpdateListener != null) {
+                    checkUpdateListener.ok();
+                }
+            }
+        }).start();
+    }
+
+    private static int checkUpdate(String comicId, int comicNum) {
+        ComicListDbInfo result = null;
+        WhereBuilder b = WhereBuilder.b();
+        b.and("comicId", "=", comicId);
+        try {
+            result = dbManager.selector(ComicListDbInfo.class).where(b).findFirst();//查询
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+        if (result != null) {
+            if (result.getMenuNum() < comicNum) {
+                return 1;
+            } else {
+                return 0;
+            }
+        } else {
+            return 0;
+        }
+    }
+
+    private static void changeNew(String comicId) {
+        WhereBuilder b = WhereBuilder.b();
+        b.and("comicId", "=", comicId);//条件
+        KeyValue isNew = new KeyValue("isNew", "1");
+        try {
+            dbManager.update(ComicUpdateDbInfo.class, b, isNew);
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public interface CheckUpdateListener {
         void ok();
     }
 

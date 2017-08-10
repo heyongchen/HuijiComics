@@ -1,5 +1,9 @@
 package com.huiji.comic.bobcat.huijicomics.activity;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,8 +25,11 @@ import com.huiji.comic.bobcat.huijicomics.R;
 import com.huiji.comic.bobcat.huijicomics.adapter.ComicListAdapter;
 import com.huiji.comic.bobcat.huijicomics.base.BaseActivity;
 import com.huiji.comic.bobcat.huijicomics.bean.ComicListBean;
+import com.huiji.comic.bobcat.huijicomics.bean.ComicUpdateBean;
 import com.huiji.comic.bobcat.huijicomics.db.ComicListDbInfo;
+import com.huiji.comic.bobcat.huijicomics.db.ComicUpdateDbInfo;
 import com.huiji.comic.bobcat.huijicomics.utils.AppExit2Back;
+import com.huiji.comic.bobcat.huijicomics.utils.AppUtils;
 import com.huiji.comic.bobcat.huijicomics.utils.C;
 import com.huiji.comic.bobcat.huijicomics.utils.CharacterParser;
 import com.huiji.comic.bobcat.huijicomics.utils.InitComicsList;
@@ -42,6 +49,7 @@ import org.xutils.x;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -67,6 +75,8 @@ public class MainActivity extends BaseActivity {
     private ComicListAdapter comicListAdapter;
     private CharacterParser characterParser;
     private PinyinComparator pinyinComparator;
+
+    private final int NOTIFICATION_ID = 101;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,6 +136,71 @@ public class MainActivity extends BaseActivity {
 
     }
 
+    private void checkNew() {
+        List<ComicUpdateBean> collectionList = getCollectionComicList();
+        int updateNum = getNewComicList().size();
+        if (collectionList.size() > 0) {
+            if (collectionList.size() != updateNum) {
+                try {
+                    dbManager.delete(ComicUpdateDbInfo.class);
+                } catch (DbException e) {
+                    e.printStackTrace();
+                }
+                List<ComicUpdateDbInfo> comicUpdateDbInfoList = new ArrayList<>();
+                for (ComicUpdateBean comicUpdateBean : collectionList) {
+                    comicUpdateDbInfoList.add(new ComicUpdateDbInfo(comicUpdateBean.getComicId(), comicUpdateBean.getComicTitle(), 0));
+                }
+                try {
+                    dbManager.save(comicUpdateDbInfoList);
+                } catch (DbException e) {
+                    e.printStackTrace();
+                }
+            }
+            UrlUtils.checkUpdateList(collectionList, new UrlUtils.CheckUpdateListener() {
+                @Override
+                public void ok() {
+                    Message message = new Message();
+                    message.what = 9;
+                    mHandler.sendMessage(message);
+                }
+            });
+        }
+    }
+
+    private List<String> getNewComicList() {
+        List<String> list = new ArrayList<>();
+        List<ComicUpdateDbInfo> result = new ArrayList<>();
+        try {
+            result = dbManager.findAll(ComicUpdateDbInfo.class);//查询
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+        if (result != null && result.size() > 0) {
+            for (ComicUpdateDbInfo comicListDbInfo : result) {
+                list.add(comicListDbInfo.getComicId());
+            }
+        }
+        return list;
+    }
+
+    private List<ComicUpdateBean> getCollectionComicList() {
+        List<ComicUpdateBean> list = new ArrayList<>();
+        List<ComicListDbInfo> result = new ArrayList<>();
+        WhereBuilder b = WhereBuilder.b();
+        b.and("isCollect", "=", "1");
+        try {
+            result = dbManager.selector(ComicListDbInfo.class).where(b).findAll();//查询
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+        if (result != null && result.size() > 0) {
+            for (ComicListDbInfo comicListDbInfo : result) {
+                list.add(new ComicUpdateBean(comicListDbInfo.getComicId(), comicListDbInfo.getTitle()));
+            }
+        }
+        return list;
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -175,10 +250,58 @@ public class MainActivity extends BaseActivity {
                 case 1:
                     initViews();
                     dismissProgressDialog();
+                    checkNew();
+                    break;
+                case 9:
+                    try {
+                        String notificationMsg = "";
+                        List<ComicUpdateBean> list = getNewList();
+                        if (list.size() > 0) {
+                            if (list.size() == 1) {
+                                notificationMsg = "【" + list.get(0).getComicTitle() + "】更新了！点击查看";
+                            } else {
+                                notificationMsg = "收藏中" + list.size() + "部漫画有更新，点击查看";
+                            }
+                            Intent intent = new Intent(MainActivity.this, ComicCollectionActivity.class);
+                            Random random = new Random();
+                            PendingIntent contentIntent = PendingIntent.getActivity(MainActivity.this, random.nextInt(),
+                                    intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                            Notification.Builder builder = new Notification.Builder(MainActivity.this);
+                            builder.setSmallIcon(R.drawable.icon)
+                                    .setWhen(System.currentTimeMillis())
+                                    .setContentTitle(AppUtils.getAppName())
+                                    .setContentText(notificationMsg)
+                                    .setContentIntent(contentIntent)
+                                    .setAutoCancel(true);
+                            Notification notification = builder.build();
+                            NotificationManager manager = (NotificationManager) MainActivity.this.getSystemService(Context.NOTIFICATION_SERVICE);
+                            manager.notify(NOTIFICATION_ID, notification);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     break;
             }
         }
     };
+
+    private List<ComicUpdateBean> getNewList() {
+        List<ComicUpdateBean> list = new ArrayList<>();
+        List<ComicUpdateDbInfo> result = new ArrayList<>();
+        WhereBuilder b = WhereBuilder.b();
+        b.and("isNew", "=", "1");
+        try {
+            result = dbManager.selector(ComicUpdateDbInfo.class).where(b).findAll();//查询
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+        if (result != null && result.size() > 0) {
+            for (ComicUpdateDbInfo comicListDbInfo : result) {
+                list.add(new ComicUpdateBean(comicListDbInfo.getComicId(), comicListDbInfo.getTitle()));
+            }
+        }
+        return list;
+    }
 
     private void initViews() {
         characterParser = CharacterParser.getInstance();
@@ -308,7 +431,7 @@ public class MainActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public boolean isGetList() {
+    private boolean isGetList() {
         try {
             dbComicList = dbManager.findAll(ComicListDbInfo.class);
         } catch (DbException e) {
@@ -320,7 +443,7 @@ public class MainActivity extends BaseActivity {
         return dbComicList.size() > 0;
     }
 
-    public List<ComicListBean> getComicList() {
+    private List<ComicListBean> getComicList() {
         List<ComicListBean> list = new ArrayList<>();
         try {
             dbComicList = dbManager.findAll(ComicListDbInfo.class);
