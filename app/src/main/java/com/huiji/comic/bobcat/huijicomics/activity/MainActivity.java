@@ -258,9 +258,9 @@ public class MainActivity extends BaseActivity {
                         List<ComicUpdateBean> list = getNewList();
                         if (list.size() > 0) {
                             if (list.size() == 1) {
-                                notificationMsg = "【" + list.get(0).getComicTitle() + "】更新了！点击查看";
+                                notificationMsg = String.format(getString(R.string.tip_notification_new_one), list.get(0).getComicTitle());
                             } else {
-                                notificationMsg = "收藏中" + list.size() + "部漫画有更新，点击查看";
+                                notificationMsg = String.format(getString(R.string.tip_notification_new_more), list.size());
                             }
                             Intent intent = new Intent(MainActivity.this, ComicCollectionActivity.class);
                             Random random = new Random();
