@@ -1,24 +1,16 @@
 package com.huiji.comic.bobcat.huijicomics.activity;
 
-import android.Manifest;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.huiji.comic.bobcat.huijicomics.R;
 import com.huiji.comic.bobcat.huijicomics.base.BaseActivity;
-import com.huiji.comic.bobcat.huijicomics.base.manager.PermissionManager;
 import com.huiji.comic.bobcat.huijicomics.utils.AppUtils;
 import com.huiji.comic.bobcat.huijicomics.utils.updateUtil.UpdateUtil;
-import com.pgyersdk.javabean.AppBean;
-import com.pgyersdk.update.PgyUpdateManager;
-import com.pgyersdk.update.UpdateManagerListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
