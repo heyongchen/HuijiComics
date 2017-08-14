@@ -9,6 +9,7 @@ import com.pgyersdk.crash.PgyCrashManager;
 
 import org.xutils.DbManager;
 import org.xutils.db.table.TableEntity;
+import org.xutils.ex.DbException;
 import org.xutils.x;
 
 /**
@@ -34,6 +35,8 @@ public class MainApplication extends Application {
                 daoConfig = new DbManager.DaoConfig()
                         //设置数据库名，默认xutils.db
                         .setDbName("Huiji.db")
+                        //设置数据库路径，默认存储在app的私有目录
+//                        .setDbDir(new File("/mnt/sdcard/"))
                         //设置数据库的版本号
                         .setDbVersion(C.DATABASE_VERSION)
                         //设置数据库打开的监听
@@ -48,6 +51,13 @@ public class MainApplication extends Application {
                         .setDbUpgradeListener(new DbManager.DbUpgradeListener() {
                             @Override
                             public void onUpgrade(DbManager db, int oldVersion, int newVersion) {
+                                if (oldVersion < newVersion) {
+                                    try {
+                                        db.dropDb();
+                                    } catch (DbException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
                             }
                         })
                         //设置表创建的监听

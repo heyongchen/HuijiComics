@@ -9,12 +9,8 @@ import android.widget.TextView;
 import com.huiji.comic.bobcat.huijicomics.MainApplication;
 import com.huiji.comic.bobcat.huijicomics.R;
 import com.huiji.comic.bobcat.huijicomics.base.BaseActivity;
-import com.huiji.comic.bobcat.huijicomics.utils.C;
-import com.huiji.comic.bobcat.huijicomics.utils.SPHelper;
-import com.huiji.comic.bobcat.huijicomics.utils.SpKey;
 
 import org.xutils.DbManager;
-import org.xutils.ex.DbException;
 import org.xutils.x;
 
 import butterknife.BindView;
@@ -51,15 +47,6 @@ public class LauncherActivity extends BaseActivity {
                 finish();
             }
         });
-
-        if (SPHelper.get().get(SpKey.DATABASE_VERSION, 1) < C.DATABASE_VERSION) {
-            try {
-                dbManager.dropDb();
-            } catch (DbException e) {
-                e.printStackTrace();
-            }
-            SPHelper.get().put(SpKey.DATABASE_VERSION, C.DATABASE_VERSION);
-        }
 
         handler.postDelayed(runnable, 2000);
     }

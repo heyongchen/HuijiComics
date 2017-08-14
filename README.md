@@ -5,6 +5,7 @@
 # 目录
 - [应用介绍](#应用介绍)
 - [更新日志](#更新日志)
+  - [0.9.1](#091-build-10-2017-08-12)
   - [0.9.0](#090-build-9-2017-08-07)
   - [0.8.5](#085-build-8-2017-08-05)
   - [0.8.4](#084-build-7-2017-08-04)
@@ -22,6 +23,9 @@
 本APP为个人开发，内容为灰机汉化组已汉化漫画的浏览及收藏。
 
 # 更新日志
+
+## 0.9.1 (build 10) 2017-08-12
+增加更新提醒功能（仅限已收藏漫画）
 
 ## 0.9.0 (build 9) 2017-08-07
 1、漫画简介可点击展开；  
@@ -65,6 +69,8 @@
 
 [蒲公英](https://www.pgyer.com/Y0sz)
 
-![APP CODE](https://www.pgyer.com/app/qrcode/Y0sz)
+[百度网盘](http://pan.baidu.com/s/1gf6ChRd) 密码：hs0j
+
+[![CODE](https://www.pgyer.com/app/qrcode/Y0sz)](https://www.pgyer.com/Y0sz)
 
 
