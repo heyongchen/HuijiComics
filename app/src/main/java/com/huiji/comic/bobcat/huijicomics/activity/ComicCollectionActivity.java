@@ -142,8 +142,8 @@ public class ComicCollectionActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         initViews();
-        filterData(etFilterEdit.getText().toString());
         comicListAdapter.setComicUpdateList(getNewList());
+        filterData(etFilterEdit.getText().toString());
     }
 
     private List<ComicUpdateBean> getNewList() {
