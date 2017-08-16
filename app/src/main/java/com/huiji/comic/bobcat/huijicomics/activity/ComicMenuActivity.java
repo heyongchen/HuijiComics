@@ -29,6 +29,7 @@ import com.huiji.comic.bobcat.huijicomics.utils.IntentKey;
 import com.huiji.comic.bobcat.huijicomics.utils.UrlUtils;
 import com.huiji.comic.bobcat.huijicomics.widget.AddComicDialog;
 import com.huiji.comic.bobcat.huijicomics.widget.ConfirmDialog;
+import com.huiji.comic.bobcat.huijicomics.widget.ImageShowDialog;
 
 import org.xutils.DbManager;
 import org.xutils.common.util.KeyValue;
@@ -90,6 +91,13 @@ public class ComicMenuActivity extends BaseActivity {
         Glide.with(this)
                 .load(getIntent().getStringExtra(IntentKey.COMIC_IMG))
                 .into(ivComicView);
+        ivComicView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ImageShowDialog dialog = new ImageShowDialog(ComicMenuActivity.this, getIntent().getStringExtra(IntentKey.COMIC_IMG));
+                dialog.show();
+            }
+        });
         tvComicTitle.setText(getIntent().getStringExtra(IntentKey.COMIC_TITLE));
         tvComicAuthor.setText(getIntent().getStringExtra(IntentKey.COMIC_AUTHOR));
         tvComicMsg.setText(getIntent().getStringExtra(IntentKey.COMIC_MSG));

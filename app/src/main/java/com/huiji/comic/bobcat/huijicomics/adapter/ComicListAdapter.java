@@ -17,6 +17,7 @@ import com.huiji.comic.bobcat.huijicomics.bean.ComicListBean;
 import com.huiji.comic.bobcat.huijicomics.bean.ComicUpdateBean;
 import com.huiji.comic.bobcat.huijicomics.utils.InitComicsList;
 import com.huiji.comic.bobcat.huijicomics.utils.IntentKey;
+import com.huiji.comic.bobcat.huijicomics.widget.ImageShowDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +55,13 @@ public class ComicListAdapter extends RecyclerView.Adapter<ComicListAdapter.RvVi
             Glide.with(mContext)
                     .load(mComicListBeanList.get(position).getImgUrl())
                     .into(holder.ivComicView);
+            holder.ivComicView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ImageShowDialog dialog = new ImageShowDialog(mContext, mComicListBeanList.get(position).getImgUrl());
+                    dialog.show();
+                }
+            });
         }
         holder.tvComicTitle.setText(mComicListBeanList.get(position).getTitle() != null ? mComicListBeanList.get(position).getTitle() : "");
         holder.tvComicAuthor.setText(mComicListBeanList.get(position).getAuthor() != null ? mComicListBeanList.get(position).getAuthor() : "");
