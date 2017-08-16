@@ -58,4 +58,10 @@
     <string name="info_collect_on">收藏漫画</string>
     <string name="info_start_read">开始阅读</string>
     <string name="info_continue_read">继续阅读</string>
+
+    <!--删除漫画-->
+    <string name="tip_comic_delete_success">漫画删除成功</string>
+    <string name="delete_ok">确认删除</string>
+    <string name="info_delete_comic">删除漫画</string>
+    <string name="info_delete_comic_msg">确认删除漫画【%s】？</string>
 </resources>

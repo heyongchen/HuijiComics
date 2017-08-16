@@ -8,20 +8,27 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.huiji.comic.bobcat.huijicomics.MainApplication;
 import com.huiji.comic.bobcat.huijicomics.R;
 import com.huiji.comic.bobcat.huijicomics.adapter.ComicMenuAdapter;
 import com.huiji.comic.bobcat.huijicomics.base.BaseActivity;
+import com.huiji.comic.bobcat.huijicomics.bean.ComicListBean;
 import com.huiji.comic.bobcat.huijicomics.db.ComicListDbInfo;
 import com.huiji.comic.bobcat.huijicomics.db.ComicUpdateDbInfo;
+import com.huiji.comic.bobcat.huijicomics.utils.C;
 import com.huiji.comic.bobcat.huijicomics.utils.InitComicsList;
 import com.huiji.comic.bobcat.huijicomics.utils.IntentKey;
 import com.huiji.comic.bobcat.huijicomics.utils.UrlUtils;
+import com.huiji.comic.bobcat.huijicomics.widget.AddComicDialog;
+import com.huiji.comic.bobcat.huijicomics.widget.ConfirmDialog;
 
 import org.xutils.DbManager;
 import org.xutils.common.util.KeyValue;
@@ -152,6 +159,56 @@ public class ComicMenuActivity extends BaseActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_comic_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_delete) {
+            ConfirmDialog dialog = new ConfirmDialog(this);
+            dialog.setTitle(getString(R.string.info_delete_comic));
+            dialog.setMessage(String.format(getString(R.string.info_delete_comic_msg), comicTitle));
+            dialog.setButtonCancelText(getString(R.string.cancel));
+            dialog.setButtonOKText(getString(R.string.delete_ok));
+            dialog.setOnConfirmListener(new ConfirmDialog.OnConfirmListener() {
+                @Override
+                public void onCancel() {
+                }
+
+                @Override
+                public void onOK() {
+                    deleteComic();
+                }
+            });
+            dialog.show();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void deleteComic() {
+        WhereBuilder b = WhereBuilder.b();
+        b.and("comicId", "=", comicId);//条件
+        try {
+            dbManager.delete(ComicUpdateDbInfo.class, b);
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+        try {
+            dbManager.delete(ComicListDbInfo.class, b);
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+        C.hasNewComic = true;
+        Toast.makeText(this, R.string.tip_comic_delete_success, Toast.LENGTH_SHORT).show();
+        finish();
     }
 
     private void addOrRemoveUpdate(int update) {

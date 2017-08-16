@@ -77,7 +77,7 @@ public class DownloadApkUtil {
                         installAPK();//安装apk
                         return;
                     }
-                    apkLength = df.format((float) length / 1000000);//apk安装包总量，单位M
+                    apkLength = df.format((float) length / 1024 / 1024);//apk安装包总量，单位M
                     InputStream is = conn.getInputStream();
 
                     File file = new File(savePath);
@@ -92,7 +92,7 @@ public class DownloadApkUtil {
                     do {
                         int numread = is.read(buf);
                         count += numread;
-                        currentLength = df.format((float) count / 1000000);//apk当前已下载量，单位M
+                        currentLength = df.format((float) count / 1024 / 1024);//apk当前已下载量，单位M
                         progress = (int) (((float) count / length) * 100);//更新进度
                         handler.sendEmptyMessage(UPDATE_DOWNLOADING);
 

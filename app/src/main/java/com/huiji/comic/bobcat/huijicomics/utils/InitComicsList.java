@@ -66,6 +66,7 @@ public class InitComicsList {
         //G
         comicIdList.add(String.valueOf(1001275));
         comicIdList.add(String.valueOf(1001678));
+        comicIdList.add(String.valueOf(1002248));
         //H
         comicIdList.add(String.valueOf(1002186));
         comicIdList.add(String.valueOf(1001214));
