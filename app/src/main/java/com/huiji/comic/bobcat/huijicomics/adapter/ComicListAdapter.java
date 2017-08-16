@@ -15,7 +15,6 @@ import com.huiji.comic.bobcat.huijicomics.R;
 import com.huiji.comic.bobcat.huijicomics.activity.ComicMenuActivity;
 import com.huiji.comic.bobcat.huijicomics.bean.ComicListBean;
 import com.huiji.comic.bobcat.huijicomics.bean.ComicUpdateBean;
-import com.huiji.comic.bobcat.huijicomics.utils.InitComicsList;
 import com.huiji.comic.bobcat.huijicomics.utils.IntentKey;
 import com.huiji.comic.bobcat.huijicomics.widget.ImageShowDialog;
 

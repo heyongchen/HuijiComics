@@ -20,14 +20,12 @@ import com.huiji.comic.bobcat.huijicomics.MainApplication;
 import com.huiji.comic.bobcat.huijicomics.R;
 import com.huiji.comic.bobcat.huijicomics.adapter.ComicMenuAdapter;
 import com.huiji.comic.bobcat.huijicomics.base.BaseActivity;
-import com.huiji.comic.bobcat.huijicomics.bean.ComicListBean;
 import com.huiji.comic.bobcat.huijicomics.db.ComicListDbInfo;
 import com.huiji.comic.bobcat.huijicomics.db.ComicUpdateDbInfo;
 import com.huiji.comic.bobcat.huijicomics.utils.C;
 import com.huiji.comic.bobcat.huijicomics.utils.InitComicsList;
 import com.huiji.comic.bobcat.huijicomics.utils.IntentKey;
 import com.huiji.comic.bobcat.huijicomics.utils.UrlUtils;
-import com.huiji.comic.bobcat.huijicomics.widget.AddComicDialog;
 import com.huiji.comic.bobcat.huijicomics.widget.ConfirmDialog;
 import com.huiji.comic.bobcat.huijicomics.widget.ImageShowDialog;
 
