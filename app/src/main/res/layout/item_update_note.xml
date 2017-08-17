@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/space_normal">
+
+    <TextView
+        android:id="@+id/tv_update_note_version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="v0.0.0"
+        android:textColor="@color/text_1"
+        android:textSize="@dimen/font_title" />
+
+    <TextView
+        android:id="@+id/tv_update_note_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_normal"
+        android:text="更新说明"
+        android:textColor="@color/text_2"
+        android:textSize="@dimen/font_normal" />
+
+</LinearLayout>

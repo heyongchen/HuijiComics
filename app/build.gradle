@@ -16,8 +16,8 @@ android {
         applicationId "com.huiji.comic.bobcat.huijicomics"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 26
-        versionName "0.9.6"
+        versionCode 28
+        versionName "0.9.7"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -25,7 +25,7 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-        debug{
+        debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
