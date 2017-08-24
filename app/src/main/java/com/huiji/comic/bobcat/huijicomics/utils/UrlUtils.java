@@ -60,8 +60,8 @@ public class UrlUtils {
                             Element msgDiv = doc.select("div.am-u-sm-8").first();
 
                             String imgUrl = "";
-                            String title = titleOrAuthor.get(0).text();
-                            String author = titleOrAuthor.get(1).text();
+                            String title = titleOrAuthor.get(0).text().trim();
+                            String author = titleOrAuthor.get(1).text().trim();
                             String msg = msgDiv.text().replace(title, "").replace(author, "").replaceAll(" ", "").trim();
 
                             print("\nMedia: (%d)", media.size());
