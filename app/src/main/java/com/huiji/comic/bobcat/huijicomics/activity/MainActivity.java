@@ -38,7 +38,6 @@ import com.huiji.comic.bobcat.huijicomics.utils.UrlUtils;
 import com.huiji.comic.bobcat.huijicomics.utils.updateUtil.UpdateUtil;
 import com.huiji.comic.bobcat.huijicomics.widget.ClearEditText;
 import com.huiji.comic.bobcat.huijicomics.widget.SideBar;
-import com.pgyersdk.crash.PgyCrashManager;
 import com.pgyersdk.update.PgyUpdateManager;
 
 import org.xutils.DbManager;
@@ -435,7 +434,7 @@ public class MainActivity extends BaseActivity {
         try {
             dbComicList = dbManager.findAll(ComicListDbInfo.class);
         } catch (DbException e) {
-            PgyCrashManager.reportCaughtException(MainActivity.this, e);
+            e.printStackTrace();
         }
         if (dbComicList == null) {
             dbComicList = new ArrayList<>();
@@ -448,7 +447,7 @@ public class MainActivity extends BaseActivity {
         try {
             dbComicList = dbManager.findAll(ComicListDbInfo.class);
         } catch (DbException e) {
-            PgyCrashManager.reportCaughtException(MainActivity.this, e);
+            e.printStackTrace();
         }
         if (dbComicList != null && dbComicList.size() > 0) {
             for (ComicListDbInfo comicListDbInfo : dbComicList) {

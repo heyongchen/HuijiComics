@@ -13,7 +13,6 @@ import android.support.v4.content.FileProvider;
 
 import com.huiji.comic.bobcat.huijicomics.R;
 import com.huiji.comic.bobcat.huijicomics.utils.AppUtils;
-import com.pgyersdk.crash.PgyCrashManager;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -109,7 +108,7 @@ public class DownloadApkUtil {
                     is.close();
                 } catch (Exception e) {
                     handler.sendEmptyMessage(UPDATE_DOWNLOAD_FAILED);
-                    PgyCrashManager.reportCaughtException(context, e);
+                    e.printStackTrace();
                 }
             }
         }).start();

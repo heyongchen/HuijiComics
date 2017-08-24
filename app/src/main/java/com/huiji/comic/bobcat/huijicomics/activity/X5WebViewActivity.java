@@ -20,7 +20,6 @@ import com.huiji.comic.bobcat.huijicomics.R;
 import com.huiji.comic.bobcat.huijicomics.base.BaseActivity;
 import com.huiji.comic.bobcat.huijicomics.db.ComicListDbInfo;
 import com.huiji.comic.bobcat.huijicomics.utils.IntentKey;
-import com.pgyersdk.crash.PgyCrashManager;
 
 import org.xutils.DbManager;
 import org.xutils.common.util.KeyValue;
@@ -61,7 +60,7 @@ public class X5WebViewActivity extends BaseActivity {
                 window.setStatusBarColor(ContextCompat.getColor(this, R.color.black));
             }
         } catch (Exception e) {
-            PgyCrashManager.reportCaughtException(this, e);
+            e.printStackTrace();
         }
         setContentView(R.layout.activity_x5_web_view);
         ButterKnife.bind(this);

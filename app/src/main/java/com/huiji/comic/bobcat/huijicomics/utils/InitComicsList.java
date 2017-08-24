@@ -35,6 +35,7 @@ public class InitComicsList {
         }
         return comicDataBeanList;
     }
+
     public static List<String> getComicIdList() {
         if (comicIdList == null) {
             comicIdList = new ArrayList<>();
