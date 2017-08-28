@@ -12,11 +12,8 @@ import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-import com.huiji.comic.bobcat.huijicomics.MainApplication;
 import com.huiji.comic.bobcat.huijicomics.R;
 import com.huiji.comic.bobcat.huijicomics.utils.DisplayUtil;
-import com.huiji.comic.bobcat.huijicomics.utils.SPHelper;
-import com.huiji.comic.bobcat.huijicomics.utils.SpKey;
 
 /**
  * 通用确认对话框
@@ -124,17 +121,6 @@ public class ConfirmDialog extends Dialog {
         if (!TextUtils.isEmpty(message)) {
             tv_message.setText(message);
         }
-        return this;
-    }
-
-    /**
-     * 设置内容对齐方式
-     *
-     * @param gravity
-     * @return
-     */
-    public ConfirmDialog setMessageAlignment(int gravity) {
-        tv_message.setGravity(gravity);
         return this;
     }
 
