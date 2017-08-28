@@ -5,6 +5,7 @@
 # 目录
 - [应用介绍](#应用介绍)
   - [基本功能](#基本功能)
+  - [效果图](#效果图)
 - [更新日志](#更新日志)
   - [0.9.5](#095-2017-08-16)
   - [0.9.1](#091-2017-08-12)
@@ -27,6 +28,10 @@
 4、漫画删除功能；  
 5、已收藏漫画更新提醒功能；  
 6、漫画检索功能；
+
+## 效果图
+![1](https://o1whyeemo.qnssl.com/image/view/app_screenshots/51c66ea5f3418ee17875bcbfd465daa6/528)
+![2](https://o1whyeemo.qnssl.com/image/view/app_screenshots/6847e7d7209173ecf3b130ef7f7f64a3/528)
 
 # 更新日志
 
