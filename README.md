@@ -18,7 +18,7 @@
 
 个人APP，仅供学习交流使用。  
 本APP为个人开发，内容为灰机汉化组已汉化漫画的浏览及收藏。  
-注：支持漫画网址为【http://smp.yoedge.com/view/omnibus/漫画ID】
+注：支持漫画网址为：http://smp.yoedge.com/view/omnibus/漫画ID
 
 ## 基本功能
 1、灰机汉化组漫画收录；  
