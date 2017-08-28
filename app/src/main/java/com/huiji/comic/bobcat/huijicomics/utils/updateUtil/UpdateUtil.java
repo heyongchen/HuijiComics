@@ -7,6 +7,8 @@ import android.widget.Toast;
 import com.huiji.comic.bobcat.huijicomics.R;
 import com.huiji.comic.bobcat.huijicomics.base.manager.PermissionManager;
 import com.huiji.comic.bobcat.huijicomics.utils.AppUtils;
+import com.huiji.comic.bobcat.huijicomics.utils.SPHelper;
+import com.huiji.comic.bobcat.huijicomics.utils.SpKey;
 import com.pgyersdk.javabean.AppBean;
 import com.pgyersdk.update.PgyUpdateManager;
 import com.pgyersdk.update.UpdateManagerListener;
@@ -28,41 +30,42 @@ public class UpdateUtil {
             public void onUpdateAvailable(final String result) {
                 // 将新版本信息封装到AppBean中
                 final AppBean appBean = getAppBeanFromString(result);
+                if (tip || !appBean.getVersionCode().equals(SPHelper.get().get(SpKey.IGNORE_VERSION, ""))) {
+                    PermissionManager.OnBaseCallback callback = (PermissionManager.OnBaseCallback) context;
+                    final String apkName = AppUtils.getAppName() + "_V" + appBean.getVersionName();
+                    //标题
+                    final String title = context.getString(R.string.tip_update_title);
+                    //提示内容
+                    final String message = appBean.getReleaseNote();
+                    //取消按钮文本
+                    final String buttonCancel = context.getString(R.string.tip_update_next_time);
+                    //确定按钮文本
+                    final String buttonOk = context.getString(R.string.tip_update_now);
 
-                PermissionManager.OnBaseCallback callback = (PermissionManager.OnBaseCallback) context;
-                final String apkName = AppUtils.getAppName() + "_V" + appBean.getVersionName();
-                //标题
-                final String title = context.getString(R.string.tip_update_title);
-                //提示内容
-                final String message = appBean.getReleaseNote();
-                //取消按钮文本
-                final String buttonCancel = context.getString(R.string.tip_update_next_time);
-                //确定按钮文本
-                final String buttonOk = context.getString(R.string.tip_update_now);
+                    PermissionManager.requestPermission(callback, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, new PermissionManager.OnPermissionCallback() {
+                        @Override
+                        public void onGranted() {
+                            //开始下载
+                            new UpdateManager(context, appBean.getVersionCode(), false, appBean.getDownloadURL(), apkName, title, message, buttonCancel, buttonOk,
+                                    new UpdateManager.UpdateAppResultListener() {
+                                        @Override
+                                        public void updateToNext() {
+                                            UpdateManagerListener.updateLocalBuildNumber(result);
+                                        }
 
-                PermissionManager.requestPermission(callback, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, new PermissionManager.OnPermissionCallback() {
-                    @Override
-                    public void onGranted() {
-                        //开始下载
-                        new UpdateManager(context, false, appBean.getDownloadURL(), apkName, title, message, buttonCancel, buttonOk,
-                                new UpdateManager.UpdateAppResultListener() {
-                                    @Override
-                                    public void updateToNext() {
-                                        UpdateManagerListener.updateLocalBuildNumber(result);
-                                    }
+                                        @Override
+                                        public void updateFailed(boolean forceUpdate) {
 
-                                    @Override
-                                    public void updateFailed(boolean forceUpdate) {
+                                        }
+                                    });
+                        }
 
-                                    }
-                                });
-                    }
-
-                    @Override
-                    public void onDenied() {
-                        PermissionManager.showAdvice(context);
-                    }
-                });
+                        @Override
+                        public void onDenied() {
+                            PermissionManager.showAdvice(context);
+                        }
+                    });
+                }
             }
 
             @Override

@@ -10,6 +10,8 @@ import android.support.v7.app.AlertDialog;
 import com.huiji.comic.bobcat.huijicomics.R;
 import com.huiji.comic.bobcat.huijicomics.utils.AppUtils;
 import com.huiji.comic.bobcat.huijicomics.utils.PathUtil;
+import com.huiji.comic.bobcat.huijicomics.utils.SPHelper;
+import com.huiji.comic.bobcat.huijicomics.utils.SpKey;
 import com.huiji.comic.bobcat.huijicomics.widget.ConfirmDialog;
 import com.huiji.comic.bobcat.huijicomics.widget.DownloadProgressDialog;
 import com.huiji.comic.bobcat.huijicomics.widget.TipDialog;
@@ -34,7 +36,7 @@ public class UpdateManager implements DownloadApkUtil.DownloadListener {
     /**
      * 构造函数
      */
-    public UpdateManager(Context context, boolean forceUpdate, @NonNull String apkUrl, @NonNull String apkName,
+    public UpdateManager(Context context, String versionCode, boolean forceUpdate, @NonNull String apkUrl, @NonNull String apkName,
                          @NonNull String updateTitle, @NonNull String updateDescription,
                          @NonNull String buttonCancel, @NonNull String buttonOk, UpdateAppResultListener listener) {
         mContext = context;
@@ -48,7 +50,7 @@ public class UpdateManager implements DownloadApkUtil.DownloadListener {
 
         downloadApkUtil = new DownloadApkUtil(mContext, this, apkUrl, savePath, saveFileName);
         //弹框下载
-        showNoticeDialog(updateTitle, updateDescription, buttonCancel, buttonOk, forceUpdate);
+        showNoticeDialog(versionCode, updateTitle, updateDescription, buttonCancel, buttonOk, forceUpdate);
     }
 
     /**
@@ -199,14 +201,21 @@ public class UpdateManager implements DownloadApkUtil.DownloadListener {
      * @param buttonOk     确定按钮
      * @param forceUpdate  是否强制更新
      */
-    private void showNoticeDialog(String title, String msg, String buttonCancel, String buttonOk, boolean forceUpdate) {
+    private void showNoticeDialog(final String versionCode, String title, String msg, String buttonCancel, String buttonOk, boolean forceUpdate) {
         if (!forceUpdate) {//判断是否为强制更新
-            final ConfirmDialog dialog = new ConfirmDialog(mContext);
+            final ConfirmDialog dialog = new ConfirmDialog(mContext, true);
             dialog.setTitle(title);
             dialog.setMessage(msg);
             dialog.setButtonCancelText(buttonCancel);
             dialog.setButtonOKText(buttonOk);
             dialog.setOnConfirmListener(new ConfirmDialog.OnConfirmListener() {
+                @Override
+                public void onIgnore(boolean ignore) {
+                    if (ignore) {
+                        SPHelper.get().put(SpKey.IGNORE_VERSION, versionCode);
+                    }
+                }
+
                 @Override
                 public void onCancel() {
                 }

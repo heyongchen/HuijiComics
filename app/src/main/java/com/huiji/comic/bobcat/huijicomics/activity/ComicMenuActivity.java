@@ -184,6 +184,10 @@ public class ComicMenuActivity extends BaseActivity {
             dialog.setButtonOKText(getString(R.string.delete_ok));
             dialog.setOnConfirmListener(new ConfirmDialog.OnConfirmListener() {
                 @Override
+                public void onIgnore(boolean ignore) {
+                }
+
+                @Override
                 public void onCancel() {
                 }
 

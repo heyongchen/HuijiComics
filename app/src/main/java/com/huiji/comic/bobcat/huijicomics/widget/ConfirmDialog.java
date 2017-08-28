@@ -9,10 +9,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.huiji.comic.bobcat.huijicomics.MainApplication;
 import com.huiji.comic.bobcat.huijicomics.R;
 import com.huiji.comic.bobcat.huijicomics.utils.DisplayUtil;
+import com.huiji.comic.bobcat.huijicomics.utils.SPHelper;
+import com.huiji.comic.bobcat.huijicomics.utils.SpKey;
 
 /**
  * 通用确认对话框
@@ -27,9 +31,13 @@ public class ConfirmDialog extends Dialog {
     private TextView tv_message;
     private TextView button_cancel;
     private TextView button_ok;
+    private CheckBox cb_ignore;
     private OnConfirmListener mListener;
+    private boolean mShowIgnore = false;
 
     public interface OnConfirmListener {
+        void onIgnore(boolean ignore);
+
         void onCancel();
 
         void onOK();
@@ -41,6 +49,13 @@ public class ConfirmDialog extends Dialog {
         initView();
     }
 
+    public ConfirmDialog(Context context, boolean showIgnore) {
+        super(context, R.style.confirm_dialog);
+        mContext = context;
+        mShowIgnore = showIgnore;
+        initView();
+    }
+
     private void initView() {
         view = LayoutInflater.from(mContext).inflate(
                 R.layout.confirm_dialog_layout, null);
@@ -48,11 +63,19 @@ public class ConfirmDialog extends Dialog {
         tv_message = (TextView) view.findViewById(R.id.tv_confirm_message);
         button_cancel = (TextView) view.findViewById(R.id.Button_Cancel);
         button_ok = (TextView) view.findViewById(R.id.Button_OK);
+        cb_ignore = (CheckBox) view.findViewById(R.id.cb_confirm_ignore);
+        if (!mShowIgnore) {
+            cb_ignore.setVisibility(View.GONE);
+        }
         button_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mListener != null) {
-                    mListener.onCancel();
+                    if (mShowIgnore) {
+                        mListener.onIgnore(cb_ignore.isChecked());
+                    } else {
+                        mListener.onCancel();
+                    }
                 }
                 dismiss();
             }

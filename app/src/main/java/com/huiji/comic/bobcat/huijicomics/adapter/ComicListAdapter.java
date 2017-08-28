@@ -62,9 +62,9 @@ public class ComicListAdapter extends RecyclerView.Adapter<ComicListAdapter.RvVi
                 }
             });
         }
-        holder.tvComicTitle.setText(mComicListBeanList.get(position).getTitle() != null ? mComicListBeanList.get(position).getTitle() : "");
-        holder.tvComicAuthor.setText(mComicListBeanList.get(position).getAuthor() != null ? mComicListBeanList.get(position).getAuthor() : "");
-        holder.tvComicMsg.setText(mComicListBeanList.get(position).getMsg() != null ? mComicListBeanList.get(position).getMsg() : "");
+        holder.tvComicTitle.setText(mComicListBeanList.get(position).getTitle() != null ? mComicListBeanList.get(position).getTitle().trim() : "");
+        holder.tvComicAuthor.setText(mComicListBeanList.get(position).getAuthor() != null ? mComicListBeanList.get(position).getAuthor().trim() : "");
+        holder.tvComicMsg.setText(mComicListBeanList.get(position).getMsg() != null ? mComicListBeanList.get(position).getMsg().trim() : "");
         holder.llItemComicList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,7 +81,7 @@ public class ComicListAdapter extends RecyclerView.Adapter<ComicListAdapter.RvVi
             if (checkNew(mComicListBeanList.get(position).getComicId())) {
                 holder.tvTipNew.setVisibility(View.VISIBLE);
             } else {
-                holder.tvTipNew.setVisibility(View.INVISIBLE);
+                holder.tvTipNew.setVisibility(View.GONE);
             }
         }
         if (mSort) {
