@@ -39,6 +39,10 @@
 -keep public class * extends java.lang.Throwable {*;}
 -keep public class * extends java.lang.Exception {*;}
 
+#jsoup
+-dontwarn org.jsoup.**
+-keep class org.jsoup.**
+
 #rxjava
 -dontwarn rx.**
 -keep class rx.** { *; }
@@ -81,6 +85,21 @@
 
 # xUtils 对使用DbUtils模块持久化的实体类不要混淆
 -keep class * extends java.lang.annotation.Annotation { *; }
+-keepattributes Signature,*Annotation*
+-keep public class org.xutils.** {
+    public protected *;
+}
+-keep public interface org.xutils.** {
+    public protected *;
+}
+-keepclassmembers class * extends org.xutils.** {
+    public protected *;
+}
+-keepclassmembers @org.xutils.db.annotation.* class * {*;}
+-keepclassmembers @org.xutils.http.annotation.* class * {*;}
+-keepclassmembers class * {
+    @org.xutils.view.annotation.Event <methods>;
+}
 
 #------------------  下方是android平台自带的排除项，这里不要动         ----------------
 
