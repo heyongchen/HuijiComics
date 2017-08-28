@@ -33,10 +33,10 @@ public class MainApplication extends Application {
         if (daoConfig == null) {
             synchronized (MainApplication.class) {
                 daoConfig = new DbManager.DaoConfig()
-                        //设置数据库名，默认xutils.db
+                        //设置数据库名，默认xUtils.db
                         .setDbName("Huiji.db")
                         //设置数据库路径，默认存储在app的私有目录
-//                        .setDbDir(new File("/mnt/sdcard/"))
+                        //.setDbDir(new File("/mnt/sdcard/"))
                         //设置数据库的版本号
                         .setDbVersion(C.DATABASE_VERSION)
                         //设置数据库打开的监听

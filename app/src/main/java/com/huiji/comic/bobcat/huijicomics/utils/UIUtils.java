@@ -2,6 +2,7 @@ package com.huiji.comic.bobcat.huijicomics.utils;
 
 import android.content.Context;
 import android.os.SystemClock;
+import android.support.v4.content.ContextCompat;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,7 +54,7 @@ public class UIUtils {
     }
 
     /**
-     * 解析resId至视图(保持resid自带的layoutparam参数)
+     * 解析resId至视图(保持resId自带的LayoutParam参数)
      *
      * @param resId        资源Id
      * @param root         根目录（已经依附在window上的父视图）
@@ -68,7 +69,7 @@ public class UIUtils {
     }
 
     /**
-     * 解析resId为视图 (过滤了resId视图自带layoutparam参数)
+     * 解析resId为视图 (过滤了resId视图自带LayoutParam参数)
      *
      * @param resId 资源Id
      * @return 返回解析后的视图
@@ -83,7 +84,7 @@ public class UIUtils {
      * @return
      */
     public static int getColor(int resId) {
-        return getContext().getResources().getColor(resId);
+        return ContextCompat.getColor(getContext(), resId);
     }
 
     /**
@@ -124,7 +125,7 @@ public class UIUtils {
         return false;
     }
 
-    public static int getStatusbarHeight(Context context) {
+    public static int getStatusBarHeight(Context context) {
         int statusBarHeight = 0;
         int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
         if (resourceId > 0) {
