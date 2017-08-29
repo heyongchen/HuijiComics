@@ -25,6 +25,8 @@ import com.pgyersdk.update.UpdateManagerListener;
 
 import java.io.File;
 
+import static com.pgyersdk.update.UpdateManagerListener.getAppBeanFromString;
+
 /**
  * 更新工具类
  * Created by wangzhen on 2017/3/15.
@@ -120,7 +122,8 @@ public class UpdateUtil {
      * @param url
      */
     private static void download(Context context, String url, final String result) {
-        final String localUrl = PathUtil.getDownloadPath() + "/" + AppUtils.getAppName() + ".apk";
+        AppBean appBean = getAppBeanFromString(result);
+        String localUrl = PathUtil.getDownloadPath() + "/" + AppUtils.getAppName() + "_V" + appBean.getVersionName() + ".apk";
         final File path = new File(localUrl);
         if (path.exists()) {
             path.delete();

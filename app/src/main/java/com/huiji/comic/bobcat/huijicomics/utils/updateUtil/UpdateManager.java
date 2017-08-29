@@ -23,7 +23,7 @@ public class UpdateManager implements DownloadApkUtil.DownloadListener {
 
     private Context mContext; //上下文
     private static final String savePath = PathUtil.getDownloadPath(); //apk保存到SD卡的路径
-    private String saveFileName = savePath + "apkName.apk"; //完整路径名
+    private String saveFileName = savePath + "/" + "apkName.apk"; //完整路径名
     private boolean forceUpdate;
     private UpdateAppResultListener updateAppResultListener;
     private DownloadApkUtil downloadApkUtil; //下载apk协助类
