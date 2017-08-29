@@ -57,7 +57,7 @@ public class DownloadApkUtil {
 
     }
 
-    public void downloadAPK(final Context context) {
+    public void downloadAPK() {
         //开启新线程下载apk
         new Thread(new Runnable() {
             @Override
