@@ -6,12 +6,8 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.TextView;
 
-import com.huiji.comic.bobcat.huijicomics.MainApplication;
 import com.huiji.comic.bobcat.huijicomics.R;
 import com.huiji.comic.bobcat.huijicomics.base.BaseActivity;
-
-import org.xutils.DbManager;
-import org.xutils.x;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,7 +26,6 @@ public class LauncherActivity extends BaseActivity {
             finish();
         }
     };
-    private DbManager dbManager = x.getDb(MainApplication.getDbConfig());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
