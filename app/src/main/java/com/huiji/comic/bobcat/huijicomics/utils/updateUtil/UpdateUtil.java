@@ -78,7 +78,7 @@ public class UpdateUtil {
                                         @Override
                                         public void onOK() {
                                             //下载新版本
-                                            download(context, appBean.getDownloadURL());
+                                            download(context, appBean.getDownloadURL(), result);
                                         }
                                     })
                                     .show();
@@ -119,7 +119,7 @@ public class UpdateUtil {
      *
      * @param url
      */
-    private static void download(Context context, String url) {
+    private static void download(Context context, String url, final String result) {
         final String localUrl = PathUtil.getDownloadPath() + "/" + AppUtils.getAppName() + ".apk";
         final File path = new File(localUrl);
         if (path.exists()) {
@@ -148,6 +148,7 @@ public class UpdateUtil {
                 long myDownloadId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
                 if (refernece == myDownloadId) {
                     Toast.makeText(context, "下载完成", Toast.LENGTH_SHORT).show();
+                    UpdateManagerListener.updateLocalBuildNumber(result);
                     Intent install = new Intent(Intent.ACTION_VIEW);
                     install.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     //兼容7.0私有文件权限
