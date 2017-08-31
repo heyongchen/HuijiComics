@@ -9,9 +9,11 @@
     <string name="title_activity_comic_history">浏览记录</string>
     <string name="title_activity_my">个人中心</string>
     <string name="title_activity_update_note">更新日志</string>
+    <string name="title_activity_comic_update">漫画更新</string>
 
     <!--提示语-->
     <string name="info_list_empty">没有找到异世界的传送门\n\n!!!∑(ﾟДﾟノ)ノ</string>
+    <string name="info_list_update_empty">没有新漫画了\n\n!!!∑(ﾟДﾟノ)ノ</string>
 
     <!--漫画更新-->
     <string name="tip_notification_new_one">【%s】更新了！点击查看</string>

@@ -78,6 +78,10 @@
             android:name=".activity.UpdateNoteActivity"
             android:label="@string/title_activity_update_note"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.ComicUpdateActivity"
+            android:label="@string/title_activity_comic_update"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

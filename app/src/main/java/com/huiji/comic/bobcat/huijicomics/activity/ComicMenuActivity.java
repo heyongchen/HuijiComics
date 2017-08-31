@@ -262,7 +262,7 @@ public class ComicMenuActivity extends BaseActivity {
         if (!comicUrl.isEmpty()) {
             WhereBuilder b = WhereBuilder.b();
             b.and("comicId", "=", comicId);//条件
-            KeyValue history = new KeyValue("lastReadUrl", comicUrl.replace("smp1", "smp").replace("smp2", "smp").replace("smp3", "smp"));
+            KeyValue history = new KeyValue("lastReadUrl", UrlUtils.replaceHost(comicUrl));
             KeyValue time = new KeyValue("lastReadTime", System.currentTimeMillis());
             try {
                 dbManager.update(ComicListDbInfo.class, b, history);
@@ -345,7 +345,7 @@ public class ComicMenuActivity extends BaseActivity {
             if (result.getLastReadUrl() == null || result.getLastReadUrl().isEmpty()) {
                 tvComicContinue.setText(R.string.info_start_read);
             } else {
-                readHistory = result.getLastReadUrl().replace("smp1", "smp").replace("smp2", "smp").replace("smp3", "smp");
+                readHistory = UrlUtils.replaceHost(result.getLastReadUrl());
                 tvComicContinue.setText(R.string.info_continue_read);
             }
         } else {

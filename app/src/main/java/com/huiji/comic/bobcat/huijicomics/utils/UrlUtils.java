@@ -32,6 +32,10 @@ public class UrlUtils {
     private static final String TAG = "UrlUtils";
     private static DbManager dbManager = x.getDb(MainApplication.getDbConfig());
 
+    public static String replaceHost(String url) {
+        return url.replace("?__okraw", "").replace("smp1", "smp").replace("smp2", "smp").replace("smp3", "smp");
+    }
+
     public static void getMenuList(final List<String> comicIdList, final RequestStateListener requestStateListener, final boolean update) {
         new Thread(new Runnable() {
             @Override
@@ -198,7 +202,6 @@ public class UrlUtils {
                     e.printStackTrace();
                 }
                 if (doc != null) {
-                    Elements links = doc.select("a[href]");
                     Elements media = doc.select("[src]");
                     Elements titleOrAuthor = doc.select("abbr");
                     Element msgDiv = doc.select("div.am-u-sm-8").first();

@@ -117,14 +117,7 @@
 
         <TextView
             android:id="@+id/tv_place_holder"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/space_huge_more"
-            android:gravity="center"
-            android:text="@string/info_list_empty"
-            android:textColor="@color/text_2"
-            android:textSize="@dimen/font_normal" />
+            style="@style/tv_list_empty" />
 
     </RelativeLayout>
 

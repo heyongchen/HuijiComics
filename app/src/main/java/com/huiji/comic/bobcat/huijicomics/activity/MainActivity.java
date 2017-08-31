@@ -261,7 +261,7 @@ public class MainActivity extends BaseActivity {
                             } else {
                                 notificationMsg = String.format(getString(R.string.tip_notification_new_more), list.size());
                             }
-                            Intent intent = new Intent(MainActivity.this, ComicCollectionActivity.class);
+                            Intent intent = new Intent(MainActivity.this, ComicUpdateActivity.class);
                             Random random = new Random();
                             PendingIntent contentIntent = PendingIntent.getActivity(MainActivity.this, random.nextInt(),
                                     intent, PendingIntent.FLAG_UPDATE_CURRENT);

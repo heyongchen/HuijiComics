@@ -12,7 +12,9 @@ import com.huiji.comic.bobcat.huijicomics.R;
 import com.huiji.comic.bobcat.huijicomics.adapter.ComicListAdapter;
 import com.huiji.comic.bobcat.huijicomics.base.BaseActivity;
 import com.huiji.comic.bobcat.huijicomics.bean.ComicListBean;
+import com.huiji.comic.bobcat.huijicomics.bean.ComicUpdateBean;
 import com.huiji.comic.bobcat.huijicomics.db.ComicListDbInfo;
+import com.huiji.comic.bobcat.huijicomics.db.ComicUpdateDbInfo;
 
 import org.xutils.DbManager;
 import org.xutils.db.sqlite.WhereBuilder;
@@ -25,7 +27,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ComicHistoryActivity extends BaseActivity {
+public class ComicUpdateActivity extends BaseActivity {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -41,7 +43,7 @@ public class ComicHistoryActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_comic_history);
+        setContentView(R.layout.activity_comic_update);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -52,12 +54,15 @@ public class ComicHistoryActivity extends BaseActivity {
             }
         });
         rvComicList.setLayoutManager(linearLayoutManager);
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        rvComicList.setAdapter(new ComicListAdapter(ComicHistoryActivity.this, getComicList(), false));
+        ComicListAdapter comicListAdapter = new ComicListAdapter(ComicUpdateActivity.this, getComicList(), false);
+        rvComicList.setAdapter(comicListAdapter);
+        comicListAdapter.setComicUpdateList(getNewList());
         linearLayoutManager.scrollToPositionWithOffset(lastPosition, lastOffset);
     }
 
@@ -79,24 +84,45 @@ public class ComicHistoryActivity extends BaseActivity {
     }
 
     private List<ComicListBean> getComicList() {
+        List<ComicUpdateBean> updateList = getNewList();
         List<ComicListBean> list = new ArrayList<>();
-        List<ComicListDbInfo> result = new ArrayList<>();
-        WhereBuilder b = WhereBuilder.b();
-        b.and("lastReadTime", ">", 0);
-        try {
-            result = dbManager.selector(ComicListDbInfo.class).orderBy("lastReadTime", true).where(b).findAll();//查询
-        } catch (DbException e) {
-            e.printStackTrace();
-        }
-        if (result != null && result.size() > 0) {
-            for (ComicListDbInfo comicListDbInfo : result) {
-                list.add(new ComicListBean(comicListDbInfo.getComicId(), comicListDbInfo.getImgUrl(), comicListDbInfo.getTitle(), comicListDbInfo.getAuthor(), comicListDbInfo.getMsg()));
+        if (updateList != null && updateList.size() > 0) {
+            ComicListDbInfo result = new ComicListDbInfo();
+            for (ComicUpdateBean updateBean : updateList) {
+                WhereBuilder b = WhereBuilder.b();
+                b.and("comicId", "=", updateBean.getComicId());
+                try {
+                    result = dbManager.selector(ComicListDbInfo.class).where(b).findFirst();//查询
+                } catch (DbException e) {
+                    e.printStackTrace();
+                }
+                if (result != null) {
+                    list.add(new ComicListBean(result.getComicId(), result.getImgUrl(), result.getTitle(), result.getAuthor(), result.getMsg()));
+                }
             }
         }
         if (list.size() > 0) {
             tvPlaceHolder.setVisibility(View.GONE);
         } else {
             tvPlaceHolder.setVisibility(View.VISIBLE);
+        }
+        return list;
+    }
+
+    private List<ComicUpdateBean> getNewList() {
+        List<ComicUpdateBean> list = new ArrayList<>();
+        List<ComicUpdateDbInfo> result = new ArrayList<>();
+        WhereBuilder b = WhereBuilder.b();
+        b.and("isNew", "=", "1");
+        try {
+            result = dbManager.selector(ComicUpdateDbInfo.class).where(b).findAll();//查询
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+        if (result != null && result.size() > 0) {
+            for (ComicUpdateDbInfo comicListDbInfo : result) {
+                list.add(new ComicUpdateBean(comicListDbInfo.getComicId(), comicListDbInfo.getTitle()));
+            }
         }
         return list;
     }

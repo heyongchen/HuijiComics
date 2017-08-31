@@ -70,6 +70,10 @@
 -dontwarn com.pgyersdk.**
 -keep class com.pgyersdk.** { *; }
 
+#QMUI
+-dontwarn com.qmuiteam.**
+-keep class com.qmuiteam.** { *; }
+
 #ButterKnife不混淆
 -keep class butterknife.** { *; }
 -dontwarn butterknife.internal.**

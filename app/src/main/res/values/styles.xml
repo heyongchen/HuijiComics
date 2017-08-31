@@ -25,4 +25,16 @@
         <item name="android:windowBackground">@drawable/confirm_dialog_background</item>
     </style>
 
+    <!--列表为空提示样式-->
+    <style name="tv_list_empty">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:text">@string/info_list_empty</item>
+        <item name="android:textColor">@color/text_2</item>
+        <item name="android:textSize">@dimen/font_normal</item>
+    </style>
+
 </resources>

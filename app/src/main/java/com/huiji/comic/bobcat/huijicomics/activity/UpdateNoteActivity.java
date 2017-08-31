@@ -38,6 +38,7 @@ public class UpdateNoteActivity extends BaseActivity {
     }
 
     private void initList() {
+        list.add(new UpdateNoteBean("0.9.9", "单独增加已更新漫画页面；"));
         list.add(new UpdateNoteBean("0.9.8", "更新提示框增加该版本不再提醒选项；"));
         list.add(new UpdateNoteBean("0.9.7", "增加更新日志；"));
         list.add(new UpdateNoteBean("0.9.5", "1、增加漫画《怪灭王与12人的星之巫女》；\n" +

@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.huiji.comic.bobcat.huijicomics.activity.ComicHistoryActivity"
-    tools:showIn="@layout/activity_comic_history">
+    tools:context="com.huiji.comic.bobcat.huijicomics.activity.ComicUpdateActivity"
+    tools:showIn="@layout/activity_comic_update">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_comic_list"
@@ -16,6 +16,7 @@
 
     <TextView
         android:id="@+id/tv_place_holder"
-        style="@style/tv_list_empty" />
+        style="@style/tv_list_empty"
+        android:text="@string/info_list_update_empty" />
 
 </RelativeLayout>

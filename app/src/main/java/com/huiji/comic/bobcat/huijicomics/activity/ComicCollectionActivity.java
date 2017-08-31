@@ -1,5 +1,6 @@
 package com.huiji.comic.bobcat.huijicomics.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -7,6 +8,8 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -121,15 +124,12 @@ public class ComicCollectionActivity extends BaseActivity {
         });
     }
 
-    private void getPositionAndOffset() {
-        //获取可视的第一个view
-        View topView = linearLayoutManager.getChildAt(0);
-        if (topView != null) {
-            //获取与该view的顶部的偏移量
-            lastOffset = topView.getTop();
-            //得到该View的数组位置
-            lastPosition = linearLayoutManager.getPosition(topView);
-        }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initViews();
+        comicListAdapter.setComicUpdateList(getNewList());
+        filterData(etFilterEdit.getText().toString());
     }
 
     @Override
@@ -139,11 +139,32 @@ public class ComicCollectionActivity extends BaseActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        initViews();
-        comicListAdapter.setComicUpdateList(getNewList());
-        filterData(etFilterEdit.getText().toString());
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_comic_collection, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_comic_update) {
+            Intent intent = new Intent(ComicCollectionActivity.this, ComicUpdateActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void getPositionAndOffset() {
+        //获取可视的第一个view
+        View topView = linearLayoutManager.getChildAt(0);
+        if (topView != null) {
+            //获取与该view的顶部的偏移量
+            lastOffset = topView.getTop();
+            //得到该View的数组位置
+            lastPosition = linearLayoutManager.getPosition(topView);
+        }
     }
 
     private List<ComicUpdateBean> getNewList() {

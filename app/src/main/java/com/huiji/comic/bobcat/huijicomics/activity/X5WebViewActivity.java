@@ -20,6 +20,7 @@ import com.huiji.comic.bobcat.huijicomics.R;
 import com.huiji.comic.bobcat.huijicomics.base.BaseActivity;
 import com.huiji.comic.bobcat.huijicomics.db.ComicListDbInfo;
 import com.huiji.comic.bobcat.huijicomics.utils.IntentKey;
+import com.huiji.comic.bobcat.huijicomics.utils.UrlUtils;
 
 import org.xutils.DbManager;
 import org.xutils.common.util.KeyValue;
@@ -133,7 +134,7 @@ public class X5WebViewActivity extends BaseActivity {
     private void addHistory(String comicUrl) {
         WhereBuilder b = WhereBuilder.b();
         b.and("comicId", "=", comicId);//条件
-        KeyValue history = new KeyValue("lastReadUrl", comicUrl.replace("smp1", "smp").replace("smp2", "smp").replace("smp3", "smp"));
+        KeyValue history = new KeyValue("lastReadUrl", UrlUtils.replaceHost(comicUrl));
         KeyValue time = new KeyValue("lastReadTime", System.currentTimeMillis());
         try {
             dbManager.update(ComicListDbInfo.class, b, history);
@@ -146,7 +147,7 @@ public class X5WebViewActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         if (wvTencent != null && wvTencent.getUrl() != null && !wvTencent.getUrl().isEmpty()) {
-            addHistory(wvTencent.getUrl().replace("?__okraw", "").replace("smp1", "smp").replace("smp2", "smp").replace("smp3", "smp"));
+            addHistory(UrlUtils.replaceHost(wvTencent.getUrl()));
         }
         super.onBackPressed();
     }
