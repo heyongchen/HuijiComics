@@ -109,8 +109,6 @@ public class X5WebViewActivity extends BaseActivity {
 
     private void webViewDestroy() {
         if (wvComic != null) {
-            // 如果先调用destroy()方法，则会命中if (isDestroyed()) return;这一行代码，需要先onDetachedFromWindow()，再
-            // destory()
             ViewParent parent = wvComic.getParent();
             if (parent != null) {
                 ((ViewGroup) parent).removeView(wvComic);

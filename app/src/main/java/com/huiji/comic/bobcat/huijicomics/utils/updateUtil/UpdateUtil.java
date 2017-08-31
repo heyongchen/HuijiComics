@@ -134,7 +134,7 @@ public class UpdateUtil {
         request.setTitle(AppUtils.getAppName());
         // 设置下载路径和文件名
         request.setDestinationUri(Uri.fromFile(path));
-        request.setDescription("正在更新");
+        request.setDescription(context.getString(R.string.tip_updating));
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         request.setMimeType("application/vnd.android.package-archive");
         // 设置为可被媒体扫描器找到
@@ -143,14 +143,14 @@ public class UpdateUtil {
         request.setVisibleInDownloadsUi(true);
         // 获取此次下载的ID
         final long refernece = dManager.enqueue(request);
-        Toast.makeText(context, "开始下载", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, R.string.tip_download_now, Toast.LENGTH_SHORT).show();
         // 注册广播接收器，当下载完成时自动安装
         final IntentFilter filter = new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
         final BroadcastReceiver receiver = new BroadcastReceiver() {
             public void onReceive(Context context, Intent intent) {
                 long myDownloadId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
                 if (refernece == myDownloadId) {
-                    Toast.makeText(context, "下载完成", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, R.string.tip_download_success, Toast.LENGTH_SHORT).show();
                     UpdateManagerListener.updateLocalBuildNumber(result);
                     Intent install = new Intent(Intent.ACTION_VIEW);
                     install.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

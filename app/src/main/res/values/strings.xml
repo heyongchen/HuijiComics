@@ -46,6 +46,9 @@
     <string name="tip_update_now">立即更新</string>
     <string name="tip_update_already">当前已是最新版</string>
     <string name="tip_update_ignore_this_version">该版本不再提醒</string>
+    <string name="tip_updating">正在更新</string>
+    <string name="tip_download_now">开始下载</string>
+    <string name="tip_download_success">下载完成</string>
 
     <!--apk下载-->
     <string name="tip_download_progress">正在下载，当前进度%1$sM/%2$sM</string>
