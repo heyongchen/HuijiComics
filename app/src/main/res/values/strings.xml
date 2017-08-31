@@ -4,7 +4,7 @@
     <!--activity-->
     <string name="title_activity_comic_menu">漫画目录</string>
     <string name="title_activity_about">关于</string>
-    <string name="title_activity_x5_web_view">X5WebViewActivity</string>
+    <string name="title_activity_web_view">WebViewActivity</string>
     <string name="title_activity_comic_collection">我的收藏</string>
     <string name="title_activity_comic_history">浏览记录</string>
     <string name="title_activity_my">个人中心</string>

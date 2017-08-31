@@ -36,7 +36,7 @@ public class X5WebViewActivity extends BaseActivity {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.wv_tencent)
-    WebView wvTencent;
+    WebView wvComic;
     @BindView(R.id.pb_web_view)
     ProgressBar pbWebView;
 
@@ -53,12 +53,10 @@ public class X5WebViewActivity extends BaseActivity {
             requestWindowFeature(Window.FEATURE_NO_TITLE);
             // 禁用系统截屏功能
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
-            // 隐藏状态栏
-//            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 Window window = this.getWindow();
                 window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-                window.setStatusBarColor(ContextCompat.getColor(this, R.color.black));
+                window.setStatusBarColor(ContextCompat.getColor(this, android.R.color.black));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -79,22 +77,22 @@ public class X5WebViewActivity extends BaseActivity {
         setTitle(comicTitle);
         toolbar.setVisibility(View.GONE);
 
-        wvTencent.loadUrl(comicUrl);
-        WebSettings webSettings = wvTencent.getSettings();
+        wvComic.loadUrl(comicUrl);
+        WebSettings webSettings = wvComic.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDomStorageEnabled(true);
         webSettings.setAllowFileAccess(true);
         webSettings.setAppCacheEnabled(true);
         webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
 
-        wvTencent.setWebViewClient(new WebViewClient() {
+        wvComic.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 view.loadUrl(url);
                 return true;
             }
         });
-        wvTencent.setWebChromeClient(new WebChromeClient() {
+        wvComic.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
@@ -110,21 +108,21 @@ public class X5WebViewActivity extends BaseActivity {
     }
 
     private void webViewDestroy() {
-        if (wvTencent != null) {
+        if (wvComic != null) {
             // 如果先调用destroy()方法，则会命中if (isDestroyed()) return;这一行代码，需要先onDetachedFromWindow()，再
             // destory()
-            ViewParent parent = wvTencent.getParent();
+            ViewParent parent = wvComic.getParent();
             if (parent != null) {
-                ((ViewGroup) parent).removeView(wvTencent);
+                ((ViewGroup) parent).removeView(wvComic);
             }
-            wvTencent.stopLoading();
+            wvComic.stopLoading();
             // 退出时调用此方法，移除绑定的服务，否则某些特定系统会报错
-            wvTencent.getSettings().setJavaScriptEnabled(false);
-            wvTencent.clearHistory();
-            wvTencent.clearView();
-            wvTencent.removeAllViews();
+            wvComic.getSettings().setJavaScriptEnabled(false);
+            wvComic.clearHistory();
+            wvComic.clearView();
+            wvComic.removeAllViews();
             try {
-                wvTencent.destroy();
+                wvComic.destroy();
             } catch (Throwable ignored) {
 
             }
@@ -146,8 +144,8 @@ public class X5WebViewActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        if (wvTencent != null && wvTencent.getUrl() != null && !wvTencent.getUrl().isEmpty()) {
-            addHistory(UrlUtils.replaceHost(wvTencent.getUrl()));
+        if (wvComic != null && wvComic.getUrl() != null && !wvComic.getUrl().isEmpty()) {
+            addHistory(UrlUtils.replaceHost(wvComic.getUrl()));
         }
         super.onBackPressed();
     }

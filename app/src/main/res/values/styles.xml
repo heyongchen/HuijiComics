@@ -25,6 +25,14 @@
         <item name="android:windowBackground">@drawable/confirm_dialog_background</item>
     </style>
 
+    <!--确定对话框样式-->
+    <style name="confirm_dialog_trans" parent="android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
     <!--列表为空提示样式-->
     <style name="tv_list_empty">
         <item name="android:layout_width">wrap_content</item>

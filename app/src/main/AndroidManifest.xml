@@ -60,7 +60,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.X5WebViewActivity"
-            android:label="@string/title_activity_x5_web_view"
+            android:label="@string/title_activity_web_view"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.ComicCollectionActivity"

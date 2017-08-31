@@ -31,7 +31,7 @@ public class ImageShowDialog extends Dialog {
     private ImageView imageView;
 
     public ImageShowDialog(@NonNull Context context, String imageUrl) {
-        super(context, R.style.confirm_dialog);
+        super(context, R.style.confirm_dialog_trans);
         mContext = context;
         mImageUrl = imageUrl;
         initView();
