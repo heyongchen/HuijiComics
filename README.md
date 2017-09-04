@@ -1,6 +1,6 @@
 # HuijiComics 灰机汉化组漫画APP
 
-![APP ICON](https://o1wh05aeh.qnssl.com/image/view/app_icons/2062c1e2ce4556ca30b5a744e88c3e27)
+![APP ICON](https://raw.githubusercontent.com/heyongchen/HuijiComics/master/image/icon.png)
 
 # 目录
 - [应用介绍](#应用介绍)
@@ -30,8 +30,8 @@
 6、漫画检索功能；
 
 ## 效果图
-![1](https://o1whyeemo.qnssl.com/image/view/app_screenshots/51c66ea5f3418ee17875bcbfd465daa6/528)
-![2](https://o1whyeemo.qnssl.com/image/view/app_screenshots/6847e7d7209173ecf3b130ef7f7f64a3/528)
+![1](https://raw.githubusercontent.com/heyongchen/HuijiComics/master/image/2.png)
+![2](https://raw.githubusercontent.com/heyongchen/HuijiComics/master/image/3.png)
 
 # 更新日志
 
@@ -67,6 +67,6 @@
 
 [百度网盘](http://pan.baidu.com/s/1gf6ChRd) 密码：hs0j
 
-[![CODE](https://www.pgyer.com/app/qrcode/Y0sz)](https://www.pgyer.com/Y0sz)
+[![CODE](https://raw.githubusercontent.com/heyongchen/HuijiComics/master/image/Y0sz.png)
 
 
