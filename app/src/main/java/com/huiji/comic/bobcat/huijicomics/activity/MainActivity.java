@@ -90,7 +90,6 @@ public class MainActivity extends BaseActivity {
         toolbar.requestFocus();
         toolbar.requestFocusFromTouch();
 
-        PgyUpdateManager.setIsForced(false); //设置是否强制更新。true为强制更新；false为不强制更新（默认值）
         UpdateUtil.check(this, false);
 
         rvComicList.setLayoutManager(new LinearLayoutManager(this));

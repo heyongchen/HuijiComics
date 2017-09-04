@@ -63,6 +63,7 @@ public class InitComicsList {
         comicIdList.add(String.valueOf(1000591));
         //D
         comicIdList.add(String.valueOf(1002866));
+        comicIdList.add(String.valueOf(1002865));
         //E
         //F
         //G
@@ -129,6 +130,7 @@ public class InitComicsList {
         comicIdList.add(String.valueOf(1002097));
         comicIdList.add(String.valueOf(1002890));
         comicIdList.add(String.valueOf(1002932));
+        comicIdList.add(String.valueOf(1003304));
         //X
         comicIdList.add(String.valueOf(1002235));
         comicIdList.add(String.valueOf(1000834));
@@ -150,6 +152,8 @@ public class InitComicsList {
         comicIdList.add(String.valueOf(1002484));
         comicIdList.add(String.valueOf(1002902));
         comicIdList.add(String.valueOf(1003790));
+        comicIdList.add(String.valueOf(1000206));
+        comicIdList.add(String.valueOf(1003532));
         //Z
         comicIdList.add(String.valueOf(1001598));
         comicIdList.add(String.valueOf(1001248));

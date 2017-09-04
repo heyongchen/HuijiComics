@@ -166,12 +166,14 @@ public class ConfirmDialog extends Dialog {
         setCanceledOnTouchOutside(false);
         Window window = getWindow();
         //设置对话框居中
-        window.setGravity(Gravity.CENTER);
-        WindowManager.LayoutParams params = window.getAttributes();
-        params.width = DisplayUtil.getScreenWidth(mContext) * 3 / 4;
-        params.height = WindowManager.LayoutParams.WRAP_CONTENT;
-        window.setAttributes(params);
-        //因为某些机型是虚拟按键的,所以要加上以下设置防止挡住按键.
-        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        if (window != null) {
+            window.setGravity(Gravity.CENTER);
+            WindowManager.LayoutParams params = window.getAttributes();
+            params.width = DisplayUtil.getScreenWidth(mContext) * 3 / 4;
+            params.height = WindowManager.LayoutParams.WRAP_CONTENT;
+            window.setAttributes(params);
+            //因为某些机型是虚拟按键的,所以要加上以下设置防止挡住按键.
+            window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        }
     }
 }

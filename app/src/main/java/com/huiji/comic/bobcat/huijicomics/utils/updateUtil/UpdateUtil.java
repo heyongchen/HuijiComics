@@ -29,11 +29,8 @@ import static com.pgyersdk.update.UpdateManagerListener.getAppBeanFromString;
 
 /**
  * 更新工具类
- * Created by wangzhen on 2017/3/15.
- * 修改人：何泳郴
- * 修改日期：2017/6/26
+ * Created by HeYongchen on 2017/7/31.
  */
-
 public class UpdateUtil {
 
     public static void check(final Activity context, final boolean tip) {
@@ -84,18 +81,6 @@ public class UpdateUtil {
                                         }
                                     })
                                     .show();
-//                            new UpdateManager(context, appBean.getVersionCode(), false, appBean.getDownloadURL(), apkName, title, message, buttonCancel, buttonOk,
-//                                    new UpdateManager.UpdateAppResultListener() {
-//                                        @Override
-//                                        public void updateToNext() {
-//                                            UpdateManagerListener.updateLocalBuildNumber(result);
-//                                        }
-//
-//                                        @Override
-//                                        public void updateFailed(boolean forceUpdate) {
-//
-//                                        }
-//                                    });
                         }
 
                         @Override
