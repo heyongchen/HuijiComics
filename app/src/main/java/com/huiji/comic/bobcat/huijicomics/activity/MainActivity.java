@@ -38,7 +38,6 @@ import com.huiji.comic.bobcat.huijicomics.utils.UrlUtils;
 import com.huiji.comic.bobcat.huijicomics.utils.updateUtil.UpdateUtil;
 import com.huiji.comic.bobcat.huijicomics.widget.ClearEditText;
 import com.huiji.comic.bobcat.huijicomics.widget.SideBar;
-import com.pgyersdk.update.PgyUpdateManager;
 
 import org.xutils.DbManager;
 import org.xutils.db.sqlite.WhereBuilder;

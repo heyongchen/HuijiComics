@@ -43,7 +43,7 @@ public class LauncherActivity extends BaseActivity {
             }
         });
 
-        handler.postDelayed(runnable, 2000);
+        handler.postDelayed(runnable, 1000);
     }
 
 }
