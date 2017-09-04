@@ -14,7 +14,6 @@ import com.huiji.comic.bobcat.huijicomics.base.BaseActivity;
 import com.huiji.comic.bobcat.huijicomics.bean.ComicListBean;
 import com.huiji.comic.bobcat.huijicomics.bean.ComicUpdateBean;
 import com.huiji.comic.bobcat.huijicomics.db.ComicListDbInfo;
-import com.huiji.comic.bobcat.huijicomics.db.ComicUpdateDbInfo;
 
 import org.xutils.DbManager;
 import org.xutils.db.sqlite.WhereBuilder;
@@ -111,16 +110,16 @@ public class ComicUpdateActivity extends BaseActivity {
 
     private List<ComicUpdateBean> getNewList() {
         List<ComicUpdateBean> list = new ArrayList<>();
-        List<ComicUpdateDbInfo> result = new ArrayList<>();
+        List<ComicListDbInfo> result = new ArrayList<>();
         WhereBuilder b = WhereBuilder.b();
-        b.and("isNew", "=", "1");
+        b.and("isNew", "=", 1);
         try {
-            result = dbManager.selector(ComicUpdateDbInfo.class).where(b).findAll();//查询
+            result = dbManager.selector(ComicListDbInfo.class).where(b).findAll();//查询
         } catch (DbException e) {
             e.printStackTrace();
         }
         if (result != null && result.size() > 0) {
-            for (ComicUpdateDbInfo comicListDbInfo : result) {
+            for (ComicListDbInfo comicListDbInfo : result) {
                 list.add(new ComicUpdateBean(comicListDbInfo.getComicId(), comicListDbInfo.getTitle()));
             }
         }

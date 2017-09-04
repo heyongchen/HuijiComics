@@ -21,7 +21,6 @@ import com.huiji.comic.bobcat.huijicomics.R;
 import com.huiji.comic.bobcat.huijicomics.adapter.ComicMenuAdapter;
 import com.huiji.comic.bobcat.huijicomics.base.BaseActivity;
 import com.huiji.comic.bobcat.huijicomics.db.ComicListDbInfo;
-import com.huiji.comic.bobcat.huijicomics.db.ComicUpdateDbInfo;
 import com.huiji.comic.bobcat.huijicomics.utils.C;
 import com.huiji.comic.bobcat.huijicomics.utils.InitComicsList;
 import com.huiji.comic.bobcat.huijicomics.utils.IntentKey;
@@ -35,7 +34,6 @@ import org.xutils.db.sqlite.WhereBuilder;
 import org.xutils.ex.DbException;
 import org.xutils.x;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -123,12 +121,10 @@ public class ComicMenuActivity extends BaseActivity {
             public void onClick(View v) {
                 if (checkCollect()) {
                     tvComicCollect.setText(R.string.info_collect_on);
-                    changeCollect(String.valueOf(0));
-                    addOrRemoveUpdate(0);
+                    changeCollect(0);
                 } else {
                     tvComicCollect.setText(R.string.info_collect_off);
-                    changeCollect(String.valueOf(1));
-                    addOrRemoveUpdate(1);
+                    changeCollect(1);
                 }
             }
         });
@@ -207,11 +203,6 @@ public class ComicMenuActivity extends BaseActivity {
         WhereBuilder b = WhereBuilder.b();
         b.and("comicId", "=", comicId);//条件
         try {
-            dbManager.delete(ComicUpdateDbInfo.class, b);
-        } catch (DbException e) {
-            e.printStackTrace();
-        }
-        try {
             dbManager.delete(ComicListDbInfo.class, b);
         } catch (DbException e) {
             e.printStackTrace();
@@ -221,37 +212,13 @@ public class ComicMenuActivity extends BaseActivity {
         finish();
     }
 
-    private void addOrRemoveUpdate(int update) {
-        if (update == 1) {
-            List<ComicUpdateDbInfo> comicUpdateDbInfoList = new ArrayList<>();
-            comicUpdateDbInfoList.add(new ComicUpdateDbInfo(comicId, comicTitle, 0));
-            try {
-                dbManager.save(comicUpdateDbInfoList);
-            } catch (DbException e) {
-                e.printStackTrace();
-            }
-        } else {
-            WhereBuilder b = WhereBuilder.b();
-            b.and("comicId", "=", comicId);//条件
-            try {
-                dbManager.delete(ComicUpdateDbInfo.class, b);
-            } catch (DbException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
     private void changeNew(String comicId, int comicNum) {
         WhereBuilder b = WhereBuilder.b();
         b.and("comicId", "=", comicId);//条件
-        KeyValue isNew = new KeyValue("isNew", "0");
-        try {
-            dbManager.update(ComicUpdateDbInfo.class, b, isNew);
-        } catch (DbException e) {
-            e.printStackTrace();
-        }
+        KeyValue isNew = new KeyValue("isNew", 0);
         KeyValue num = new KeyValue("menuNum", comicNum);
         try {
+            dbManager.update(ComicListDbInfo.class, b, isNew);
             dbManager.update(ComicListDbInfo.class, b, num);
         } catch (DbException e) {
             e.printStackTrace();
@@ -273,7 +240,7 @@ public class ComicMenuActivity extends BaseActivity {
         }
     }
 
-    private void changeCollect(String state) {
+    private void changeCollect(int state) {
         WhereBuilder b = WhereBuilder.b();
         b.and("comicId", "=", comicId);//条件
         KeyValue collect = new KeyValue("isCollect", state);
@@ -287,7 +254,7 @@ public class ComicMenuActivity extends BaseActivity {
     private boolean checkCollect() {
         List<ComicListDbInfo> list = null;
         WhereBuilder b = WhereBuilder.b();
-        b.and("isCollect", "=", "1");
+        b.and("isCollect", "=", 1);
         b.and("comicId", "=", comicId);
         try {
             list = dbManager.selector(ComicListDbInfo.class).where(b).findAll();//查询

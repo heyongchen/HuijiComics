@@ -27,7 +27,6 @@ import com.huiji.comic.bobcat.huijicomics.base.BaseActivity;
 import com.huiji.comic.bobcat.huijicomics.bean.ComicListBean;
 import com.huiji.comic.bobcat.huijicomics.bean.ComicUpdateBean;
 import com.huiji.comic.bobcat.huijicomics.db.ComicListDbInfo;
-import com.huiji.comic.bobcat.huijicomics.db.ComicUpdateDbInfo;
 import com.huiji.comic.bobcat.huijicomics.utils.AppExit2Back;
 import com.huiji.comic.bobcat.huijicomics.utils.AppUtils;
 import com.huiji.comic.bobcat.huijicomics.utils.C;
@@ -135,24 +134,7 @@ public class MainActivity extends BaseActivity {
 
     private void checkNew() {
         List<ComicUpdateBean> collectionList = getCollectionComicList();
-        int updateNum = getNewComicList().size();
         if (collectionList.size() > 0) {
-            if (collectionList.size() != updateNum) {
-                try {
-                    dbManager.delete(ComicUpdateDbInfo.class);
-                } catch (DbException e) {
-                    e.printStackTrace();
-                }
-                List<ComicUpdateDbInfo> comicUpdateDbInfoList = new ArrayList<>();
-                for (ComicUpdateBean comicUpdateBean : collectionList) {
-                    comicUpdateDbInfoList.add(new ComicUpdateDbInfo(comicUpdateBean.getComicId(), comicUpdateBean.getComicTitle(), 0));
-                }
-                try {
-                    dbManager.save(comicUpdateDbInfoList);
-                } catch (DbException e) {
-                    e.printStackTrace();
-                }
-            }
             UrlUtils.checkUpdateList(collectionList, new UrlUtils.CheckUpdateListener() {
                 @Override
                 public void ok() {
@@ -164,27 +146,11 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    private List<String> getNewComicList() {
-        List<String> list = new ArrayList<>();
-        List<ComicUpdateDbInfo> result = new ArrayList<>();
-        try {
-            result = dbManager.findAll(ComicUpdateDbInfo.class);//查询
-        } catch (DbException e) {
-            e.printStackTrace();
-        }
-        if (result != null && result.size() > 0) {
-            for (ComicUpdateDbInfo comicListDbInfo : result) {
-                list.add(comicListDbInfo.getComicId());
-            }
-        }
-        return list;
-    }
-
     private List<ComicUpdateBean> getCollectionComicList() {
         List<ComicUpdateBean> list = new ArrayList<>();
         List<ComicListDbInfo> result = new ArrayList<>();
         WhereBuilder b = WhereBuilder.b();
-        b.and("isCollect", "=", "1");
+        b.and("isCollect", "=", 1);
         try {
             result = dbManager.selector(ComicListDbInfo.class).where(b).findAll();//查询
         } catch (DbException e) {
@@ -284,16 +250,16 @@ public class MainActivity extends BaseActivity {
 
     private List<ComicUpdateBean> getNewList() {
         List<ComicUpdateBean> list = new ArrayList<>();
-        List<ComicUpdateDbInfo> result = new ArrayList<>();
+        List<ComicListDbInfo> result = new ArrayList<>();
         WhereBuilder b = WhereBuilder.b();
-        b.and("isNew", "=", "1");
+        b.and("isNew", "=", 1);
         try {
-            result = dbManager.selector(ComicUpdateDbInfo.class).where(b).findAll();//查询
+            result = dbManager.selector(ComicListDbInfo.class).where(b).findAll();//查询
         } catch (DbException e) {
             e.printStackTrace();
         }
         if (result != null && result.size() > 0) {
-            for (ComicUpdateDbInfo comicListDbInfo : result) {
+            for (ComicListDbInfo comicListDbInfo : result) {
                 list.add(new ComicUpdateBean(comicListDbInfo.getComicId(), comicListDbInfo.getTitle()));
             }
         }

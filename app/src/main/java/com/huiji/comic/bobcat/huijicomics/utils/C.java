@@ -7,7 +7,7 @@ package com.huiji.comic.bobcat.huijicomics.utils;
 public class C {
 
     public static boolean hasNewComic = false;
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 3;
 
     public static String getComicMenuUrl(String comicId) {
         return "http://smp.yoedge.com/view/omnibus/" + comicId;

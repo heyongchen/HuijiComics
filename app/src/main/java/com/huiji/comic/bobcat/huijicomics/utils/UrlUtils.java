@@ -7,7 +7,6 @@ import com.huiji.comic.bobcat.huijicomics.bean.ComicDataBean;
 import com.huiji.comic.bobcat.huijicomics.bean.ComicListBean;
 import com.huiji.comic.bobcat.huijicomics.bean.ComicUpdateBean;
 import com.huiji.comic.bobcat.huijicomics.db.ComicListDbInfo;
-import com.huiji.comic.bobcat.huijicomics.db.ComicUpdateDbInfo;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -76,7 +75,7 @@ public class UrlUtils {
                             print("\nLinks: (%d)", links.size());
                             int num = links.size();
 
-                            comicListDbInfoList.add(new ComicListDbInfo(comicId, title, author, msg, imgUrl, num, "0"));
+                            comicListDbInfoList.add(new ComicListDbInfo(comicId, title, author, msg, imgUrl, num, 0, 0));
                         }
                     }
                 }
@@ -178,9 +177,9 @@ public class UrlUtils {
     private static void changeNew(String comicId) {
         WhereBuilder b = WhereBuilder.b();
         b.and("comicId", "=", comicId);//条件
-        KeyValue isNew = new KeyValue("isNew", "1");
+        KeyValue isNew = new KeyValue("isNew", 1);
         try {
-            dbManager.update(ComicUpdateDbInfo.class, b, isNew);
+            dbManager.update(ComicListDbInfo.class, b, isNew);
         } catch (DbException e) {
             e.printStackTrace();
         }

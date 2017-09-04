@@ -23,18 +23,20 @@ public class ComicListDbInfo {
     @Column(name = "msg")
     private String msg;
     @Column(name = "isCollect")
-    private String isCollect;
+    private int isCollect;
     @Column(name = "lastReadTime")
     private long lastReadTime;
     @Column(name = "lastReadUrl")
     private String lastReadUrl;
     @Column(name = "menuNum")
     private int menuNum;
+    @Column(name = "isNew")
+    private int isNew;
 
     public ComicListDbInfo() {
     }
 
-    public ComicListDbInfo(String comicId, String title, String author, String msg, String imgUrl, int menuNum, String isCollect) {
+    public ComicListDbInfo(String comicId, String title, String author, String msg, String imgUrl, int menuNum, int isCollect, int isNew) {
         this.comicId = comicId;
         this.title = title;
         this.author = author;
@@ -42,6 +44,7 @@ public class ComicListDbInfo {
         this.imgUrl = imgUrl;
         this.menuNum = menuNum;
         this.isCollect = isCollect;
+        this.isNew = isNew;
     }
 
     public int getId() {
@@ -70,14 +73,6 @@ public class ComicListDbInfo {
 
     public int getMenuNum() {
         return menuNum;
-    }
-
-    public String getIsCollect() {
-        return isCollect;
-    }
-
-    public long getLastReadTime() {
-        return lastReadTime;
     }
 
     public String getLastReadUrl() {
