@@ -12,7 +12,6 @@ import com.huiji.comic.bobcat.huijicomics.R;
 import com.huiji.comic.bobcat.huijicomics.adapter.ComicListAdapter;
 import com.huiji.comic.bobcat.huijicomics.base.BaseActivity;
 import com.huiji.comic.bobcat.huijicomics.bean.ComicListBean;
-import com.huiji.comic.bobcat.huijicomics.bean.ComicUpdateBean;
 import com.huiji.comic.bobcat.huijicomics.db.ComicListDbInfo;
 
 import org.xutils.DbManager;
@@ -83,11 +82,11 @@ public class ComicUpdateActivity extends BaseActivity {
     }
 
     private List<ComicListBean> getComicList() {
-        List<ComicUpdateBean> updateList = getNewList();
+        List<ComicListBean> updateList = getNewList();
         List<ComicListBean> list = new ArrayList<>();
         if (updateList != null && updateList.size() > 0) {
             ComicListDbInfo result = new ComicListDbInfo();
-            for (ComicUpdateBean updateBean : updateList) {
+            for (ComicListBean updateBean : updateList) {
                 WhereBuilder b = WhereBuilder.b();
                 b.and("comicId", "=", updateBean.getComicId());
                 try {
@@ -108,8 +107,8 @@ public class ComicUpdateActivity extends BaseActivity {
         return list;
     }
 
-    private List<ComicUpdateBean> getNewList() {
-        List<ComicUpdateBean> list = new ArrayList<>();
+    private List<ComicListBean> getNewList() {
+        List<ComicListBean> list = new ArrayList<>();
         List<ComicListDbInfo> result = new ArrayList<>();
         WhereBuilder b = WhereBuilder.b();
         b.and("isNew", "=", 1);
@@ -120,7 +119,7 @@ public class ComicUpdateActivity extends BaseActivity {
         }
         if (result != null && result.size() > 0) {
             for (ComicListDbInfo comicListDbInfo : result) {
-                list.add(new ComicUpdateBean(comicListDbInfo.getComicId(), comicListDbInfo.getTitle()));
+                list.add(new ComicListBean(comicListDbInfo.getComicId(), comicListDbInfo.getTitle()));
             }
         }
         return list;

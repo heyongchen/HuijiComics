@@ -14,7 +14,6 @@ import com.bumptech.glide.Glide;
 import com.huiji.comic.bobcat.huijicomics.R;
 import com.huiji.comic.bobcat.huijicomics.activity.ComicMenuActivity;
 import com.huiji.comic.bobcat.huijicomics.bean.ComicListBean;
-import com.huiji.comic.bobcat.huijicomics.bean.ComicUpdateBean;
 import com.huiji.comic.bobcat.huijicomics.utils.IntentKey;
 import com.huiji.comic.bobcat.huijicomics.widget.ImageShowDialog;
 
@@ -33,7 +32,7 @@ public class ComicListAdapter extends RecyclerView.Adapter<ComicListAdapter.RvVi
     private Context mContext;
     private boolean mSort = false;
     private List<ComicListBean> mComicListBeanList;
-    private List<ComicUpdateBean> mComicUpdateList = new ArrayList<>();
+    private List<ComicListBean> mComicUpdateList = new ArrayList<>();
 
     public ComicListAdapter(Context context, List<ComicListBean> comicListBeanList, boolean sort) {
         this.mContext = context;
@@ -98,7 +97,7 @@ public class ComicListAdapter extends RecyclerView.Adapter<ComicListAdapter.RvVi
     }
 
     private boolean checkNew(String comicId) {
-        for (ComicUpdateBean comicUpdateBean : mComicUpdateList) {
+        for (ComicListBean comicUpdateBean : mComicUpdateList) {
             if (comicUpdateBean.getComicId().equals(comicId)) {
                 return true;
             }
@@ -106,7 +105,7 @@ public class ComicListAdapter extends RecyclerView.Adapter<ComicListAdapter.RvVi
         return false;
     }
 
-    public void setComicUpdateList(List<ComicUpdateBean> list) {
+    public void setComicUpdateList(List<ComicListBean> list) {
         mComicUpdateList = list;
         notifyDataSetChanged();
     }

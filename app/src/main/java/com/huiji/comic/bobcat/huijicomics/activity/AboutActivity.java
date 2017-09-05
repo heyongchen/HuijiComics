@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.huiji.comic.bobcat.huijicomics.R;
 import com.huiji.comic.bobcat.huijicomics.base.BaseActivity;
 import com.huiji.comic.bobcat.huijicomics.utils.AppUtils;
-import com.huiji.comic.bobcat.huijicomics.utils.updateUtil.UpdateUtil;
+import com.huiji.comic.bobcat.huijicomics.utils.UpdateUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

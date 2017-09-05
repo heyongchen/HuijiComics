@@ -1,4 +1,4 @@
-package com.huiji.comic.bobcat.huijicomics.utils.updateUtil;
+package com.huiji.comic.bobcat.huijicomics.utils;
 
 import android.Manifest;
 import android.app.Activity;
@@ -14,10 +14,6 @@ import android.widget.Toast;
 
 import com.huiji.comic.bobcat.huijicomics.R;
 import com.huiji.comic.bobcat.huijicomics.base.manager.PermissionManager;
-import com.huiji.comic.bobcat.huijicomics.utils.AppUtils;
-import com.huiji.comic.bobcat.huijicomics.utils.PathUtil;
-import com.huiji.comic.bobcat.huijicomics.utils.SPHelper;
-import com.huiji.comic.bobcat.huijicomics.utils.SpKey;
 import com.huiji.comic.bobcat.huijicomics.widget.ConfirmDialog;
 import com.pgyersdk.javabean.AppBean;
 import com.pgyersdk.update.PgyUpdateManager;

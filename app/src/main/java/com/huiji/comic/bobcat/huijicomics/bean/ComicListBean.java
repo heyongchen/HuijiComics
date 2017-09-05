@@ -17,6 +17,11 @@ public class ComicListBean implements Serializable {
     public ComicListBean() {
     }
 
+    public ComicListBean(String comicId, String title) {
+        this.comicId = comicId;
+        this.title = title;
+    }
+
     public ComicListBean(String comicId, String imgUrl, String title, String author, String msg) {
         this.comicId = comicId;
         this.imgUrl = imgUrl;

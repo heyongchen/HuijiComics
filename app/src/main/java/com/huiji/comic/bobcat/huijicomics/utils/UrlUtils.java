@@ -5,7 +5,6 @@ import android.util.Log;
 import com.huiji.comic.bobcat.huijicomics.MainApplication;
 import com.huiji.comic.bobcat.huijicomics.bean.ComicDataBean;
 import com.huiji.comic.bobcat.huijicomics.bean.ComicListBean;
-import com.huiji.comic.bobcat.huijicomics.bean.ComicUpdateBean;
 import com.huiji.comic.bobcat.huijicomics.db.ComicListDbInfo;
 
 import org.jsoup.Jsoup;
@@ -128,11 +127,11 @@ public class UrlUtils {
         void ok();
     }
 
-    public static void checkUpdateList(final List<ComicUpdateBean> comicIdList, final CheckUpdateListener checkUpdateListener) {
+    public static void checkUpdateList(final List<ComicListBean> comicIdList, final CheckUpdateListener checkUpdateListener) {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                for (ComicUpdateBean comicUpdateBean : comicIdList) {
+                for (ComicListBean comicUpdateBean : comicIdList) {
                     Document doc = null;
                     try {
                         doc = Jsoup.connect(C.getComicMenuUrl(comicUpdateBean.getComicId())).get();

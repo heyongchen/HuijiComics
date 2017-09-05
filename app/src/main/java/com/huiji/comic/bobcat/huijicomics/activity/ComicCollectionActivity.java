@@ -18,7 +18,6 @@ import com.huiji.comic.bobcat.huijicomics.R;
 import com.huiji.comic.bobcat.huijicomics.adapter.ComicListAdapter;
 import com.huiji.comic.bobcat.huijicomics.base.BaseActivity;
 import com.huiji.comic.bobcat.huijicomics.bean.ComicListBean;
-import com.huiji.comic.bobcat.huijicomics.bean.ComicUpdateBean;
 import com.huiji.comic.bobcat.huijicomics.db.ComicListDbInfo;
 import com.huiji.comic.bobcat.huijicomics.utils.CharacterParser;
 import com.huiji.comic.bobcat.huijicomics.utils.PinyinComparator;
@@ -166,8 +165,8 @@ public class ComicCollectionActivity extends BaseActivity {
         }
     }
 
-    private List<ComicUpdateBean> getNewList() {
-        List<ComicUpdateBean> list = new ArrayList<>();
+    private List<ComicListBean> getNewList() {
+        List<ComicListBean> list = new ArrayList<>();
         List<ComicListDbInfo> result = new ArrayList<>();
         WhereBuilder b = WhereBuilder.b();
         b.and("isNew", "=", 1);
@@ -178,7 +177,7 @@ public class ComicCollectionActivity extends BaseActivity {
         }
         if (result != null && result.size() > 0) {
             for (ComicListDbInfo comicListDbInfo : result) {
-                list.add(new ComicUpdateBean(comicListDbInfo.getComicId(), comicListDbInfo.getTitle()));
+                list.add(new ComicListBean(comicListDbInfo.getComicId(), comicListDbInfo.getTitle()));
             }
         }
         return list;

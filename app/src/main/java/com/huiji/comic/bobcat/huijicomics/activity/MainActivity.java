@@ -25,7 +25,6 @@ import com.huiji.comic.bobcat.huijicomics.R;
 import com.huiji.comic.bobcat.huijicomics.adapter.ComicListAdapter;
 import com.huiji.comic.bobcat.huijicomics.base.BaseActivity;
 import com.huiji.comic.bobcat.huijicomics.bean.ComicListBean;
-import com.huiji.comic.bobcat.huijicomics.bean.ComicUpdateBean;
 import com.huiji.comic.bobcat.huijicomics.db.ComicListDbInfo;
 import com.huiji.comic.bobcat.huijicomics.utils.AppExit2Back;
 import com.huiji.comic.bobcat.huijicomics.utils.AppUtils;
@@ -34,7 +33,7 @@ import com.huiji.comic.bobcat.huijicomics.utils.CharacterParser;
 import com.huiji.comic.bobcat.huijicomics.utils.InitComicsList;
 import com.huiji.comic.bobcat.huijicomics.utils.PinyinComparator;
 import com.huiji.comic.bobcat.huijicomics.utils.UrlUtils;
-import com.huiji.comic.bobcat.huijicomics.utils.updateUtil.UpdateUtil;
+import com.huiji.comic.bobcat.huijicomics.utils.UpdateUtil;
 import com.huiji.comic.bobcat.huijicomics.widget.ClearEditText;
 import com.huiji.comic.bobcat.huijicomics.widget.SideBar;
 
@@ -133,7 +132,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void checkNew() {
-        List<ComicUpdateBean> collectionList = getCollectionComicList();
+        List<ComicListBean> collectionList = getCollectionComicList();
         if (collectionList.size() > 0) {
             UrlUtils.checkUpdateList(collectionList, new UrlUtils.CheckUpdateListener() {
                 @Override
@@ -146,8 +145,8 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    private List<ComicUpdateBean> getCollectionComicList() {
-        List<ComicUpdateBean> list = new ArrayList<>();
+    private List<ComicListBean> getCollectionComicList() {
+        List<ComicListBean> list = new ArrayList<>();
         List<ComicListDbInfo> result = new ArrayList<>();
         WhereBuilder b = WhereBuilder.b();
         b.and("isCollect", "=", 1);
@@ -158,7 +157,7 @@ public class MainActivity extends BaseActivity {
         }
         if (result != null && result.size() > 0) {
             for (ComicListDbInfo comicListDbInfo : result) {
-                list.add(new ComicUpdateBean(comicListDbInfo.getComicId(), comicListDbInfo.getTitle()));
+                list.add(new ComicListBean(comicListDbInfo.getComicId(), comicListDbInfo.getTitle()));
             }
         }
         return list;
@@ -218,10 +217,10 @@ public class MainActivity extends BaseActivity {
                 case 9:
                     try {
                         String notificationMsg = "";
-                        List<ComicUpdateBean> list = getNewList();
+                        List<ComicListBean> list = getNewList();
                         if (list.size() > 0) {
                             if (list.size() == 1) {
-                                notificationMsg = String.format(getString(R.string.tip_notification_new_one), list.get(0).getComicTitle());
+                                notificationMsg = String.format(getString(R.string.tip_notification_new_one), list.get(0).getTitle());
                             } else {
                                 notificationMsg = String.format(getString(R.string.tip_notification_new_more), list.size());
                             }
@@ -248,8 +247,8 @@ public class MainActivity extends BaseActivity {
         }
     };
 
-    private List<ComicUpdateBean> getNewList() {
-        List<ComicUpdateBean> list = new ArrayList<>();
+    private List<ComicListBean> getNewList() {
+        List<ComicListBean> list = new ArrayList<>();
         List<ComicListDbInfo> result = new ArrayList<>();
         WhereBuilder b = WhereBuilder.b();
         b.and("isNew", "=", 1);
@@ -260,7 +259,7 @@ public class MainActivity extends BaseActivity {
         }
         if (result != null && result.size() > 0) {
             for (ComicListDbInfo comicListDbInfo : result) {
-                list.add(new ComicUpdateBean(comicListDbInfo.getComicId(), comicListDbInfo.getTitle()));
+                list.add(new ComicListBean(comicListDbInfo.getComicId(), comicListDbInfo.getTitle()));
             }
         }
         return list;
