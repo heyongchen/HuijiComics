@@ -38,6 +38,7 @@ public class UpdateNoteActivity extends BaseActivity {
     }
 
     private void initList() {
+        list.add(new UpdateNoteBean("1.0.0", "ヾ(●´∀｀●)终于1.0了，暂时休息一下"));
         list.add(new UpdateNoteBean("0.9.9", "单独增加已更新漫画页面；"));
         list.add(new UpdateNoteBean("0.9.8", "更新提示框增加该版本不再提醒选项；"));
         list.add(new UpdateNoteBean("0.9.7", "增加更新日志；"));
