@@ -70,10 +70,6 @@
 
 # 下载地址
 
-[蒲公英](https://www.pgyer.com/Y0sz)
-
-[百度网盘](http://pan.baidu.com/s/1gf6ChRd) 密码：hs0j
-
-[![CODE](https://raw.githubusercontent.com/heyongchen/HuijiComics/master/image/Y0sz.png)](https://www.pgyer.com/Y0sz)
+酷安：[灰机Comics](https://www.coolapk.com/apk/158938)
 
 
