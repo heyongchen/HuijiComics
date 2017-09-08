@@ -1,4 +1,4 @@
-# HuijiComics 灰机汉化组漫画APP
+# 灰机Comics 灰机汉化组漫画APP
 
 ![APP ICON](https://raw.githubusercontent.com/heyongchen/HuijiComics/master/image/icon.png)
 
