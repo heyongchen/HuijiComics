@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">灰机Comics</string>
+    <string name="app_name">AllComics</string>
 
     <!--activity-->
     <string name="title_activity_comic_menu">漫画目录</string>

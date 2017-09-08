@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/img_launcher"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.huiji.comic.bobcat.huijicomics.activity.LauncherActivity"
+    tools:context="com.huiji.comic.bobcat.allcomics.activity.LauncherActivity"
     tools:showIn="@layout/activity_launcher">
 
     <TextView

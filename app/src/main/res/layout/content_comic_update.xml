@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.huiji.comic.bobcat.huijicomics.activity.ComicUpdateActivity"
+    tools:context="com.huiji.comic.bobcat.allcomics.activity.ComicUpdateActivity"
     tools:showIn="@layout/activity_comic_update">
 
     <android.support.v7.widget.RecyclerView

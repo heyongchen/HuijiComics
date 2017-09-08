@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.huiji.comic.bobcat.huijicomics.activity.ComicMenuActivity"
+    tools:context="com.huiji.comic.bobcat.allcomics.activity.ComicMenuActivity"
     tools:showIn="@layout/activity_comic_menu">
 
     <LinearLayout

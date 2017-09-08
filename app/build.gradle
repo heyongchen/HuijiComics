@@ -13,7 +13,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "26.0.0"
     defaultConfig {
-        applicationId "com.huiji.comic.bobcat.huijicomics"
+        applicationId "com.huiji.comic.bobcat.allcomics"
         minSdkVersion 16
         targetSdkVersion 25
         versionCode 35
@@ -38,9 +38,9 @@ android {
             def fileName
             if (outputFile != null && outputFile.name.endsWith('.apk')) {
                 if (variant.buildType.name.equals('release')) {
-                    fileName = "灰机Comics_V${defaultConfig.versionName}.apk"
+                    fileName = "AllComics_V${defaultConfig.versionName}.apk"
                 } else if (variant.buildType.name.equals('debug')) {
-                    fileName = "灰机Comics_V${defaultConfig.versionName}_${defaultConfig.versionCode}_debug.apk"
+                    fileName = "AllComics_V${defaultConfig.versionName}_${defaultConfig.versionCode}_debug.apk"
                 }
                 output.outputFile = new File(outputFile.parent, fileName)
             }
