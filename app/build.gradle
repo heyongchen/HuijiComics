@@ -13,7 +13,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "26.0.0"
     defaultConfig {
-        applicationId "com.huiji.comic.bobcat.allcomics"
+        applicationId "com.huiji.comic.bobcat.comics"
         minSdkVersion 16
         targetSdkVersion 25
         versionCode 35
@@ -57,7 +57,6 @@ dependencies {
     compile 'org.jsoup:jsoup:1.10.3'
     compile 'org.xutils:xutils:3.5.0'
     compile 'com.pgyersdk:sdk:2.7.0'
-//    compile 'com.qmuiteam:qmui:1.0.0'
     compile 'com.github.bumptech.glide:glide:4.0.0-RC1'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
 }
