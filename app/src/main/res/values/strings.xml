@@ -10,6 +10,8 @@
     <string name="title_activity_my">个人中心</string>
     <string name="title_activity_update_note">更新日志</string>
     <string name="title_activity_comic_update">漫画更新</string>
+    <string name="title_activity_comic_view">漫画浏览</string>
+    <string name="title_activity_setting">设置</string>
 
     <!--提示语-->
     <string name="info_list_empty">没有找到异世界的传送门\n\n!!!∑(ﾟДﾟノ)ノ</string>

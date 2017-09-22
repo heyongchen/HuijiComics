@@ -12,9 +12,11 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.xutils.DbManager;
+import org.xutils.common.Callback;
 import org.xutils.common.util.KeyValue;
 import org.xutils.db.sqlite.WhereBuilder;
 import org.xutils.ex.DbException;
+import org.xutils.http.RequestParams;
 import org.xutils.x;
 
 import java.io.IOException;
@@ -111,7 +113,7 @@ public class UrlUtils {
                     List<ComicDataBean> comicDataBeanList = new ArrayList<>();
                     print("\nLinks: (%d)", links.size());
                     for (Element link : links) {
-                        comicDataBeanList.add(new ComicDataBean(link.attr("abs:href"), trim(link.text(), 35)));
+                        comicDataBeanList.add(new ComicDataBean(UrlUtils.replaceHost(link.attr("abs:href")), trim(link.text(), 30)));
                     }
                     InitComicsList.setComicDataBeanList(comicDataBeanList);
                 }
@@ -238,4 +240,5 @@ public class UrlUtils {
         else
             return s;
     }
+
 }
