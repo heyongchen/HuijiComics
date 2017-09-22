@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/black"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.huiji.comic.bobcat.comics.activity.X5WebViewActivity"
+    tools:context="com.huiji.comic.bobcat.huijicomics.activity.X5WebViewActivity"
     tools:showIn="@layout/activity_x5_web_view">
 
     <WebView

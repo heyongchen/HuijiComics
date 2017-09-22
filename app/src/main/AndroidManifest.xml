@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.huiji.comic.bobcat.comics">
+    package="com.huiji.comic.bobcat.huijicomics">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 读写sdcard，storage等等 -->
@@ -14,7 +14,7 @@
 
     <!-- 获取logcat日志 -->
     <application
-        android:name="com.huiji.comic.bobcat.comics.MainApplication"
+        android:name="com.huiji.comic.bobcat.huijicomics.MainApplication"
         android:allowBackup="true"
         android:icon="@drawable/icon"
         android:label="@string/app_name"
@@ -37,7 +37,7 @@
         </provider>
 
         <activity
-            android:name="com.huiji.comic.bobcat.comics.activity.LauncherActivity"
+            android:name="com.huiji.comic.bobcat.huijicomics.activity.LauncherActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -47,39 +47,39 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.huiji.comic.bobcat.comics.activity.MainActivity"
+            android:name="com.huiji.comic.bobcat.huijicomics.activity.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.huiji.comic.bobcat.comics.activity.ComicMenuActivity"
+            android:name="com.huiji.comic.bobcat.huijicomics.activity.ComicMenuActivity"
             android:label="@string/title_activity_comic_menu"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.huiji.comic.bobcat.comics.activity.AboutActivity"
+            android:name="com.huiji.comic.bobcat.huijicomics.activity.AboutActivity"
             android:label="@string/title_activity_about"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.huiji.comic.bobcat.comics.activity.X5WebViewActivity"
+            android:name="com.huiji.comic.bobcat.huijicomics.activity.X5WebViewActivity"
             android:label="@string/title_activity_web_view"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.huiji.comic.bobcat.comics.activity.ComicCollectionActivity"
+            android:name="com.huiji.comic.bobcat.huijicomics.activity.ComicCollectionActivity"
             android:label="@string/title_activity_comic_collection"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.huiji.comic.bobcat.comics.activity.ComicHistoryActivity"
+            android:name="com.huiji.comic.bobcat.huijicomics.activity.ComicHistoryActivity"
             android:label="@string/title_activity_comic_history"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.huiji.comic.bobcat.comics.activity.MyActivity"
+            android:name="com.huiji.comic.bobcat.huijicomics.activity.MyActivity"
             android:label="@string/title_activity_my"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.huiji.comic.bobcat.comics.activity.UpdateNoteActivity"
+            android:name="com.huiji.comic.bobcat.huijicomics.activity.UpdateNoteActivity"
             android:label="@string/title_activity_update_note"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.huiji.comic.bobcat.comics.activity.ComicUpdateActivity"
+            android:name="com.huiji.comic.bobcat.huijicomics.activity.ComicUpdateActivity"
             android:label="@string/title_activity_comic_update"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>

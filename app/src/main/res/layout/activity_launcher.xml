@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.huiji.comic.bobcat.comics.activity.LauncherActivity">
+    tools:context="com.huiji.comic.bobcat.huijicomics.activity.LauncherActivity">
 
     <include layout="@layout/content_launcher" />
 

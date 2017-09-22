@@ -6,10 +6,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.huiji.comic.bobcat.comics.activity.ComicCollectionActivity"
+    tools:context="com.huiji.comic.bobcat.huijicomics.activity.ComicCollectionActivity"
     tools:showIn="@layout/activity_comic_collection">
 
-    <com.huiji.comic.bobcat.comics.widget.ClearEditText
+    <com.huiji.comic.bobcat.huijicomics.widget.ClearEditText
         android:id="@+id/et_filter_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
             android:textSize="30dp"
             android:visibility="invisible" />
 
-        <com.huiji.comic.bobcat.comics.widget.SideBar
+        <com.huiji.comic.bobcat.huijicomics.widget.SideBar
             android:id="@+id/sb_side_bar"
             android:layout_width="20dp"
             android:layout_height="match_parent"

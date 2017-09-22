@@ -13,7 +13,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "26.0.0"
     defaultConfig {
-        applicationId "com.huiji.comic.bobcat.comics"
+        applicationId "com.huiji.comic.bobcat.huijicomics"
         minSdkVersion 16
         targetSdkVersion 25
         versionCode 35
