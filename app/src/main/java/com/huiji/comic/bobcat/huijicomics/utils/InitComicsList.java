@@ -46,7 +46,7 @@ public class InitComicsList {
     }
 
     private static void initComicIdList() {
-        for (int i = 0; i < 4222; i++) {
+        for (int i = 0; i < 4311; i++) {
             comicIdList.add(String.valueOf(1000000 + i));
         }
     }
