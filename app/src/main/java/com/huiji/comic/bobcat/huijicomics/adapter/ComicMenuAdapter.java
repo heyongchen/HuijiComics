@@ -12,10 +12,15 @@ import android.widget.TextView;
 
 import com.huiji.comic.bobcat.huijicomics.MainApplication;
 import com.huiji.comic.bobcat.huijicomics.R;
+import com.huiji.comic.bobcat.huijicomics.activity.ComicMenuActivity;
+import com.huiji.comic.bobcat.huijicomics.activity.ComicViewActivity;
 import com.huiji.comic.bobcat.huijicomics.activity.X5WebViewActivity;
 import com.huiji.comic.bobcat.huijicomics.bean.ComicDataBean;
 import com.huiji.comic.bobcat.huijicomics.db.ComicListDbInfo;
+import com.huiji.comic.bobcat.huijicomics.utils.C;
 import com.huiji.comic.bobcat.huijicomics.utils.IntentKey;
+import com.huiji.comic.bobcat.huijicomics.utils.SPHelper;
+import com.huiji.comic.bobcat.huijicomics.utils.SpKey;
 import com.huiji.comic.bobcat.huijicomics.utils.UrlUtils;
 
 import org.xutils.DbManager;
@@ -64,7 +69,12 @@ public class ComicMenuAdapter extends RecyclerView.Adapter<ComicMenuAdapter.RvVi
             @Override
             public void onClick(View v) {
                 addHistory(mComicDataBeanList.get(position).getDataUrl());
-                Intent intent = new Intent(mContext, X5WebViewActivity.class);
+                Intent intent;
+                if (SPHelper.get().get(SpKey.VIEW_TYPE, "").equals(C.VIEW_TYPE_NATIVE)) {
+                    intent = new Intent(mContext, ComicViewActivity.class);
+                } else {
+                    intent = new Intent(mContext, X5WebViewActivity.class);
+                }
                 intent.putExtra(IntentKey.COMIC_ID, mComicId);
                 intent.putExtra(IntentKey.COMIC_TITLE, mComicTitle);
                 intent.putExtra(IntentKey.COMIC_VIEW_URL, mComicDataBeanList.get(position).getDataUrl());

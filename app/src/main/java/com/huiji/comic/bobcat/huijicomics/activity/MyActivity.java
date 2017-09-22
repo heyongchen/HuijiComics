@@ -39,28 +39,16 @@ public class MyActivity extends BaseActivity {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.imageView)
-    ImageView imageView;
     @BindView(R.id.textView)
     TextView textView;
-    @BindView(R.id.iv_menu_collect)
-    ImageView ivMenuCollect;
-    @BindView(R.id.iv_menu_collect_more)
-    ImageView ivMenuCollectMore;
     @BindView(R.id.rl_menu_collect)
     RelativeLayout rlMenuCollect;
-    @BindView(R.id.iv_menu_history)
-    ImageView ivMenuHistory;
-    @BindView(R.id.iv_menu_history_more)
-    ImageView ivMenuHistoryMore;
     @BindView(R.id.rl_menu_history)
     RelativeLayout rlMenuHistory;
-    @BindView(R.id.iv_menu_about)
-    ImageView ivMenuAbout;
-    @BindView(R.id.iv_menu_about_more)
-    ImageView ivMenuAboutMore;
     @BindView(R.id.rl_menu_about)
     RelativeLayout rlMenuAbout;
+    @BindView(R.id.rl_menu_set)
+    RelativeLayout rlMenuSet;
 
     private DbManager dbManager = x.getDb(MainApplication.getDbConfig());
     private ComicListBean mComicListBean;
@@ -80,7 +68,7 @@ public class MyActivity extends BaseActivity {
         });
     }
 
-    @OnClick({R.id.rl_menu_collect, R.id.rl_menu_history, R.id.rl_menu_about})
+    @OnClick({R.id.rl_menu_collect, R.id.rl_menu_history, R.id.rl_menu_about, R.id.rl_menu_set})
     public void onViewClicked(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
@@ -92,6 +80,9 @@ public class MyActivity extends BaseActivity {
                 break;
             case R.id.rl_menu_about:
                 intent = new Intent(this, AboutActivity.class);
+                break;
+            case R.id.rl_menu_set:
+                intent = new Intent(this, SettingActivity.class);
                 break;
         }
         startActivity(intent);

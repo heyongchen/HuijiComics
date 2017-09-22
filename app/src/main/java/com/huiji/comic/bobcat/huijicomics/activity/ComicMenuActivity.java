@@ -24,6 +24,8 @@ import com.huiji.comic.bobcat.huijicomics.db.ComicListDbInfo;
 import com.huiji.comic.bobcat.huijicomics.utils.C;
 import com.huiji.comic.bobcat.huijicomics.utils.InitComicsList;
 import com.huiji.comic.bobcat.huijicomics.utils.IntentKey;
+import com.huiji.comic.bobcat.huijicomics.utils.SPHelper;
+import com.huiji.comic.bobcat.huijicomics.utils.SpKey;
 import com.huiji.comic.bobcat.huijicomics.utils.UrlUtils;
 import com.huiji.comic.bobcat.huijicomics.widget.ConfirmDialog;
 import com.huiji.comic.bobcat.huijicomics.widget.ImageShowDialog;
@@ -153,7 +155,12 @@ public class ComicMenuActivity extends BaseActivity {
                     addHistory(comicUrl);
                 }
                 if (!comicUrl.isEmpty()) {
-                    Intent intent = new Intent(ComicMenuActivity.this, X5WebViewActivity.class);
+                    Intent intent;
+                    if (SPHelper.get().get(SpKey.VIEW_TYPE, "").equals(C.VIEW_TYPE_NATIVE)) {
+                        intent = new Intent(ComicMenuActivity.this, ComicViewActivity.class);
+                    } else {
+                        intent = new Intent(ComicMenuActivity.this, X5WebViewActivity.class);
+                    }
                     intent.putExtra(IntentKey.COMIC_ID, comicId);
                     intent.putExtra(IntentKey.COMIC_TITLE, comicTitle);
                     intent.putExtra(IntentKey.COMIC_VIEW_URL, comicUrl);
