@@ -18,6 +18,7 @@ import android.widget.ProgressBar;
 import com.huiji.comic.bobcat.huijicomics.MainApplication;
 import com.huiji.comic.bobcat.huijicomics.R;
 import com.huiji.comic.bobcat.huijicomics.base.BaseActivity;
+import com.huiji.comic.bobcat.huijicomics.bean.ComicDataBean;
 import com.huiji.comic.bobcat.huijicomics.db.ComicListDbInfo;
 import com.huiji.comic.bobcat.huijicomics.utils.IntentKey;
 import com.huiji.comic.bobcat.huijicomics.utils.UrlUtils;
@@ -27,6 +28,8 @@ import org.xutils.common.util.KeyValue;
 import org.xutils.db.sqlite.WhereBuilder;
 import org.xutils.ex.DbException;
 import org.xutils.x;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,6 +46,8 @@ public class X5WebViewActivity extends BaseActivity {
     private String comicTitle;
     private String comicUrl;
     private String comicId;
+    private int comicMenuPosition = 0;
+    private ArrayList<ComicDataBean> comicDataBeanList;
     private DbManager dbManager = x.getDb(MainApplication.getDbConfig());
 
     @Override
@@ -71,7 +76,9 @@ public class X5WebViewActivity extends BaseActivity {
                 finish();
             }
         });
-        comicUrl = getIntent().getStringExtra(IntentKey.COMIC_VIEW_URL);
+        comicDataBeanList = getIntent().getParcelableArrayListExtra(IntentKey.COMIC_BEAN);
+        comicMenuPosition = getIntent().getIntExtra(IntentKey.COMIC_MENU_POSITION, 0);
+        comicUrl = comicDataBeanList.get(comicMenuPosition).getDataUrl();
         comicTitle = getIntent().getStringExtra(IntentKey.COMIC_TITLE);
         comicId = getIntent().getStringExtra(IntentKey.COMIC_ID);
         setTitle(comicTitle);

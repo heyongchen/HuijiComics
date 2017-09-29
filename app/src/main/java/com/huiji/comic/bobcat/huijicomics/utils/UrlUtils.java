@@ -110,10 +110,10 @@ public class UrlUtils {
                 if (doc != null) {
                     Elements links = doc.select("a[href]");
 
-                    List<ComicDataBean> comicDataBeanList = new ArrayList<>();
+                    ArrayList<ComicDataBean> comicDataBeanList = new ArrayList<>();
                     print("\nLinks: (%d)", links.size());
-                    for (Element link : links) {
-                        comicDataBeanList.add(new ComicDataBean(UrlUtils.replaceHost(link.attr("abs:href")), trim(link.text(), 30)));
+                    for (int i = 0; i < links.size() - 2; i++) {
+                        comicDataBeanList.add(new ComicDataBean(UrlUtils.replaceHost(links.get(i).attr("abs:href")), trim(links.get(i).text(), 30)));
                     }
                     InitComicsList.setComicDataBeanList(comicDataBeanList);
                 }

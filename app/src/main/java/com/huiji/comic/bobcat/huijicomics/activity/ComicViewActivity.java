@@ -1,11 +1,11 @@
 package com.huiji.comic.bobcat.huijicomics.activity;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +18,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.model.GlideUrl;
@@ -30,16 +31,22 @@ import com.huiji.comic.bobcat.huijicomics.R;
 import com.huiji.comic.bobcat.huijicomics.adapter.ComicViewAdapter;
 import com.huiji.comic.bobcat.huijicomics.adapter.ComicViewPagerAdapter;
 import com.huiji.comic.bobcat.huijicomics.base.BaseActivity;
+import com.huiji.comic.bobcat.huijicomics.bean.ComicDataBean;
+import com.huiji.comic.bobcat.huijicomics.db.ComicListDbInfo;
 import com.huiji.comic.bobcat.huijicomics.utils.C;
 import com.huiji.comic.bobcat.huijicomics.utils.DisplayUtil;
 import com.huiji.comic.bobcat.huijicomics.utils.IntentKey;
 import com.huiji.comic.bobcat.huijicomics.utils.SPHelper;
 import com.huiji.comic.bobcat.huijicomics.utils.SpKey;
+import com.huiji.comic.bobcat.huijicomics.utils.UrlUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.xutils.DbManager;
 import org.xutils.common.Callback;
+import org.xutils.common.util.KeyValue;
+import org.xutils.db.sqlite.WhereBuilder;
+import org.xutils.ex.DbException;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
@@ -64,6 +71,8 @@ public class ComicViewActivity extends BaseActivity {
     private String comicUrl;
     private String comicId;
     private String comicMenuId;
+    private int comicMenuPosition = 0;
+    private ArrayList<ComicDataBean> comicDataBeanList;
     private DbManager dbManager = x.getDb(MainApplication.getDbConfig());
 
     private String conicJsonUrl;
@@ -83,7 +92,7 @@ public class ComicViewActivity extends BaseActivity {
             requestWindowFeature(Window.FEATURE_NO_TITLE);
             if (SPHelper.get().get(SpKey.VIEW_HORIZONTAL, false) && SPHelper.get().get(SpKey.VIEW_PAGE, C.viewType.FLOW).equals(C.viewType.FLOW)) {
                 //隐藏状态栏
-                getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
+                getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
             }
             // 禁用系统截屏功能
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
@@ -104,9 +113,11 @@ public class ComicViewActivity extends BaseActivity {
                 finish();
             }
         });
-        comicUrl = getIntent().getStringExtra(IntentKey.COMIC_VIEW_URL);
+        comicDataBeanList = getIntent().getParcelableArrayListExtra(IntentKey.COMIC_BEAN);
+        comicMenuPosition = getIntent().getIntExtra(IntentKey.COMIC_MENU_POSITION, 0);
         comicTitle = getIntent().getStringExtra(IntentKey.COMIC_TITLE);
         comicId = getIntent().getStringExtra(IntentKey.COMIC_ID);
+        comicUrl = comicDataBeanList.get(comicMenuPosition).getDataUrl();
         toolbar.setVisibility(View.GONE);
 
         String temp = comicUrl.replace("/shinmangaplayer/index.html", "");
@@ -156,7 +167,40 @@ public class ComicViewActivity extends BaseActivity {
             rvComicView.setVisibility(View.VISIBLE);
             vpComicView.setVisibility(View.GONE);
             rvComicView.setLayoutManager(new LinearLayoutManager(this));
-            rvComicView.setAdapter(new ComicViewAdapter(this, comicTitle, comicTitle, comicMenuId, comicPicList));
+            ComicViewAdapter comicViewAdapter = new ComicViewAdapter(this, comicTitle, comicTitle, comicMenuId, comicPicList);
+            rvComicView.setAdapter(comicViewAdapter);
+            comicViewAdapter.setOnJumpClickListener(new ComicViewAdapter.OnJumpClickListener() {
+                @Override
+                public void onClick(boolean next) {
+                    if (next) {
+                        if (comicMenuPosition >= comicDataBeanList.size() - 1) {
+                            Toast.makeText(ComicViewActivity.this, "当前已是最新话", Toast.LENGTH_SHORT).show();
+                        } else {
+                            addHistory(comicDataBeanList.get(comicMenuPosition + 1).getDataUrl());
+                            Intent intent = new Intent(ComicViewActivity.this, ComicViewActivity.class);
+                            intent.putExtra(IntentKey.COMIC_ID, comicId);
+                            intent.putExtra(IntentKey.COMIC_TITLE, comicTitle);
+                            intent.putParcelableArrayListExtra(IntentKey.COMIC_BEAN, comicDataBeanList);
+                            intent.putExtra(IntentKey.COMIC_MENU_POSITION, comicMenuPosition + 1);
+                            startActivity(intent);
+                            finish();
+                        }
+                    } else {
+                        if (comicMenuPosition <= 0) {
+                            Toast.makeText(ComicViewActivity.this, "当前已是第一话", Toast.LENGTH_SHORT).show();
+                        } else {
+                            addHistory(comicDataBeanList.get(comicMenuPosition - 1).getDataUrl());
+                            Intent intent = new Intent(ComicViewActivity.this, ComicViewActivity.class);
+                            intent.putExtra(IntentKey.COMIC_ID, comicId);
+                            intent.putExtra(IntentKey.COMIC_TITLE, comicTitle);
+                            intent.putParcelableArrayListExtra(IntentKey.COMIC_BEAN, comicDataBeanList);
+                            intent.putExtra(IntentKey.COMIC_MENU_POSITION, comicMenuPosition - 1);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }
+                }
+            });
         } else {
             rvComicView.setVisibility(View.GONE);
             vpComicView.setVisibility(View.VISIBLE);
@@ -189,6 +233,21 @@ public class ComicViewActivity extends BaseActivity {
                 imgViewList.add(linearLayout);
             }
             vpComicView.setAdapter(new ComicViewPagerAdapter(this, comicTitle, comicTitle, comicMenuId, imgViewList));
+        }
+    }
+
+    private void addHistory(String comicUrl) {
+        if (!comicUrl.isEmpty()) {
+            WhereBuilder b = WhereBuilder.b();
+            b.and("comicId", "=", comicId);//条件
+            KeyValue history = new KeyValue("lastReadUrl", UrlUtils.replaceHost(comicUrl));
+            KeyValue time = new KeyValue("lastReadTime", System.currentTimeMillis());
+            try {
+                dbManager.update(ComicListDbInfo.class, b, history);
+                dbManager.update(ComicListDbInfo.class, b, time);
+            } catch (DbException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

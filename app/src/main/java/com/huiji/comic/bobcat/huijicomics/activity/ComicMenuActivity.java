@@ -155,6 +155,13 @@ public class ComicMenuActivity extends BaseActivity {
                     addHistory(comicUrl);
                 }
                 if (!comicUrl.isEmpty()) {
+                    int position = 0;
+                    for (int i = 0; i < InitComicsList.getComicDataBeanList().size(); i++) {
+                        if (InitComicsList.getComicDataBeanList().get(i).getDataUrl().equals(comicUrl)) {
+                            position = i;
+                            break;
+                        }
+                    }
                     Intent intent;
                     if (SPHelper.get().get(SpKey.VIEW_TYPE, "").equals(C.VIEW_TYPE_NATIVE)) {
                         intent = new Intent(ComicMenuActivity.this, ComicViewActivity.class);
@@ -163,7 +170,8 @@ public class ComicMenuActivity extends BaseActivity {
                     }
                     intent.putExtra(IntentKey.COMIC_ID, comicId);
                     intent.putExtra(IntentKey.COMIC_TITLE, comicTitle);
-                    intent.putExtra(IntentKey.COMIC_VIEW_URL, comicUrl);
+                    intent.putParcelableArrayListExtra(IntentKey.COMIC_BEAN, InitComicsList.getComicDataBeanList());
+                    intent.putExtra(IntentKey.COMIC_MENU_POSITION, position);
                     startActivity(intent);
                 }
             }
