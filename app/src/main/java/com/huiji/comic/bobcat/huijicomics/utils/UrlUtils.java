@@ -12,11 +12,9 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.xutils.DbManager;
-import org.xutils.common.Callback;
 import org.xutils.common.util.KeyValue;
 import org.xutils.db.sqlite.WhereBuilder;
 import org.xutils.ex.DbException;
-import org.xutils.http.RequestParams;
 import org.xutils.x;
 
 import java.io.IOException;

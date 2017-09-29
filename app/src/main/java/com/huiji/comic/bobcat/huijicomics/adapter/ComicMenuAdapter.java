@@ -29,7 +29,6 @@ import org.xutils.ex.DbException;
 import org.xutils.x;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
