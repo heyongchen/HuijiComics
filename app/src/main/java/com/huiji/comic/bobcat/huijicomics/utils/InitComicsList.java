@@ -11,9 +11,9 @@ import java.util.List;
 
 public class InitComicsList {
     private static List<String> comicIdList = null;
-    private static List<ComicDataBean> comicDataBeanList = null;
+    private static ArrayList<ComicDataBean> comicDataBeanList = null;
 
-    public static void setComicDataBeanList(List<ComicDataBean> mComicDataBeanList) {
+    public static void setComicDataBeanList(ArrayList<ComicDataBean> mComicDataBeanList) {
         if (comicDataBeanList == null) {
             comicDataBeanList = new ArrayList<>();
         } else {
@@ -29,7 +29,7 @@ public class InitComicsList {
         comicDataBeanList.clear();
     }
 
-    public static List<ComicDataBean> getComicDataBeanList() {
+    public static ArrayList<ComicDataBean> getComicDataBeanList() {
         if (comicDataBeanList == null) {
             comicDataBeanList = new ArrayList<>();
         }

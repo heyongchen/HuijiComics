@@ -32,8 +32,8 @@ import com.huiji.comic.bobcat.huijicomics.utils.C;
 import com.huiji.comic.bobcat.huijicomics.utils.CharacterParser;
 import com.huiji.comic.bobcat.huijicomics.utils.InitComicsList;
 import com.huiji.comic.bobcat.huijicomics.utils.PinyinComparator;
-import com.huiji.comic.bobcat.huijicomics.utils.UrlUtils;
 import com.huiji.comic.bobcat.huijicomics.utils.UpdateUtil;
+import com.huiji.comic.bobcat.huijicomics.utils.UrlUtils;
 import com.huiji.comic.bobcat.huijicomics.widget.ClearEditText;
 import com.huiji.comic.bobcat.huijicomics.widget.SideBar;
 

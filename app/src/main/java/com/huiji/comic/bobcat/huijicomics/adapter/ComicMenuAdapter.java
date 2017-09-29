@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.huiji.comic.bobcat.huijicomics.MainApplication;
 import com.huiji.comic.bobcat.huijicomics.R;
-import com.huiji.comic.bobcat.huijicomics.activity.ComicMenuActivity;
 import com.huiji.comic.bobcat.huijicomics.activity.ComicViewActivity;
 import com.huiji.comic.bobcat.huijicomics.activity.X5WebViewActivity;
 import com.huiji.comic.bobcat.huijicomics.bean.ComicDataBean;
@@ -29,7 +28,7 @@ import org.xutils.db.sqlite.WhereBuilder;
 import org.xutils.ex.DbException;
 import org.xutils.x;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,13 +40,13 @@ import butterknife.ButterKnife;
 public class ComicMenuAdapter extends RecyclerView.Adapter<ComicMenuAdapter.RvViewHolder> {
 
     private Context mContext;
-    private List<ComicDataBean> mComicDataBeanList;
+    private ArrayList<ComicDataBean> mComicDataBeanList;
     private String mComicId;
     private String mComicTitle;
     private String mReadHistory;
     private DbManager dbManager = x.getDb(MainApplication.getDbConfig());
 
-    public ComicMenuAdapter(Context context, String comicId, String comicTitle, String history, List<ComicDataBean> comicDataBeanList) {
+    public ComicMenuAdapter(Context context, String comicId, String comicTitle, String history, ArrayList<ComicDataBean> comicDataBeanList) {
         this.mContext = context;
         this.mComicId = comicId;
         this.mComicTitle = comicTitle;
@@ -77,8 +76,8 @@ public class ComicMenuAdapter extends RecyclerView.Adapter<ComicMenuAdapter.RvVi
                 }
                 intent.putExtra(IntentKey.COMIC_ID, mComicId);
                 intent.putExtra(IntentKey.COMIC_TITLE, mComicTitle);
-                intent.putExtra(IntentKey.COMIC_VIEW_URL, mComicDataBeanList.get(position).getDataUrl());
-                intent.putExtra(IntentKey.COMIC_MENU_TITLE, mComicDataBeanList.get(position).getDataTitle());
+                intent.putParcelableArrayListExtra(IntentKey.COMIC_BEAN, mComicDataBeanList);
+                intent.putExtra(IntentKey.COMIC_MENU_POSITION, position);
                 mContext.startActivity(intent);
             }
         });
@@ -86,7 +85,7 @@ public class ComicMenuAdapter extends RecyclerView.Adapter<ComicMenuAdapter.RvVi
 
     @Override
     public int getItemCount() {
-        return mComicDataBeanList.size() - 2;
+        return mComicDataBeanList.size();
     }
 
     private Drawable getBackGround(int position) {
