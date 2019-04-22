@@ -45,7 +45,7 @@ public class UrlUtils {
                         e.printStackTrace();
                     }
                 }
-                List<ComicListDbInfo> comicListDbInfoList = new ArrayList<ComicListDbInfo>();
+                List<ComicListDbInfo> comicListDbInfoList = new ArrayList<>();
                 if (comicIdList != null && comicIdList.size() > 0) {
                     for (String comicId : comicIdList) {
                         Document doc = null;
@@ -72,7 +72,7 @@ public class UrlUtils {
                                     imgUrl = src.attr("abs:src");
                             }
                             print("\nLinks: (%d)", links.size());
-                            int num = links.size();
+                            int num = links.size() - 2;
 
                             comicListDbInfoList.add(new ComicListDbInfo(comicId, title, author, msg, imgUrl, num, 0, 0));
                         }
@@ -140,7 +140,7 @@ public class UrlUtils {
                     }
                     if (doc != null) {
                         Elements links = doc.select("a[href]");
-                        int comicNum = links.size();
+                        int comicNum = links.size() - 2;
                         if (checkUpdate(comicUpdateBean.getComicId(), comicNum) == 1) {
                             changeNew(comicUpdateBean.getComicId());
                         }
